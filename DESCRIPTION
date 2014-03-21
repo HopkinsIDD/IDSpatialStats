@@ -1,0 +1,9 @@
+Package: spatialtau
+Version: 0.1
+Date: 2013-07-17
+Title: A function to estimate global clustering in infectious disease
+Author: Justin Lessler <jlessler@jhsph.edu>, Henrik Salje <hsalje@jhsph.edu>
+Maintainer: Justin Lessler <jlessler@jhsph.edu>
+License: GPL (>=2)
+Description:
+
