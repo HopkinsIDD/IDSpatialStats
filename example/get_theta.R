@@ -9,4 +9,4 @@ sero.type.func<-function(a,b,tlimit=20){
   return(rc)
 }
 
-sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
+sero.theta<-get.theta(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)

@@ -1,8 +1,10 @@
-Package: spatialtau
+Package: IDSpatialStats
 Version: 0.1
 Date: 2013-07-17
 Title: A function to estimate global clustering in infectious disease
-Author: Justin Lessler <jlessler@jhsph.edu>, Henrik Salje <hsalje@jhsph.edu>
-Maintainer: Justin Lessler <jlessler@jhsph.edu>
+Author: Justin Lessler <justin@jhu.edu>, Henrik Salje <hsalje@jhsph.edu>
+Maintainer: Justin Lessler <justin@jhu.edu>
 License: GPL (>=2)
-Description:
+Description: The IDSpatialStats package implements various novel and standard
+    clustering statistics and other analyses useful for understanding the
+    spread of infectious disease.

@@ -49,7 +49,7 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
                     equals(c(0,1)))
     }
 
-    #without windows the 95% CI should be around 0.5+/- 1/sqrt(4) * 0.25
+    #without windows the 95% CI should be around 2* 0.5+/- 1/sqrt(4) * 0.25
     #since quantiles, that is 0.25 and 0.75
     res <- get.pi.permute(x, test, 4,0, 500)
     res2 <- get.pi.typed.permute(x, 1, 2, 4,0, 500)

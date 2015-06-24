@@ -12,9 +12,21 @@ test_that("get.tau.permute returns appropriate values for test case 1 (equilater
     }
 
 
-    #should return .5 for every permutation
+    ###REPRESENTATIVE
+    #should return 1 for every permutation
     res <- get.tau.permute(x, test, 1.5, 0, 500)
     res2 <- get.tau.typed.permute(x, 1, 2, 1.5, 0, 500)
+
+
+    expect_that(as.numeric(res), equals(rep(1,500)))
+    expect_that(as.numeric(res2), equals(rep(1,500)))
+
+    ###INDEPENDENT
+    #should return 1 for every permutation
+    res <- get.tau.permute(x, test, 1.5, 0, 500,
+                           comparison.type="independent")
+    res2 <- get.tau.typed.permute(x, 1, 2, 1.5, 0, 500,
+                                  comparison.type="independent")
 
 
     expect_that(as.numeric(res), equals(rep(1,500)))
@@ -35,8 +47,9 @@ test_that("get.tau.permute returns appropriate values for test case 2 (points on
         return(2)
     }
 
-    #the mean of the null distribution should be 0.5
-    #the 95% CI equals 0,1 with windows
+    ####REPRESENTATIVE
+    #the mean of the null distribution should be 1
+    #the 95% CI equals 0,2 with windows
     res <- get.tau.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)
     res2 <- get.tau.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)
 
@@ -48,6 +61,22 @@ test_that("get.tau.permute returns appropriate values for test case 2 (points on
                     equals(c(0,2)))
         expect_that(as.numeric(quantile(res2[,i], probs=c(.025,.975))),
                     equals(c(0,2)))
+    }
+
+    ####INDEPENDENT
+    #the mean of the null distribution should be 1
+    #the 95% CI equals 0,Inf with windows
+    res <- get.tau.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500,
+                           comparison.type="independent")
+    res2 <- get.tau.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500,
+                                  comparison.type="independent")
+
+
+    for (i in 1:3) {
+        expect_that(as.numeric(quantile(res[,i], probs=c(.025,.5,.975))),
+                    equals(c(0,1,Inf)))
+        expect_that(as.numeric(quantile(res2[,i], probs=c(.025,.5,.975))),
+                    equals(c(0,1,Inf)))
     }
 
 })

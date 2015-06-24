@@ -13,12 +13,12 @@ r.max<-seq(10,100,10)
 r.min<-seq(0,90,10)
 r.mid <- (r.max+r.min)/2
 
-tau<-get.tau(x,fun,r=r.max,r.low=r.min,comparison.type = "independent")
-tau.null<-get.tau.permute(x,fun,r=r.max,r.low=r.min,permutations=50,comparison.type = "independent")
 
-null.ci<-apply(tau.null,2,quantile,probs=c(0.25,0.75))
+theta<-get.theta(x,fun,r=r.max,r.low=r.min)
+theta.null<-get.theta.permute(x,fun,r=r.max,r.low=r.min,permutations=100)
 
-plot(r.mid, tau ,ylim=c(1/max(tau),max(tau)), type="l", log="y")
-lines(c(0,100),c(1,1), lty=3, col="grey")
+null.ci<-apply(theta.null,2,quantile,probs=c(0.25,0.75))
+
+plot(r.mid, theta , type="l")
 lines(r.mid, null.ci[1,] , lty=2)
 lines(r.mid, null.ci[2,] , lty=2)

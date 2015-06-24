@@ -7,4 +7,4 @@ r.min<-seq(0,980,20)
 type<-2-(DengueSimR02[,"time"]<120)
 tmp<-cbind(DengueSimR02,type=type)
 
-typed.pi<-get.pi.typed(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min)
+typed.theta.R01<-get.theta.typed(tmp,typeA=2,typeB=2,r=r.max,r.low=r.min)
