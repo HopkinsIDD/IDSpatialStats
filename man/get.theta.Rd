@@ -14,7 +14,7 @@ columns needed by fun}
      \item  for pairs that are (potentially) related
      \item for pairs that are unrelated
      \item for pairs that should be ignored all together}
-Note that names from \code{posmat} are not perserved in calls to \code{fun}, so the columns of the matrix should be
+Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
 referenced numerically
 so this is not available to the fun}
 
@@ -34,7 +34,7 @@ returns the odds that a point within a particular range of a point of interest s
 specified by the passed in function with that point.
 }
 \examples{
-data(DengueSimR02)
+data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)

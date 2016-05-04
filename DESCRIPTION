@@ -8,3 +8,4 @@ License: GPL (>=2)
 Description: The IDSpatialStats package implements various novel and standard
     clustering statistics and other analyses useful for understanding the
     spread of infectious disease.
+RoxygenNote: 5.0.1

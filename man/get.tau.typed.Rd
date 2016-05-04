@@ -13,7 +13,7 @@ get.tau.typed(posmat, typeA = -1, typeB = -1, r = 1, r.low = rep(0,
 
 \item{typeB}{the "to" type that we are interested i, -1 is wildcard}
 
-\item{r}{the series of spatial distances wer are interested in}
+\item{r}{the series of spatial distances we are interested in}
 
 \item{r.low}{the low end of each range....0  by default}
 
@@ -28,11 +28,11 @@ tau values for all the distances we looked at
 }
 \description{
 Version of th e \code{get.tau} function that is optimized for
-statically typed data. That is dat where we want the relationship between
+statically typed data. That is data where we want the relationship between
 points of type A and points of type B
 }
 \examples{
-data(DengueSimR02)
+data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)

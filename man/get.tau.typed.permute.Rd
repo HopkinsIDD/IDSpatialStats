@@ -14,11 +14,17 @@ get.tau.typed.permute(posmat, typeA = -1, typeB = -1, r = 1,
 
 \item{typeB}{the "to" type that we are interested i, -1 is wildcard}
 
-\item{r}{the series of spatial distances wer are interested in}
+\item{r}{the series of spatial distances we are interested in}
 
 \item{r.low}{the low end of each range....0  by default}
 
 \item{permutations}{the number of permute iterations}
+
+\item{comparison.type}{what type of points are included in the comparison set.
+\itemize{
+  \item "representative" if comparison set is representative of the underlying population
+  \item "independent" if comparison set is cases/events coming from an indepedent process
+}}
 }
 \value{
 a matrix with permutation tau values for each distance specified
@@ -27,7 +33,7 @@ a matrix with permutation tau values for each distance specified
 get the null distribution for the \code{get.tau.typed} function
 }
 \examples{
-data(DengueSimR02)
+data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)

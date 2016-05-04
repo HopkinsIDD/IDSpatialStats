@@ -11,7 +11,7 @@
 ##'      \item  for pairs included in the numerator and denominator
 ##'      \item for pairs that should only be included in the denominator
 ##'      \item for pairs that should be ignored all together}
-##' Note that names from \code{posmat} are not perserved in calls to \code{fun}, so the columns of the matrix should be
+##' Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
 ##' referenced numerically
 ##' so this is not available to the fun
 ##' @param r the series of spatial distances (or there maximums) we are
@@ -33,24 +33,24 @@ get.pi <- function(posmat,
                    fun,
                    r = 1,
                    r.low=rep(0,length(r))) {
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-    rc <- .Call("get_pi",
-                posmat,
-                fun,
-                r,
-                r.low,
-                1:nrow(posmat),
-                xcol,
-                ycol)
-    return(rc)
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  rc <- .Call("get_pi",
+              posmat,
+              fun,
+              r,
+              r.low,
+              1:nrow(posmat),
+              xcol,
+              ycol)
+  return(rc)
 }
 
 
@@ -69,7 +69,7 @@ get.pi <- function(posmat,
 ##'      \item  for pairs that are (potentially) related
 ##'      \item for pairs that are unrelated
 ##'      \item for pairs that should be ignored all together}
-##' Note that names from \code{posmat} are not perserved in calls to \code{fun}, so the columns of the matrix should be
+##' Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
 ##' referenced numerically
 ##' so this is not available to the fun
 ##' @param r the series of spatial distances (or there maximums) we are
@@ -91,24 +91,24 @@ get.theta <- function(posmat,
                       fun,
                       r = 1,
                       r.low=rep(0,length(r))) {
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-    rc <- .Call("get_theta",
-                posmat,
-                fun,
-                r,
-                r.low,
-                1:nrow(posmat),
-                xcol,
-                ycol)
-    return(rc)
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  rc <- .Call("get_theta",
+              posmat,
+              fun,
+              r,
+              r.low,
+              1:nrow(posmat),
+              xcol,
+              ycol)
+  return(rc)
 }
 
 
@@ -138,20 +138,20 @@ get.pi.typed <- function(posmat,
                          typeB = -1,
                          r=1,
                          r.low=rep(0,length(r))) {
-
-    return(.C("get_pi_typed",
-              as.integer(posmat[,"type"]),
-              as.double(posmat[,"x"]),
-              as.double(posmat[,"y"]),
-              as.integer(nrow(posmat)),
-              as.integer(typeA),
-              as.integer(typeB),
-              as.double(r.low),
-              as.double(r),
-              as.integer(length(r)),
-              as.integer(1:nrow(posmat)),
-              rc=double(length(r))
-              )$rc)
+  
+  return(.C("get_pi_typed",
+            as.integer(posmat[,"type"]),
+            as.double(posmat[,"x"]),
+            as.double(posmat[,"y"]),
+            as.integer(nrow(posmat)),
+            as.integer(typeA),
+            as.integer(typeB),
+            as.double(r.low),
+            as.double(r),
+            as.integer(length(r)),
+            as.integer(1:nrow(posmat)),
+            rc=double(length(r))
+  )$rc)
 }
 
 
@@ -182,27 +182,27 @@ get.theta.typed <- function(posmat,
                             typeB = -1,
                             r=1,
                             r.low=rep(0,length(r))) {
-
-    return(.C("get_theta_typed",
-              as.integer(posmat[,"type"]),
-              as.double(posmat[,"x"]),
-              as.double(posmat[,"y"]),
-              as.integer(nrow(posmat)),
-              as.integer(typeA),
-              as.integer(typeB),
-              as.double(r.low),
-              as.double(r),
-              as.integer(length(r)),
-              as.integer(1:nrow(posmat)),
-              rc=double(length(r))
-              )$rc)
+  
+  return(.C("get_theta_typed",
+            as.integer(posmat[,"type"]),
+            as.double(posmat[,"x"]),
+            as.double(posmat[,"y"]),
+            as.integer(nrow(posmat)),
+            as.integer(typeA),
+            as.integer(typeB),
+            as.double(r.low),
+            as.double(r),
+            as.integer(length(r)),
+            as.integer(1:nrow(posmat)),
+            rc=double(length(r))
+  )$rc)
 }
 
 
 ##' Calculate bootstrapped confidence intervals for \code{get.pi} values.
 ##'
-##' Wrapper to \code{get.pi.bootstrap} that takes care of calculateing the
-##' confience interavals based on the bootstrapped values..
+##' Wrapper to \code{get.pi.bootstrap} that takes care of calculating the
+##' confidence intervals based on the bootstrapped values..
 ##'
 ##'
 ##' @param posmat a matrix with columns type, x and y
@@ -223,23 +223,23 @@ get.theta.typed <- function(posmat,
 ##' @example example/get_pi_ci.R
 ##'
 get.pi.ci <- function(posmat,
-                         fun,
-                         r=1,
-                         r.low=rep(0,length(r)),
-                         boot.iter = 1000,
-                         ci.low=0.025,
-                         ci.high=0.975) {
-    boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
-
-    rc <- matrix(nrow=2,ncol=ncol(boots))
-
-    rownames(rc) <- c(ci.low,ci.high)
-
-    for (i in 1:ncol(rc)) {
-        rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
-    }
-
-    return(rc)
+                      fun,
+                      r=1,
+                      r.low=rep(0,length(r)),
+                      boot.iter = 1000,
+                      ci.low=0.025,
+                      ci.high=0.975) {
+  boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
+  
+  rc <- matrix(nrow=2,ncol=ncol(boots))
+  
+  rownames(rc) <- c(ci.low,ci.high)
+  
+  for (i in 1:ncol(rc)) {
+    rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
+  }
+  
+  return(rc)
 }
 
 
@@ -253,7 +253,7 @@ get.pi.ci <- function(posmat,
 ##'
 ##' @param posmat a matrix with columns type, x and y
 ##' @param fun the function to decide relationships
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range. 0 by default
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param ci.low the low end of the ci...0.025 by default
@@ -269,22 +269,22 @@ get.pi.ci <- function(posmat,
 ##' @example example/get_theta_ci.R
 ##'
 get.theta.ci <- function(posmat,
-                      fun,
-                      r=1,
-                      r.low=rep(0,length(r)),
-                      boot.iter = 1000,
-                      ci.low=0.025,
-                      ci.high=0.975) {
+                         fun,
+                         r=1,
+                         r.low=rep(0,length(r)),
+                         boot.iter = 1000,
+                         ci.low=0.025,
+                         ci.high=0.975) {
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
-
+  
   rc <- matrix(nrow=2,ncol=ncol(boots))
-
+  
   rownames(rc) <- c(ci.low,ci.high)
-
+  
   for (i in 1:ncol(rc)) {
     rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
   }
-
+  
   return(rc)
 }
 
@@ -298,9 +298,9 @@ get.theta.ci <- function(posmat,
 ##'
 ##' @param posmat a matrix with columns type, x and y
 ##' @param fun the function to decide relationships
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range. 0 by default
-##' @param boot.iter the number of bootstrap iterationsxs
+##' @param boot.iter the number of bootstrap iterations
 ##'
 ##' @return pi values for all the distances we looked at
 ##'
@@ -319,29 +319,29 @@ get.pi.bootstrap <- function(posmat,
                              r=1,
                              r.low=rep(0,length(r)),
                              boot.iter = 500) {
-
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-    rc <- matrix(nrow=boot.iter, ncol=length(r))
-    for (i in 1:boot.iter) {
-        inds <- sample(nrow(posmat), replace=T)
-        rc[i,] <- .Call("get_pi",
-                        posmat[inds,],
-                        fun,
-                        r,
-                        r.low,
-                        inds,
-                        xcol,
-                        ycol)
-    }
-    return(rc)
+  
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  rc <- matrix(nrow=boot.iter, ncol=length(r))
+  for (i in 1:boot.iter) {
+    inds <- sample(nrow(posmat), replace=T)
+    rc[i,] <- .Call("get_pi",
+                    posmat[inds,],
+                    fun,
+                    r,
+                    r.low,
+                    inds,
+                    xcol,
+                    ycol)
+  }
+  return(rc)
 }
 
 
@@ -353,9 +353,9 @@ get.pi.bootstrap <- function(posmat,
 ##'
 ##' @param posmat a matrix with columns type, x and y
 ##' @param fun the function to decide relationships
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range. 0 by default
-##' @param boot.iter the number of bootstrap iterationsxs
+##' @param boot.iter the number of bootstrap iterations
 ##'
 ##' @return theta values for all the distances we looked at
 ##'
@@ -370,20 +370,20 @@ get.pi.bootstrap <- function(posmat,
 ##' @example example/get_theta_bootstrap.R
 ##'
 get.theta.bootstrap <- function(posmat,
-                             fun,
-                             r=1,
-                             r.low=rep(0,length(r)),
-                             boot.iter = 500) {
-
-
+                                fun,
+                                r=1,
+                                r.low=rep(0,length(r)),
+                                boot.iter = 500) {
+  
+  
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-
+  
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-
+  
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -410,7 +410,7 @@ get.theta.bootstrap <- function(posmat,
 ##' @param posmat a matrix with columns type, x and y
 ##' @param typeA the "from" type that we are interested in, -1 is wildcard
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##'
 ##' @return pi values for all the distances we looked at
@@ -420,13 +420,13 @@ get.theta.bootstrap <- function(posmat,
 ##' @example example/get_pi_typed_bootstrap.R
 ##'
 get.pi.typed.bootstrap <- function(posmat,
-                   typeA = -1,
-                   typeB = -1,
-                   r=1,
-                   r.low=rep(0,length(r)),
-                   boot.iter) {
-
-
+                                   typeA = -1,
+                                   typeB = -1,
+                                   r=1,
+                                   r.low=rep(0,length(r)),
+                                   boot.iter) {
+  
+  
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -442,7 +442,7 @@ get.pi.typed.bootstrap <- function(posmat,
                  as.integer(length(r)),
                  as.integer(inds),
                  rc=double(length(r))
-                 )$rc
+    )$rc
   }
   return(rc)
 }
@@ -458,7 +458,7 @@ get.pi.typed.bootstrap <- function(posmat,
 ##' @param posmat a matrix with columns type, x and y
 ##' @param typeA the "from" type that we are interested in, -1 is wildcard
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##'
 ##' @return theta values for all the distances we looked at
@@ -468,13 +468,13 @@ get.pi.typed.bootstrap <- function(posmat,
 ##' @example example/get_theta_typed_bootstrap.R
 ##'
 get.theta.typed.bootstrap <- function(posmat,
-                                   typeA = -1,
-                                   typeB = -1,
-                                   r=1,
-                                   r.low=rep(0,length(r)),
-                                   boot.iter) {
-
-
+                                      typeA = -1,
+                                      typeB = -1,
+                                      r=1,
+                                      r.low=rep(0,length(r)),
+                                      boot.iter) {
+  
+  
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -504,7 +504,7 @@ get.theta.typed.bootstrap <- function(posmat,
 ##'
 ##' @param posmat a matrix with columns type, x and y
 ##' @param fun the function to evaluate
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
 ##'
@@ -519,16 +519,16 @@ get.pi.permute <- function(posmat,
                            r=1,
                            r.low=rep(0,length(r)),
                            permutations) {
-
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
+  
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -556,7 +556,7 @@ get.pi.permute <- function(posmat,
 ##'
 ##' @param posmat a matrix with columns type, x and y
 ##' @param fun the function to evaluate
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
 ##'
@@ -567,20 +567,20 @@ get.pi.permute <- function(posmat,
 ##' @example example/get_theta_permute.R
 ##'
 get.theta.permute <- function(posmat,
-                           fun,
-                           r=1,
-                           r.low=rep(0,length(r)),
-                           permutations) {
-
-
+                              fun,
+                              r=1,
+                              r.low=rep(0,length(r)),
+                              permutations) {
+  
+  
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-
+  
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-
+  
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -609,7 +609,7 @@ get.theta.permute <- function(posmat,
 ##' @param posmat a matrix with columns type, x and y
 ##' @param typeA the "from" type that we are interested in, -1 is wildcard
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
 ##'
@@ -627,16 +627,16 @@ get.pi.typed.permute <- function(posmat,
                                  r=1,
                                  r.low=rep(0,length(r)),
                                  permutations) {
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -652,7 +652,7 @@ get.pi.typed.permute <- function(posmat,
                  as.integer(length(r)),
                  as.integer(1:nrow(posmat)),
                  rc=double(length(r))
-                 )$rc
+    )$rc
   }
   return(rc)
 }
@@ -667,7 +667,7 @@ get.pi.typed.permute <- function(posmat,
 ##' @param posmat a matrix with columns type, x and y
 ##' @param typeA the "from" type that we are interested in, -1 is wildcard
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
 ##'
@@ -680,21 +680,21 @@ get.pi.typed.permute <- function(posmat,
 ##' @example example/get_theta_typed_permute.R
 ##'
 get.theta.typed.permute <- function(posmat,
-                                 typeA = -1,
-                                 typeB = -1,
-                                 r=1,
-                                 r.low=rep(0,length(r)),
-                                 permutations) {
-
+                                    typeA = -1,
+                                    typeB = -1,
+                                    r=1,
+                                    r.low=rep(0,length(r)),
+                                    permutations) {
+  
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-
+  
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-
-
+  
+  
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -731,7 +731,7 @@ get.theta.typed.permute <- function(posmat,
 ##'      \item  for pairs included in the numerator and denominator
 ##'      \item for pairs that should only be included in the denominator
 ##'      \item for pairs that should be ignored all together}
-##' Note that names from \code{posmat} are not perserved in calls to
+##' Note that names from \code{posmat} are not preserved in calls to
 ##' \code{fun}, so the columns of the matrix should be referenced numerically
 ##' so this is not available to fun
 ##' @param r the series of spatial distances (or there maximums) we are
@@ -762,46 +762,46 @@ get.tau <- function(posmat,
                     r = 1,
                     r.low=rep(0,length(r)),
                     comparison.type = "representative") {
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-    if (comparison.type == "representative") {
-      comp.type.int <- 0
-    } else if (comparison.type == "independent") {
-      comp.type.int <- 1
-    } else {
-      stop("unkown comparison type specified")
-    }
-
-
-    rc <- .Call("get_tau",
-                posmat,
-                fun,
-                r,
-                r.low,
-                comp.type.int,
-                1:nrow(posmat),
-                xcol,
-                ycol)
-    return(rc)
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  if (comparison.type == "representative") {
+    comp.type.int <- 0
+  } else if (comparison.type == "independent") {
+    comp.type.int <- 1
+  } else {
+    stop("unkown comparison type specified")
+  }
+  
+  
+  rc <- .Call("get_tau",
+              posmat,
+              fun,
+              r,
+              r.low,
+              comp.type.int,
+              1:nrow(posmat),
+              xcol,
+              ycol)
+  return(rc)
 }
 ##'
 ##' Optimizewd version of \code{get.tau} for typed data
 ##'
 ##' Version of th e \code{get.tau} function that is optimized for
-##' statically typed data. That is dat where we want the relationship between
+##' statically typed data. That is data where we want the relationship between
 ##' points of type A and points of type B
 ##'
 ##' @param posmat a matrix with columns type, x and y
 ##' @param typeA the "from" type that we are interested in, -1 is wildcard
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param comparison.type what type of points are included in the comparison set.
 ##' \itemize{
@@ -823,30 +823,30 @@ get.tau.typed <- function(posmat,
                           r=1,
                           r.low=rep(0,length(r)),
                           comparison.type = "representative") {
-
-    if (comparison.type == "representative") {
-        comp.type.int <- 0
-    } else if (comparison.type == "independent") {
-        comp.type.int <- 1
-    } else {
-        stop("unkown comparison type specified")
-    }
-
-
-    return(.C("get_tau_typed",
-              as.integer(posmat[,"type"]),
-              as.double(posmat[,"x"]),
-              as.double(posmat[,"y"]),
-              as.integer(nrow(posmat)),
-              as.integer(typeA),
-              as.integer(typeB),
-              as.double(r.low),
-              as.double(r),
-              as.integer(length(r)),
-              as.integer(1:nrow(posmat)),
-              as.integer(comp.type.int),
-              rc=double(length(r))
-              )$rc)
+  
+  if (comparison.type == "representative") {
+    comp.type.int <- 0
+  } else if (comparison.type == "independent") {
+    comp.type.int <- 1
+  } else {
+    stop("unkown comparison type specified")
+  }
+  
+  
+  return(.C("get_tau_typed",
+            as.integer(posmat[,"type"]),
+            as.double(posmat[,"x"]),
+            as.double(posmat[,"y"]),
+            as.integer(nrow(posmat)),
+            as.integer(typeA),
+            as.integer(typeB),
+            as.double(r.low),
+            as.double(r),
+            as.integer(length(r)),
+            as.integer(1:nrow(posmat)),
+            as.integer(comp.type.int),
+            rc=double(length(r))
+  )$rc)
 }
 
 
@@ -858,7 +858,7 @@ get.tau.typed <- function(posmat,
 ##'
 ##' @param posmat a matrix appropriate for input to \code{get.tau}
 ##' @param fun a function appropriate as input to \code{get.pi}
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param comparison.type the comparison type to pass to get.tau
@@ -881,19 +881,19 @@ get.tau.ci <- function(posmat,
                        comparison.type = "representative",
                        ci.low=0.025,
                        ci.high=0.975) {
-    boots <- get.tau.bootstrap(posmat, fun,
-                               r, r.low, boot.iter,
-                               comparison.type)
-
-    rc <- matrix(nrow=2, ncol=ncol(boots))
-
-    rownames(rc) <- c(ci.low,ci.high)
-
-    for (i in 1:ncol(rc)) {
-        rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
-    }
-
-    return(rc)
+  boots <- get.tau.bootstrap(posmat, fun,
+                             r, r.low, boot.iter,
+                             comparison.type)
+  
+  rc <- matrix(nrow=2, ncol=ncol(boots))
+  
+  rownames(rc) <- c(ci.low,ci.high)
+  
+  for (i in 1:ncol(rc)) {
+    rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
+  }
+  
+  return(rc)
 }
 
 
@@ -925,36 +925,36 @@ get.tau.bootstrap <- function(posmat,
                               r.low=rep(0,length(r)),
                               boot.iter,
                               comparison.type = "representative") {
-
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-    if (comparison.type == "representative") {
-        comp.type.int <- 0
-    } else if (comparison.type == "independent") {
-        comp.type.int <- 1
-    } else {
-        stop("unkown comparison type specified")
-    }
-
+  
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  if (comparison.type == "representative") {
+    comp.type.int <- 0
+  } else if (comparison.type == "independent") {
+    comp.type.int <- 1
+  } else {
+    stop("unkown comparison type specified")
+  }
+  
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
-      inds <- sample(nrow(posmat), replace=T)
-      rc[i,] <- .Call("get_tau",
-                      posmat[inds,],
-                      fun,
-                      r,
-                      r.low,
-                      comp.type.int,
-                      inds,
-                      xcol,
-                      ycol)
+    inds <- sample(nrow(posmat), replace=T)
+    rc[i,] <- .Call("get_tau",
+                    posmat[inds,],
+                    fun,
+                    r,
+                    r.low,
+                    comp.type.int,
+                    inds,
+                    xcol,
+                    ycol)
   }
   return(rc)
 }
@@ -966,13 +966,13 @@ get.tau.bootstrap <- function(posmat,
 ##' @param posmat a matrix with columns type, x and y
 ##' @param typeA the "from" type that we are interested in, -1 is wildcard
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param comparison.type what type of points are included in the comparison set.
 ##' \itemize{
 ##'   \item "representative" if comparison set is representative of the underlying population
-##'   \item "independent" if comparison set is cases/events coming from an indepedent process
+##'   \item "independent" if comparison set is cases/events coming from an independent process
 ##' }
 ##'
 ##' @return tau values for all the distances we looked at
@@ -990,16 +990,16 @@ get.tau.typed.bootstrap <- function(posmat,
                                     r.low=rep(0,length(r)),
                                     boot.iter,
                                     comparison.type = "representative") {
-
-
-    if (comparison.type == "representative") {
-        comp.type.int <- 0
-    } else if (comparison.type == "independent") {
-        comp.type.int <- 1
-    } else {
-        stop("unkown comparison type specified")
-    }
-
+  
+  
+  if (comparison.type == "representative") {
+    comp.type.int <- 0
+  } else if (comparison.type == "independent") {
+    comp.type.int <- 1
+  } else {
+    stop("unkown comparison type specified")
+  }
+  
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -1016,7 +1016,7 @@ get.tau.typed.bootstrap <- function(posmat,
                  as.integer(inds),
                  as.integer(comp.type.int),
                  rc=double(length(r))
-                 )$rc
+    )$rc
   }
   return(rc)
 }
@@ -1031,7 +1031,7 @@ get.tau.typed.bootstrap <- function(posmat,
 ##'
 ##' @param posmat a matrix appropriate for input to \code{get.tau}
 ##' @param fun a function appropriate for input to \code{get.tau}
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
 ##' @param comparison.type the comparison type to pass as input to \code{get.pi}
@@ -1050,43 +1050,43 @@ get.tau.permute <- function(posmat,
                             r.low=rep(0,length(r)),
                             permutations,
                             comparison.type = "representative") {
-
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-    if (comparison.type == "representative") {
-      comp.type.int <- 0
-    } else if (comparison.type == "independent") {
-      comp.type.int <- 1
-    } else {
-      stop("unkown comparison type specified")
-    }
-
-
-    rc <- matrix(nrow=permutations, ncol=length(r))
-    for (i in 1:permutations) {
-        inds <- sample(nrow(posmat))#, replace=T)
-        tmp.posmat <- posmat
-        tmp.posmat[,"x"] <- posmat[inds,"x"]
-        tmp.posmat[,"y"] <- posmat[inds,"y"]
-        rc[i,] <- .Call("get_tau",
-                        tmp.posmat,
-                        fun,
-                        r,
-                        r.low,
-                        comp.type.int,
-                        1:nrow(posmat),
-                        xcol,
-                        ycol)
-    }
-
-    return(rc)
+  
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  if (comparison.type == "representative") {
+    comp.type.int <- 0
+  } else if (comparison.type == "independent") {
+    comp.type.int <- 1
+  } else {
+    stop("unknown comparison type specified")
+  }
+  
+  
+  rc <- matrix(nrow=permutations, ncol=length(r))
+  for (i in 1:permutations) {
+    inds <- sample(nrow(posmat))#, replace=T)
+    tmp.posmat <- posmat
+    tmp.posmat[,"x"] <- posmat[inds,"x"]
+    tmp.posmat[,"y"] <- posmat[inds,"y"]
+    rc[i,] <- .Call("get_tau",
+                    tmp.posmat,
+                    fun,
+                    r,
+                    r.low,
+                    comp.type.int,
+                    1:nrow(posmat),
+                    xcol,
+                    ycol)
+  }
+  
+  return(rc)
 }
 
 
@@ -1097,10 +1097,15 @@ get.tau.permute <- function(posmat,
 ##' @param posmat a matrix with columns type, x and y
 ##' @param typeA the "from" type that we are interested in, -1 is wildcard
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
-##' @param r the series of spatial distances wer are interested in
+##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
-##'
+##' @param comparison.type what type of points are included in the comparison set.
+##' \itemize{
+##'   \item "representative" if comparison set is representative of the underlying population
+##'   \item "independent" if comparison set is cases/events coming from an indepedent process
+##' }
+##' 
 ##' @return a matrix with permutation tau values for each distance specified
 ##'
 ##' @author Justin Lessler and Henrik Salje
@@ -1116,23 +1121,23 @@ get.tau.typed.permute <- function(posmat,
                                   r.low=rep(0,length(r)),
                                   permutations,
                                   comparison.type = "representative") {
-
-    xcol <-  which(colnames(posmat)=="x")
-    ycol <- which(colnames(posmat)=="y")
-
-    #check that both columns exist
-    if (length(xcol)!=1 & length(ycol)!=1) {
-        stop("unique x and y columns must be defined")
-    }
-
-    if (comparison.type == "representative") {
-        comp.type.int <- 0
-    } else if (comparison.type == "independent") {
-        comp.type.int <- 1
-    } else {
-        stop("unkown comparison type specified")
-    }
-
+  
+  xcol <-  which(colnames(posmat)=="x")
+  ycol <- which(colnames(posmat)=="y")
+  
+  #check that both columns exist
+  if (length(xcol)!=1 & length(ycol)!=1) {
+    stop("unique x and y columns must be defined")
+  }
+  
+  if (comparison.type == "representative") {
+    comp.type.int <- 0
+  } else if (comparison.type == "independent") {
+    comp.type.int <- 1
+  } else {
+    stop("unkown comparison type specified")
+  }
+  
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -1149,14 +1154,14 @@ get.tau.typed.permute <- function(posmat,
                  as.integer(1:nrow(posmat)),
                  as.integer(comp.type.int),
                  rc=double(length(r))
-                 )$rc
+    )$rc
   }
   return(rc)
 }
 
 NULL
 
-##' @name DengueSimulationR01
+##' @name DengueSimR01
 ##' @title Simulated dataset of dengue transmission with basic reproductive number of 1
 ##' @format Matrix with five columns representing the X and Y coordinates of infected individuals, the time of infection, the genotype of the infecting pathogen and the serotype of the infecting pathogen.
 ##' @description Dataset simulated using an agent based model with a spatially heterogeneous population structure. Infectious agents were introduced resulting in agent to agent transmission. The distance between successive cases in a transmission chain were randomly drawn from a uniform distribution U(0,100). Each infectious agent resulted in a single transmission to another agent after a delay of 15 days, reflecting the generation time of dengue. There are 11 transmission chains, each with a different genotype. The genotypes are subdivided into four serotypes.
@@ -1166,12 +1171,22 @@ NULL
 
 NULL
 
-##' @name DengueSimulationR02
+##' @name DengueSimR02
 ##' @title Simulated dataset of dengue cases with basic reproductive number of 2
 ##' @format Matrix with five columns representing the X and Y coordinates of infected individuals, the time of infection, the genotype of the infecting pathogen and the serotype of the infecting pathogen.
 ##' @description Dataset simulated using an agent based model with a spatially heterogeneous population structure. Infectious agents were introduced resulting in agent to agent transmission. The distance between successive cases in a transmission chain were randomly drawn from a uniform distribution U(0,100). Each infectious agent resulted in transmissions to two other agents after a delay of 15 days, reflecting the generation time of dengue. There are 11 transmission chains, each with a different genotype. The genotypes are subdivided into four serotypes.
 ##' @docType data
-##' @usage DengueSimulationR01
+##' @usage DengueSimulationR02
+##' @author Justin Lessler and Henrik Salje
+
+NULL
+
+##' @name DengueSimRepresentative
+##' @title Simulated dataset of dengue cases with representative underlying population
+##' @format Matrix with five columns representing the X and Y coordinates of infected individuals, the time of infection, the genotype of the infecting pathogen and the serotype of the infecting pathogen. Individuals representative from the underlying population have '-999'for time, genotype and serotype.
+##' @description Dataset simulated using an agent based model with a spatially heterogeneous population structure. Infectious agents were introduced resulting in agent to agent transmission. The distance between successive cases in a transmission chain were randomly drawn from a uniform distribution U(0,100). Each infectious agent resulted in transmissions to two other agents after a delay of 15 days, reflecting the generation time of dengue. There are 11 transmission chains, each with a different genotype. The genotypes are subdivided into four serotypes. 500 randomly selected individuals from the underlying population also included.
+##' @docType data
+##' @usage DengueSimRepresentative
 ##' @author Justin Lessler and Henrik Salje
 
 NULL

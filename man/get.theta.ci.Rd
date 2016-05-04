@@ -11,7 +11,7 @@ get.theta.ci(posmat, fun, r = 1, r.low = rep(0, length(r)),
 
 \item{fun}{the function to decide relationships}
 
-\item{r}{the series of spatial distances wer are interested in}
+\item{r}{the series of spatial distances we are interested in}
 
 \item{r.low}{the low end of each range. 0 by default}
 

@@ -11,11 +11,11 @@ get.pi.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
 
 \item{fun}{the function to decide relationships}
 
-\item{r}{the series of spatial distances wer are interested in}
+\item{r}{the series of spatial distances we are interested in}
 
 \item{r.low}{the low end of each range. 0 by default}
 
-\item{boot.iter}{the number of bootstrap iterationsxs}
+\item{boot.iter}{the number of bootstrap iterations}
 }
 \value{
 pi values for all the distances we looked at

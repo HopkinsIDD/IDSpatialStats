@@ -13,7 +13,7 @@ get.tau.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
 
 \item{typeB}{the "to" type that we are interested i, -1 is wildcard}
 
-\item{r}{the series of spatial distances wer are interested in}
+\item{r}{the series of spatial distances we are interested in}
 
 \item{r.low}{the low end of each range....0  by default}
 
@@ -22,7 +22,7 @@ get.tau.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
 \item{comparison.type}{what type of points are included in the comparison set.
 \itemize{
   \item "representative" if comparison set is representative of the underlying population
-  \item "independent" if comparison set is cases/events coming from an indepedent process
+  \item "independent" if comparison set is cases/events coming from an independent process
 }}
 }
 \value{
@@ -32,7 +32,7 @@ tau values for all the distances we looked at
 runs bootstrapping for \code{get.tau.typed}
 }
 \examples{
-data(DengueSimR02)
+data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)

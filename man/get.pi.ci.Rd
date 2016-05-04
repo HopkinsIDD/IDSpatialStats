@@ -26,8 +26,8 @@ a matrix with a row for the high and low values and
     a column per distance
 }
 \description{
-Wrapper to \code{get.pi.bootstrap} that takes care of calculateing the
-confience interavals based on the bootstrapped values..
+Wrapper to \code{get.pi.bootstrap} that takes care of calculating the
+confidence intervals based on the bootstrapped values..
 }
 \examples{
 #compare normally distributed with uniform points

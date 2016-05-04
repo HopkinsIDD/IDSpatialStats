@@ -13,7 +13,7 @@ get.pi.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
 
 \item{typeB}{the "to" type that we are interested i, -1 is wildcard}
 
-\item{r}{the series of spatial distances wer are interested in}
+\item{r}{the series of spatial distances we are interested in}
 
 \item{r.low}{the low end of each range....0  by default}
 
@@ -27,7 +27,7 @@ Bootstraps typed pi values. Makes sure distances between a sample and
 another draw of itself are left out
 }
 \examples{
-data(DengueSimR02)
+data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)

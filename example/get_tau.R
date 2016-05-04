@@ -1,5 +1,5 @@
-data(DengueSimR01)
-data(DengueSimR02)
+data(DengueSimulationR01)
+data(DengueSimulationR02)
 data(DengueSimRepresentative)
 
 r.max<-seq(20,1000,20)

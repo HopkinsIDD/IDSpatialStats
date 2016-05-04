@@ -26,7 +26,7 @@ data where we are interested in the odds that points within some distance of poi
 typeA are of typeB.
 }
 \examples{
-data(DengueSimR02)
+data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)

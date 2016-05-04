@@ -14,7 +14,7 @@ columns needed by fun}
      \item  for pairs included in the numerator and denominator
      \item for pairs that should only be included in the denominator
      \item for pairs that should be ignored all together}
-Note that names from \code{posmat} are not perserved in calls to \code{fun}, so the columns of the matrix should be
+Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
 referenced numerically
 so this is not available to the fun}
 
@@ -34,7 +34,7 @@ returns the probability that a point within a particular range of a point of int
 specified by the passed in function with that point.
 }
 \examples{
-data(DengueSimR02)
+data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
