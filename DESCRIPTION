@@ -1,7 +1,7 @@
 Package: IDSpatialStats
 Version: 0.2
-Date: 2013-07-17
-Title: A function to estimate global clustering in infectious disease
+Date: 2016-03-05
+Title: A Function to Estimate Global Clustering in Infectious Disease
 Author: Justin Lessler <justin@jhu.edu>, Henrik Salje <hsalje@jhsph.edu>
 Maintainer: Justin Lessler <justin@jhu.edu>
 License: GPL (>=2)

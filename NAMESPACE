@@ -1,3 +1,4 @@
+importFrom("stats", "quantile")
 export(get.pi)
 export(get.pi.ci)
 export(get.pi.bootstrap)

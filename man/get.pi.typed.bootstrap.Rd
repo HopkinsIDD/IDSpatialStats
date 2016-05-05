@@ -27,16 +27,9 @@ Bootstraps typed pi values. Makes sure distances between a sample and
 another draw of itself are left out
 }
 \examples{
-data(DengueSimulationR02)
-
-r.max<-seq(20,1000,20)
-r.min<-seq(0,980,20)
-
-#Lets see if there's a difference in spatial dependence between those that occurred late versus early in the outbreak
-type<-2-(DengueSimR02[,"time"]<120)
-tmp<-cbind(DengueSimR02,type=type)
-
-typed.pi.bs<-get.pi.typed.bootstrap(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min,boot.iter=100)
+\dontrun{
+ example/get_pi_typed_bootstrap.R
+ }
 }
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}};
