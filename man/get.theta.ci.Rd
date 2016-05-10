@@ -31,7 +31,7 @@ confience intervals based on the bootstrapped values.
 }
 \examples{
 \dontrun{
- example/get_theta_ci.R
+ R/examples/get_theta_ci.R
  }
 }
 \author{

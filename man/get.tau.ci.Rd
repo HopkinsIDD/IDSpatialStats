@@ -33,7 +33,7 @@ the confidence intervals based on the bootstrapped values
 }
 \examples{
 \dontrun{
- example/get_tau_ci.R
+ R/examples/get_tau_ci.R
  }
 }
 \author{

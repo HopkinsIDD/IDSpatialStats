@@ -27,7 +27,7 @@
 ##' @family get.pi
 ##' @family spatialtau
 ##'
-##' @example example/get_pi.R
+##' @example R/examples/get_pi.R
 ##'
 get.pi <- function(posmat,
                    fun,
@@ -85,7 +85,7 @@ get.pi <- function(posmat,
 ##' @family get.theta
 ##' @family spatialtau
 ##'
-##' @example example/get_theta.R
+##' @example R/examples/get_theta.R
 ##'
 get.theta <- function(posmat,
                       fun,
@@ -131,7 +131,7 @@ get.theta <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example example/get_pi_typed.R
+##' @example R/examples/get_pi_typed.R
 ##'
 get.pi.typed <- function(posmat,
                          typeA = -1,
@@ -175,7 +175,7 @@ get.pi.typed <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example example/get_theta_typed.R
+##' @example R/examples/get_theta_typed.R
 ##'
 get.theta.typed <- function(posmat,
                             typeA = -1,
@@ -222,7 +222,7 @@ get.theta.typed <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_pi_ci.R
+##'  R/examples/get_pi_ci.R
 ##'  }
 ##'
 get.pi.ci <- function(posmat,
@@ -271,7 +271,7 @@ get.pi.ci <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_theta_ci.R
+##'  R/examples/get_theta_ci.R
 ##'  }
 ##'
 get.theta.ci <- function(posmat,
@@ -320,7 +320,7 @@ get.theta.ci <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_pi_bootstrap.R
+##'  R/examples/get_pi_bootstrap.R
 ##'  }
 ##'
 get.pi.bootstrap <- function(posmat,
@@ -378,7 +378,7 @@ get.pi.bootstrap <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_theta_bootstrap.R
+##'  R/examples/get_theta_bootstrap.R
 ##'  }
 ##'
 get.theta.bootstrap <- function(posmat,
@@ -431,7 +431,7 @@ get.theta.bootstrap <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_pi_typed_bootstrap.R
+##'  R/examples/get_pi_typed_bootstrap.R
 ##'  }
 ##'
 get.pi.typed.bootstrap <- function(posmat,
@@ -482,7 +482,7 @@ get.pi.typed.bootstrap <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_theta_typed_bootstrap.R
+##'  R/examples/get_theta_typed_bootstrap.R
 ##'  }
 ##'
 get.theta.typed.bootstrap <- function(posmat,
@@ -532,7 +532,7 @@ get.theta.typed.bootstrap <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_pi_permute.R
+##'  R/examples/get_pi_permute.R
 ##'  }
 ##'
 get.pi.permute <- function(posmat,
@@ -587,7 +587,7 @@ get.pi.permute <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_theta_permute.R
+##'  R/examples/get_theta_permute.R
 ##'  }
 ##'
 get.theta.permute <- function(posmat,
@@ -645,7 +645,7 @@ get.theta.permute <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_pi_typed_permute.R
+##'  R/examples/get_pi_typed_permute.R
 ##'  }
 ##'
 get.pi.typed.permute <- function(posmat,
@@ -706,7 +706,7 @@ get.pi.typed.permute <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_theta_typed_permute.R
+##'  R/examples/get_theta_typed_permute.R
 ##'  }
 ##'
 get.theta.typed.permute <- function(posmat,
@@ -788,7 +788,7 @@ get.theta.typed.permute <- function(posmat,
 ##'
 ##' @examples 
 ##' \dontrun{
-##' example/get_tau.R
+##' R/examples/get_tau.R
 ##' }
 ##' 
 get.tau <- function(posmat,
@@ -849,7 +849,7 @@ get.tau <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @example example/get_tau_typed.R
+##' @example R/examples/get_tau_typed.R
 ##'
 get.tau.typed <- function(posmat,
                           typeA = -1,
@@ -907,7 +907,7 @@ get.tau.typed <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_tau_ci.R
+##'  R/examples/get_tau_ci.R
 ##'  }
 ##'
 get.tau.ci <- function(posmat,
@@ -956,7 +956,7 @@ get.tau.ci <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_tau_bootstrap.R
+##'  R/examples/get_tau_bootstrap.R
 ##'  }
 ##'
 get.tau.bootstrap <- function(posmat,
@@ -1023,7 +1023,7 @@ get.tau.bootstrap <- function(posmat,
 ##'
 ##' @examples
 ##' \dontrun{
-##'  example/get_tau_typed_bootstrap.R
+##'  R/examples/get_tau_typed_bootstrap.R
 ##'  }
 ##'
 get.tau.typed.bootstrap <- function(posmat,
@@ -1085,7 +1085,10 @@ get.tau.typed.bootstrap <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @example example/get_tau_permute.R
+##' @examples
+##' \dontrun{
+##'  R/examples/get_tau_permute.R
+##'  }
 ##'
 get.tau.permute <- function(posmat,
                             fun,
@@ -1157,7 +1160,7 @@ get.tau.permute <- function(posmat,
 ##'
 ##' @examples 
 ##' \dontrun{
-##' example/get_tau_typed_permute.R
+##' R/examples/get_tau_typed_permute.R
 ##' }
 ##'
 get.tau.typed.permute <- function(posmat,

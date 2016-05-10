@@ -88,6 +88,9 @@ SEXP get_pi (SEXP Rpostmat,
   double *postmat = REAL(Rpostmat);
   int rows = INTEGER(postmat_dim)[0];
 
+  SEXP rw1;
+  SEXP rw2;
+
   /*some sanity checking*/
   if (!isFunction(Rfun)) error("Rfun must be a function");
 
@@ -117,9 +120,13 @@ SEXP get_pi (SEXP Rpostmat,
   	if ((dist>r[i]) | (dist<r_low[i])) continue;
 
   	/*call the user supplied function*/
-  	f_ans = (int)run_fun(Rfun,
+  	/*f_ans = (int)run_fun(Rfun,
   			     extract_row(Rpostmat,j),
-  			     extract_row(Rpostmat,k));
+  			     extract_row(Rpostmat,k));*/
+	PROTECT(rw1 =  extract_row(Rpostmat,j));
+	PROTECT(rw2 =  extract_row(Rpostmat,k));
+	f_ans = (int) run_fun(Rfun, rw1, rw2);
+	UNPROTECT(2);
 
   	/*update the counts appropriately*/
   	if (f_ans==1) {
@@ -180,6 +187,9 @@ SEXP get_theta (SEXP Rpostmat,
   double *postmat = REAL(Rpostmat);
   int rows = INTEGER(postmat_dim)[0];
 
+  SEXP rw1;
+  SEXP rw2;
+
   /*some sanity checking*/
   if (!isFunction(Rfun)) error("Rfun must be a function");
 
@@ -209,9 +219,14 @@ SEXP get_theta (SEXP Rpostmat,
   	if ((dist>r[i]) | (dist<r_low[i])) continue;
 
   	/*call the user supplied function*/
-  	f_ans = (int)run_fun(Rfun,
+  	/*f_ans = (int)run_fun(Rfun,
   			     extract_row(Rpostmat,j),
-  			     extract_row(Rpostmat,k));
+  			     extract_row(Rpostmat,k));*/
+
+	PROTECT(rw1 =  extract_row(Rpostmat,j));
+	PROTECT(rw2 =  extract_row(Rpostmat,k));
+	f_ans = (int) run_fun(Rfun, rw1, rw2);
+	UNPROTECT(2);
 
   	/*update the counts appropriately*/
   	if (f_ans==1) {

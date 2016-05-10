@@ -26,7 +26,7 @@ to each observation permutations times
 }
 \examples{
 \dontrun{
- example/get_pi_permute.R
+ R/examples/get_pi_permute.R
  }
 }
 \seealso{

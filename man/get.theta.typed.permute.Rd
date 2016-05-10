@@ -29,7 +29,7 @@ to each observation permutations times
 }
 \examples{
 \dontrun{
- example/get_theta_typed_permute.R
+ R/examples/get_theta_typed_permute.R
  }
 }
 \author{

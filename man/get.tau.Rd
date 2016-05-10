@@ -46,7 +46,7 @@ the probability (or odds) any point shares that relationship with that point.
 }
 \examples{
 \dontrun{
-example/get_tau.R
+R/examples/get_tau.R
 }
 }
 \author{

@@ -31,7 +31,7 @@ confidence intervals based on the bootstrapped values..
 }
 \examples{
 \dontrun{
- example/get_pi_ci.R
+ R/examples/get_pi_ci.R
  }
 }
 \author{

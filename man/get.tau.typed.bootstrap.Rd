@@ -33,7 +33,7 @@ runs bootstrapping for \code{get.tau.typed}
 }
 \examples{
 \dontrun{
- example/get_tau_typed_bootstrap.R
+ R/examples/get_tau_typed_bootstrap.R
  }
 }
 \author{

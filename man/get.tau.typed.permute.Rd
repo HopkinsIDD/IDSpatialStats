@@ -34,7 +34,7 @@ get the null distribution for the \code{get.tau.typed} function
 }
 \examples{
 \dontrun{
-example/get_tau_typed_permute.R
+R/examples/get_tau_typed_permute.R
 }
 }
 \author{

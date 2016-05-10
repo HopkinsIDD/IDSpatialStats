@@ -29,7 +29,7 @@ calculated
 }
 \examples{
 \dontrun{
- example/get_tau_bootstrap.R
+ R/examples/get_tau_bootstrap.R
  }
 }
 \author{

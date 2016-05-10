@@ -32,7 +32,7 @@ are perserved, and pairs of points in the bootstrapped dataset with the same ori
 }
 \examples{
 \dontrun{
- example/get_pi_bootstrap.R
+ R/examples/get_pi_bootstrap.R
  }
 }
 \author{

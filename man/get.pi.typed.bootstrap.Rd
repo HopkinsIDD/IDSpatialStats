@@ -28,7 +28,7 @@ another draw of itself are left out
 }
 \examples{
 \dontrun{
- example/get_pi_typed_bootstrap.R
+ R/examples/get_pi_typed_bootstrap.R
  }
 }
 \seealso{
