@@ -72,7 +72,7 @@ SEXP get_pi (SEXP Rpostmat,
   SEXP rc = R_NilValue;
   int i,j,k;
   double dist;
-  long num_cnt, denom_cnt; /*counters for those filling conditions*/
+  long long num_cnt, denom_cnt; /*counters for those filling conditions*/
   int f_ans; /*used to hold the result of the function*/
 
 
@@ -172,7 +172,7 @@ SEXP get_theta (SEXP Rpostmat,
   SEXP rc = R_NilValue;
   int i,j,k;
   double dist;
-  long num_cnt, denom_cnt; /*counters for those filling conditions*/
+  long long num_cnt, denom_cnt; /*counters for those filling conditions*/
   int f_ans; /*used to hold the result of the function*/
 
   /*turn all of the R stuff passed in to the type of stuff we can
@@ -277,7 +277,7 @@ void get_pi_typed (int *type,
 		   double *rc) {
 
   int i,j,k;
-  long num_cnt, denom_cnt; /*counters for those filling conditions*/
+  long long num_cnt, denom_cnt; /*counters for those filling conditions*/
   double dist;
 
   /*repeat the calculation for all r*/
@@ -344,7 +344,7 @@ void get_theta_typed (int *type,
 		   double *rc) {
 
   int i,j,k;
-  long num_cnt, denom_cnt; /*counters for those filling conditions*/
+  long long num_cnt, denom_cnt; /*counters for those filling conditions*/
   double dist;
 
   /*repeat the calculation for all r*/
