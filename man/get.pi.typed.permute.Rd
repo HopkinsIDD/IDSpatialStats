@@ -34,13 +34,12 @@ to each observation permutations times
  }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
   \code{\link{get.pi.typed.bootstrap}},
   \code{\link{get.pi.typed}}, \code{\link{get.pi}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

@@ -36,9 +36,6 @@ confidence intervals based on the bootstrapped values..
  }
 
 }
-\author{
-Justin Lessler
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.permute}},
@@ -46,4 +43,6 @@ Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.typed.permute}},
   \code{\link{get.pi.typed}}, \code{\link{get.pi}}
 }
-
+\author{
+Justin Lessler
+}

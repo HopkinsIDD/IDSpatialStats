@@ -34,9 +34,6 @@ to each observation permutations times
  }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.ci}},
@@ -44,4 +41,6 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.typed.bootstrap}},
   \code{\link{get.theta.typed}}, \code{\link{get.theta}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

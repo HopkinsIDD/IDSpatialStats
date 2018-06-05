@@ -40,4 +40,3 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.typed.permute}},
   \code{\link{get.theta.typed}}, \code{\link{get.theta}}
 }
-

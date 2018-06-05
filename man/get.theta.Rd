@@ -48,9 +48,6 @@ sero.type.func<-function(a,b,tlimit=20){
 
 sero.theta<-get.theta(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.ci}},
@@ -62,4 +59,6 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
 Other spatialtau: \code{\link{get.pi}},
   \code{\link{get.tau}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

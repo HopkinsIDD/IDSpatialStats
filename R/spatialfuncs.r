@@ -29,19 +29,20 @@
 ##'
 ##' @example R/examples/get_pi.R
 ##'
+
 get.pi <- function(posmat,
                    fun,
                    r = 1,
                    r.low=rep(0,length(r))) {
-  
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   rc <- .Call("get_pi",
               posmat,
               fun,
@@ -91,15 +92,15 @@ get.theta <- function(posmat,
                       fun,
                       r = 1,
                       r.low=rep(0,length(r))) {
-  
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   rc <- .Call("get_theta",
               posmat,
               fun,
@@ -138,7 +139,7 @@ get.pi.typed <- function(posmat,
                          typeB = -1,
                          r=1,
                          r.low=rep(0,length(r))) {
-  
+
   return(.C("get_pi_typed",
             as.integer(posmat[,"type"]),
             as.double(posmat[,"x"]),
@@ -182,7 +183,7 @@ get.theta.typed <- function(posmat,
                             typeB = -1,
                             r=1,
                             r.low=rep(0,length(r))) {
-  
+
   return(.C("get_theta_typed",
             as.integer(posmat[,"type"]),
             as.double(posmat[,"x"]),
@@ -233,18 +234,18 @@ get.pi.ci <- function(posmat,
                       ci.low=0.025,
                       ci.high=0.975) {
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
-  
+
   rc <- matrix(nrow=2,ncol=ncol(boots))
-  
+
   rownames(rc) <- c(ci.low,ci.high)
-  
+
   for (i in 1:ncol(rc)) {
     rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
   }
-  
+
   return(rc)
 }
-
+ 
 
 
 
@@ -282,15 +283,15 @@ get.theta.ci <- function(posmat,
                          ci.low=0.025,
                          ci.high=0.975) {
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
-  
+
   rc <- matrix(nrow=2,ncol=ncol(boots))
-  
+
   rownames(rc) <- c(ci.low,ci.high)
-  
+
   for (i in 1:ncol(rc)) {
     rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
   }
-  
+
   return(rc)
 }
 
@@ -328,16 +329,16 @@ get.pi.bootstrap <- function(posmat,
                              r=1,
                              r.low=rep(0,length(r)),
                              boot.iter = 500) {
-  
-  
+
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -386,16 +387,16 @@ get.theta.bootstrap <- function(posmat,
                                 r=1,
                                 r.low=rep(0,length(r)),
                                 boot.iter = 500) {
-  
-  
+
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -440,8 +441,8 @@ get.pi.typed.bootstrap <- function(posmat,
                                    r=1,
                                    r.low=rep(0,length(r)),
                                    boot.iter) {
-  
-  
+
+
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -491,8 +492,8 @@ get.theta.typed.bootstrap <- function(posmat,
                                       r=1,
                                       r.low=rep(0,length(r)),
                                       boot.iter) {
-  
-  
+
+
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -540,16 +541,16 @@ get.pi.permute <- function(posmat,
                            r=1,
                            r.low=rep(0,length(r)),
                            permutations) {
-  
-  
+
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -595,16 +596,16 @@ get.theta.permute <- function(posmat,
                               r=1,
                               r.low=rep(0,length(r)),
                               permutations) {
-  
-  
+
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -654,16 +655,16 @@ get.pi.typed.permute <- function(posmat,
                                  r=1,
                                  r.low=rep(0,length(r)),
                                  permutations) {
-  
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
-  
+
+
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -715,16 +716,16 @@ get.theta.typed.permute <- function(posmat,
                                     r=1,
                                     r.low=rep(0,length(r)),
                                     permutations) {
-  
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
-  
+
+
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -758,7 +759,7 @@ get.theta.typed.permute <- function(posmat,
 ##'    columns needed by fun
 ##' @param fun a function that takes in two rows of posmat and returns:
 ##' \enumerate{
-##'      \item  for pairs included in the numerator and denominator
+##'      \item for pairs included in the numerator (and the denominator for independent data)
 ##'      \item for pairs that should only be included in the denominator
 ##'      \item for pairs that should be ignored all together}
 ##' Note that names from \code{posmat} are not preserved in calls to
@@ -786,25 +787,25 @@ get.theta.typed.permute <- function(posmat,
 ##' @family get.tau
 ##' @family spatialtau
 ##'
-##' @examples 
+##' @examples
 ##' \dontrun{
 ##' R/examples/get_tau.R
 ##' }
-##' 
+##'
 get.tau <- function(posmat,
                     fun,
                     r = 1,
                     r.low=rep(0,length(r)),
                     comparison.type = "representative") {
-  
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   if (comparison.type == "representative") {
     comp.type.int <- 0
   } else if (comparison.type == "independent") {
@@ -812,8 +813,8 @@ get.tau <- function(posmat,
   } else {
     stop("unkown comparison type specified")
   }
-  
-  
+
+
   rc <- .Call("get_tau",
               posmat,
               fun,
@@ -857,7 +858,7 @@ get.tau.typed <- function(posmat,
                           r=1,
                           r.low=rep(0,length(r)),
                           comparison.type = "representative") {
-  
+
   if (comparison.type == "representative") {
     comp.type.int <- 0
   } else if (comparison.type == "independent") {
@@ -865,8 +866,8 @@ get.tau.typed <- function(posmat,
   } else {
     stop("unkown comparison type specified")
   }
-  
-  
+
+
   return(.C("get_tau_typed",
             as.integer(posmat[,"type"]),
             as.double(posmat[,"x"]),
@@ -921,15 +922,15 @@ get.tau.ci <- function(posmat,
   boots <- get.tau.bootstrap(posmat, fun,
                              r, r.low, boot.iter,
                              comparison.type)
-  
+
   rc <- matrix(nrow=2, ncol=ncol(boots))
-  
+
   rownames(rc) <- c(ci.low,ci.high)
-  
+
   for (i in 1:ncol(rc)) {
     rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
   }
-  
+
   return(rc)
 }
 
@@ -965,16 +966,16 @@ get.tau.bootstrap <- function(posmat,
                               r.low=rep(0,length(r)),
                               boot.iter,
                               comparison.type = "representative") {
-  
-  
+
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   if (comparison.type == "representative") {
     comp.type.int <- 0
   } else if (comparison.type == "independent") {
@@ -982,7 +983,7 @@ get.tau.bootstrap <- function(posmat,
   } else {
     stop("unkown comparison type specified")
   }
-  
+
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -1033,8 +1034,8 @@ get.tau.typed.bootstrap <- function(posmat,
                                     r.low=rep(0,length(r)),
                                     boot.iter,
                                     comparison.type = "representative") {
-  
-  
+
+
   if (comparison.type == "representative") {
     comp.type.int <- 0
   } else if (comparison.type == "independent") {
@@ -1042,7 +1043,7 @@ get.tau.typed.bootstrap <- function(posmat,
   } else {
     stop("unkown comparison type specified")
   }
-  
+
   rc <- matrix(nrow=boot.iter, ncol=length(r))
   for (i in 1:boot.iter) {
     inds <- sample(nrow(posmat), replace=T)
@@ -1096,16 +1097,16 @@ get.tau.permute <- function(posmat,
                             r.low=rep(0,length(r)),
                             permutations,
                             comparison.type = "representative") {
-  
-  
+
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   if (comparison.type == "representative") {
     comp.type.int <- 0
   } else if (comparison.type == "independent") {
@@ -1113,8 +1114,8 @@ get.tau.permute <- function(posmat,
   } else {
     stop("unknown comparison type specified")
   }
-  
-  
+
+
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -1131,7 +1132,7 @@ get.tau.permute <- function(posmat,
                     xcol,
                     ycol)
   }
-  
+
   return(rc)
 }
 
@@ -1151,14 +1152,14 @@ get.tau.permute <- function(posmat,
 ##'   \item "representative" if comparison set is representative of the underlying population
 ##'   \item "independent" if comparison set is cases/events coming from an indepedent process
 ##' }
-##' 
+##'
 ##' @return a matrix with permutation tau values for each distance specified
 ##'
 ##' @author Justin Lessler and Henrik Salje
 ##'
 ##' @family get.tau
 ##'
-##' @examples 
+##' @examples
 ##' \dontrun{
 ##' R/examples/get_tau_typed_permute.R
 ##' }
@@ -1170,15 +1171,15 @@ get.tau.typed.permute <- function(posmat,
                                   r.low=rep(0,length(r)),
                                   permutations,
                                   comparison.type = "representative") {
-  
+
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
-  
+
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
     stop("unique x and y columns must be defined")
   }
-  
+
   if (comparison.type == "representative") {
     comp.type.int <- 0
   } else if (comparison.type == "independent") {
@@ -1186,7 +1187,7 @@ get.tau.typed.permute <- function(posmat,
   } else {
     stop("unkown comparison type specified")
   }
-  
+
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)

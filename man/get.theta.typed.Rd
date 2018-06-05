@@ -38,9 +38,6 @@ tmp<-cbind(DengueSimR02,type=type)
 
 typed.theta.R01<-get.theta.typed(tmp,typeA=2,typeB=2,r=r.max,r.low=r.min)
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.ci}},
@@ -49,4 +46,6 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.typed.permute}},
   \code{\link{get.theta}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

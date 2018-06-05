@@ -48,9 +48,6 @@ sero.type.func<-function(a,b,tlimit=20){
 
 sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
@@ -61,4 +58,6 @@ Other get.pi: \code{\link{get.pi.bootstrap}},
 Other spatialtau: \code{\link{get.tau}},
   \code{\link{get.theta}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

@@ -1,4 +1,14 @@
-importFrom("stats", "quantile")
+import("parallel")
+import("doParallel")
+import("foreach")
+import("stats")
+import("graphics")
+importFrom("igraph", "graph.data.frame") # for get.transdist.theta
+importFrom("igraph", "shortest.paths") # for get.transdist.theta
+importFrom("igraph", "E") # for get.transdist.theta
+importFrom("spatstat", "bounding.box.xy") # for est.transdist
+importFrom("spatstat", "as.ppp") # for est.transdist
+importFrom("spatstat", "crossdist") # for est.transdist
 export(get.pi)
 export(get.pi.ci)
 export(get.pi.bootstrap)
@@ -20,4 +30,15 @@ export(get.tau.typed)
 export(get.tau.ci)
 export(get.tau.typed.bootstrap)
 export(get.tau.typed.permute)
+export(sim.epidemic)
+export(sim.plot)
+export(est.wt.matrix)
+export(est.wt.matrix.weights)
+export(get.transdist.theta)
+export(est.transdist.theta.weights)
+export(est.transdist)
+export(est.transdist.bootstrap.ci)
+export(est.transdist.temporal)
+export(est.transdist.temporal.bootstrap.ci)
 useDynLib(IDSpatialStats, .registration=TRUE, .fixes="C_")
+

@@ -13,7 +13,7 @@ columns needed by fun}
 
 \item{fun}{a function that takes in two rows of posmat and returns:
 \enumerate{
-     \item  for pairs included in the numerator and denominator
+     \item for pairs included in the numerator (and the denominator for independent data)
      \item for pairs that should only be included in the denominator
      \item for pairs that should be ignored all together}
 Note that names from \code{posmat} are not preserved in calls to
@@ -51,9 +51,6 @@ R/examples/get_tau.R
 }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
@@ -64,4 +61,6 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
 Other spatialtau: \code{\link{get.pi}},
   \code{\link{get.theta}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

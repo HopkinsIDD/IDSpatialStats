@@ -49,9 +49,6 @@ plot(r.mid,typed.tau,log="y",cex.axis=1.25,
      xlab="Distance (m)",ylab="Tau",cex.main=0.9,lwd=2,type="l")
 abline(h=1,lty=2)
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
@@ -59,4 +56,6 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.typed.permute}},
   \code{\link{get.tau}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

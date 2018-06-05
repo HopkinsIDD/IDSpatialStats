@@ -38,9 +38,6 @@ the confidence intervals based on the bootstrapped values
  }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.permute}},
@@ -48,4 +45,6 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.typed.permute}},
   \code{\link{get.tau.typed}}, \code{\link{get.tau}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

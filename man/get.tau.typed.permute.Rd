@@ -39,13 +39,12 @@ R/examples/get_tau_typed_permute.R
 }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
   \code{\link{get.tau.typed.bootstrap}},
   \code{\link{get.tau.typed}}, \code{\link{get.tau}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

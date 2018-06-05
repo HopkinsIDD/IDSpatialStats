@@ -38,4 +38,3 @@ Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.typed.permute}},
   \code{\link{get.pi.typed}}, \code{\link{get.pi}}
 }
-

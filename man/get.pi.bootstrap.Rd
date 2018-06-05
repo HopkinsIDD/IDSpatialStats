@@ -37,9 +37,6 @@ are perserved, and pairs of points in the bootstrapped dataset with the same ori
  }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.ci}},
   \code{\link{get.pi.permute}},
@@ -47,4 +44,6 @@ Other get.pi: \code{\link{get.pi.ci}},
   \code{\link{get.pi.typed.permute}},
   \code{\link{get.pi.typed}}, \code{\link{get.pi}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

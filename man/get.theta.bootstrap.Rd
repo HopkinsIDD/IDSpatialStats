@@ -37,9 +37,6 @@ are perserved, and pairs of points in the bootstrapped dataset with the same ori
  }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.ci}},
   \code{\link{get.theta.permute}},
@@ -47,4 +44,6 @@ Other get.theta: \code{\link{get.theta.ci}},
   \code{\link{get.theta.typed.permute}},
   \code{\link{get.theta.typed}}, \code{\link{get.theta}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}

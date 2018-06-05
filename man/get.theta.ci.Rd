@@ -36,9 +36,6 @@ confience intervals based on the bootstrapped values.
  }
 
 }
-\author{
-Justin Lessler
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.permute}},
@@ -46,4 +43,6 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.typed.permute}},
   \code{\link{get.theta.typed}}, \code{\link{get.theta}}
 }
-
+\author{
+Justin Lessler
+}

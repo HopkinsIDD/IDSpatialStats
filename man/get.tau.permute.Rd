@@ -34,9 +34,6 @@ to each observation permutations times
  }
 
 }
-\author{
-Justin Lessler and Henrik Salje
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}},
@@ -44,4 +41,6 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.typed.permute}},
   \code{\link{get.tau.typed}}, \code{\link{get.tau}}
 }
-
+\author{
+Justin Lessler and Henrik Salje
+}
