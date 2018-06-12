@@ -5,8 +5,8 @@
 \title{Change in mean transmission distance over time}
 \usage{
 est.transdist.temporal(epi.data, gen.t.mean, gen.t.sd, t1, max.sep, max.dist,
-  n.transtree.reps = 10, theta.weights = NULL, parallel = FALSE,
-  n.cores = NULL)
+  n.transtree.reps = 10, mean.equals.sd = FALSE, theta.weights = NULL,
+  parallel = FALSE, n.cores = NULL)
 }
 \arguments{
 \item{epi.data}{a three-column matrix giving the coordinates (\code{x} and \code{y}) and time of infection (\code{t} for all cases in an epidemic (columns must be in \code{x}, \code{y}, \code{t} order)}
@@ -23,6 +23,8 @@ est.transdist.temporal(epi.data, gen.t.mean, gen.t.sd, t1, max.sep, max.dist,
 
 \item{n.transtree.reps}{number of time to simulate transmission trees when estimating the weights of theta (passed to the \code{est.transdist.theta.weights} function, default = 10). Higher values of this parameter cause significant increases in computation time.}
 
+\item{mean.equals.sd}{logical term indicating if the mean and standard deviation of the transmission kernel are expected to be equal (default = FALSE)}
+
 \item{theta.weights}{use external matrix of theta weights. If NULL (default) the matrix of theta weights is automatically estimated by calling the \code{est.transdist.theta.weights} function}
 
 \item{parallel}{run time steps in parallel (default = FALSE)}
@@ -30,7 +32,7 @@ est.transdist.temporal(epi.data, gen.t.mean, gen.t.sd, t1, max.sep, max.dist,
 \item{n.cores}{number of cores to use when \code{parallel} = TRUE (default = NULL, which uses half the available cores)}
 }
 \value{
-a vector containing the point estimate for mean transmission distance for each unique time step of the epidemic. 
+a numeric matrix containing the point estimate for mean transmission distance for each unique time step of the epidemic and the sample size $n$ used to make the estimate 
 NAs are returned for time steps which contain fewer than three cases
 }
 \description{
@@ -60,14 +62,17 @@ b <- est.transdist.temporal(epi.data=a,
                             t1=0,
                             max.sep=1e10,
                             max.dist=1e10,
-                            n.transtree.reps=3,
+                            n.transtree.reps=5,
+                            mean.equals.sd=TRUE,
                             parallel=FALSE)
 
-plot(b, pch=19, col='grey', ylim=c(min(b, na.rm=TRUE), max(b, na.rm=TRUE)), 
+plot(b[,1], pch=19, col='grey', ylim=c(min(b[,1], na.rm=TRUE), max(b[,1], na.rm=TRUE)), 
      xlab='Time step', ylab='Estimated mean of transmission kernel')
+abline(h=100, col='red', lty=2)
+axis(3, b[,2])
 
-low <- loess(b ~ as.vector(1:length(b)))
-low <- predict(low, newdata=data.frame(as.vector(1:length(b))))
+low <- loess(b[,1] ~ as.vector(1:length(b[,1])))
+low <- predict(low, newdata=data.frame(as.vector(1:length(b[,1]))))
 lines(low, lwd=3, col='blue')
 }
 \references{

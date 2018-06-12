@@ -5,8 +5,9 @@
 \title{Bootstrap mean transmission distance values}
 \usage{
 est.transdist.bootstrap.ci(epi.data, gen.t.mean, gen.t.sd, t1, max.sep,
-  max.dist, n.transtree.reps = 100, theta.weights = NULL, boot.iter,
-  ci.low = 0.025, ci.high = 0.975, parallel = FALSE, n.cores = NULL)
+  max.dist, n.transtree.reps = 100, mean.equals.sd = FALSE,
+  theta.weights = NULL, boot.iter, ci.low = 0.025, ci.high = 0.975,
+  parallel = FALSE, n.cores = NULL)
 }
 \arguments{
 \item{epi.data}{a three-column matrix giving the coordinates (\code{x} and \code{y}) and time of infection (\code{t} for all cases in an epidemic (columns must be in \code{x}, \code{y}, \code{t} order)}
@@ -22,6 +23,8 @@ est.transdist.bootstrap.ci(epi.data, gen.t.mean, gen.t.sd, t1, max.sep,
 \item{max.dist}{maximum spatial distance between two cases considered in calculation}
 
 \item{n.transtree.reps}{number of time to simulate transmission trees when estimating the weights of theta (passed to the \code{est.transdist.theta.weights} function, default = 10). Warning: higher values of this parameter cause significant increases in computation time.}
+
+\item{mean.equals.sd}{logical term indicating if the mean and standard deviation of the transmission kernel are expected to be equal (default = FALSE)}
 
 \item{theta.weights}{use external matrix of theta weights. If NULL (default) the matrix of theta weights is automatically estimated by calling the \code{est.transdist.theta.weights} function}
 
@@ -44,7 +47,7 @@ Runs \code{est.trandsdist} on multiple bootstraps of the data and calculates con
 \examples{
 set.seed(1)
 
-# Normally distributed transmission kernel with mean and standard deviation = 100
+# Exponentially distributed transmission kernel with mean and standard deviation = 100
 dist.func <- alist(n=1, a=1/100, rexp(n, a)) 
 
 # Simulate epidemic
@@ -63,6 +66,7 @@ b <- est.transdist.bootstrap.ci(epi.data=a,
                                 max.sep=1e10,
                                 max.dist=1e10,
                                 n.transtree.reps=10,
+                                mean.equals.sd=TRUE,
                                 boot.iter=10,
                                 ci.low=0.025,
                                 ci.high=0.975,

@@ -1,6 +1,6 @@
 set.seed(1)
 
-# Normally distributed transmission kernel with mean and standard deviation = 100
+# Exponentially distributed transmission kernel with mean and standard deviation = 100
 dist.func <- alist(n=1, a=1/100, rexp(n, a)) 
 
 # Simulate epidemic
@@ -19,6 +19,7 @@ b <- est.transdist.bootstrap.ci(epi.data=a,
                                 max.sep=1e10,
                                 max.dist=1e10,
                                 n.transtree.reps=10,
+                                mean.equals.sd=TRUE,
                                 boot.iter=10,
                                 ci.low=0.025,
                                 ci.high=0.975,

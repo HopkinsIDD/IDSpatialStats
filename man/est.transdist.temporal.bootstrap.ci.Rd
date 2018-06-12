@@ -5,8 +5,9 @@
 \title{Bootstrapped confidence intervals for the change in mean transmission distance over time}
 \usage{
 est.transdist.temporal.bootstrap.ci(epi.data, gen.t.mean, gen.t.sd, t1, max.sep,
-  max.dist, n.transtree.reps = 100, theta.weights = NULL, boot.iter,
-  ci.low = 0.025, ci.high = 0.975, parallel = FALSE, n.cores = NULL)
+  max.dist, n.transtree.reps = 100, mean.equals.sd = FALSE,
+  theta.weights = NULL, boot.iter, ci.low = 0.025, ci.high = 0.975,
+  parallel = FALSE, n.cores = NULL)
 }
 \arguments{
 \item{epi.data}{a three-column matrix giving the coordinates (\code{x} and \code{y}) and time of infection (\code{t} for all cases in an epidemic (columns must be in \code{x}, \code{y}, \code{t} order)}
@@ -23,6 +24,8 @@ est.transdist.temporal.bootstrap.ci(epi.data, gen.t.mean, gen.t.sd, t1, max.sep,
 
 \item{n.transtree.reps}{number of time to simulate transmission trees when estimating the weights of theta (passed to the \code{est.transdist.theta.weights} function, default = 10). Warning: higher values of this parameter cause significant increases in computation time.}
 
+\item{mean.equals.sd}{logical term indicating if the mean and standard deviation of the transmission kernel are expected to be equal (default = FALSE)}
+
 \item{theta.weights}{use external matrix of theta weights. If NULL (default) the matrix of theta weights is automatically estimated by calling the \code{est.transdist.theta.weights} function}
 
 \item{boot.iter}{the number of bootstrapped iterations to perform}
@@ -36,7 +39,7 @@ est.transdist.temporal.bootstrap.ci(epi.data, gen.t.mean, gen.t.sd, t1, max.sep,
 \item{n.cores}{number of cores to use when \code{parallel} = TRUE (default = NULL, which uses half the available cores)}
 }
 \value{
-a three-column matrix containing the point estimate for mean transmission distance and low and high bootstrapped confidence intervals
+a four-column numeric matrix containing the point estimate for mean transmission distance, low and high bootstrapped confidence intervals, and the sample size up to each time step
 }
 \description{
 Estimates bootstrapped confidence intervals for the mean transmission distance over the duration of the epidemic by running \code{est.trandsdist} on all cases 
@@ -44,7 +47,7 @@ occuring up to each time point.
 }
 \examples{
 \donttest{
-  set.seed(1)
+  set.seed(123)
   
   # Exponentially distributed transmission kernel with mean and standard deviation = 100
   dist.func <- alist(n=1, a=1/100, rexp(n, a)) 
@@ -57,6 +60,8 @@ occuring up to each time point.
                     min.cases=30,
                     trans.kern.func=dist.func)
   
+  a <- a[sample(1:nrow(a), 100),] # subsample a to 100 observations
+  
   # Estimate change in mean transmission kernel over time with confidence intervals
   nc <- 4 # Run in parallel
   
@@ -66,15 +71,18 @@ occuring up to each time point.
                                            t1=0,
                                            max.sep=1e10,
                                            max.dist=1e10,
-                                           n.transtree.reps=3,
-                                           boot.iter=5,
+                                           n.transtree.reps=10,
+                                           mean.equals.sd=TRUE,
+                                           boot.iter=10,
                                            ci.low=0.025,
                                            ci.high=0.975,
                                            parallel=TRUE,
                                            n.cores=nc)
   
-  plot(b[,1], pch=19, col='grey', ylim=c(min(b, na.rm=TRUE), max(b, na.rm=TRUE)), 
+  plot(b[,1], pch=19, col='grey', ylim=c(min(b[,1:3], na.rm=TRUE), max(b[,1:3], na.rm=TRUE)), 
        xlab='Time step', ylab='Estimated mean of transmission kernel')
+  abline(h=100, col='red', lty=2)
+  axis(3, 1:nrow(b), b[,4])
   
   low <- loess(b[,1] ~ as.vector(1:nrow(b)), span=1)
   low <- predict(low, newdata=data.frame(as.vector(1:nrow(b))))

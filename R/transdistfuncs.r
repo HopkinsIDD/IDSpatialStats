@@ -268,6 +268,7 @@ get.transdist.theta <-function(wal.teun.mat,
   # Clean matrix containing theta estimates
   a <- order(as.numeric(rownames(theta.mat))) # reorder by cases
   suppressWarnings(theta.mat <- matrix(as.integer(floor(theta.mat[a,a])), n, n))
+  #suppressWarnings(theta.mat <- matrix(as.integer(theta.mat[a,a])), n, n)
   diag(theta.mat) <- NA
   
   # Return theta matrix for unit testing
@@ -505,6 +506,7 @@ est.transdist <- function(
 ##' @param max.sep maximum number of time steps allowed between two cases (passed to the \code{get.transdist.theta} function)
 ##' @param max.dist maximum spatial distance between two cases considered in calculation
 ##' @param n.transtree.reps number of time to simulate transmission trees when estimating the weights of theta (passed to the \code{est.transdist.theta.weights} function, default = 10). Warning: higher values of this parameter cause significant increases in computation time.
+##' @param mean.equals.sd logical term indicating if the mean and standard deviation of the transmission kernel are expected to be equal (default = FALSE)
 ##' @param theta.weights use external matrix of theta weights. If NULL (default) the matrix of theta weights is automatically estimated by calling the \code{est.transdist.theta.weights} function
 ##' @param boot.iter the number of bootstrapped iterations to perform
 ##' @param ci.low low end of the confidence interval (default = 0.025)
@@ -532,6 +534,7 @@ est.transdist.bootstrap.ci <- function(
   max.sep, 		                         # Maximum time between cases considered in calculation
   max.dist, 	                         # Maximum distance considered in calculation
   n.transtree.reps=100, 			         # How many times to simulate transmission trees
+  mean.equals.sd=FALSE,                     # logical term indicating if the mean and sd of the transmission kernel are expected to be equal
   theta.weights=NULL,  			           # External matrix of theta weights
   boot.iter,
   ci.low=0.025,
@@ -551,6 +554,9 @@ est.transdist.bootstrap.ci <- function(
                      theta.weights=theta.weights,
                      silent=TRUE)
   
+  if(mean.equals.sd == TRUE) pt.est <- p$mu.est
+  if(mean.equals.sd == FALSE) pt.est <- p$bound.mu.est
+  
   n <- nrow(epi.data)
   
   if(parallel == FALSE) {
@@ -569,7 +575,10 @@ est.transdist.bootstrap.ci <- function(
                          n.transtree.reps=n.transtree.reps,
                          theta.weights=theta.weights,
                          silent=TRUE)
-      a$mu.est
+      
+      if(mean.equals.sd == TRUE) a <- a$mu.est
+      if(mean.equals.sd == FALSE) a <- a$bound.mu.est
+      a
     }
   }
   
@@ -596,14 +605,16 @@ est.transdist.bootstrap.ci <- function(
                          theta.weights=theta.weights,
                          silent=TRUE)
       
-      a$mu.est
+      if(mean.equals.sd == TRUE) a <- a$mu.est
+      if(mean.equals.sd == FALSE) a <- a$bound.mu.est
+      a
     }
     parallel::stopCluster(clust)
   }
   
   ci <- quantile(bs, probs=c(ci.low, ci.high))
   
-  return(list(mu.est=p$mu.est,
+  return(list(mu.est=pt.est,
               mu.ci.low=ci[1],
               mu.ci.high=ci[2]))
 }
@@ -620,11 +631,12 @@ est.transdist.bootstrap.ci <- function(
 ##' @param max.sep maximum number of time steps allowed between two cases (passed to the \code{get.transdist.theta} function)
 ##' @param max.dist maximum spatial distance between two cases considered in calculation
 ##' @param n.transtree.reps number of time to simulate transmission trees when estimating the weights of theta (passed to the \code{est.transdist.theta.weights} function, default = 10). Higher values of this parameter cause significant increases in computation time.
+##' @param mean.equals.sd logical term indicating if the mean and standard deviation of the transmission kernel are expected to be equal (default = FALSE)
 ##' @param theta.weights use external matrix of theta weights. If NULL (default) the matrix of theta weights is automatically estimated by calling the \code{est.transdist.theta.weights} function
 ##' @param parallel run time steps in parallel (default = FALSE)
 ##' @param n.cores number of cores to use when \code{parallel} = TRUE (default = NULL, which uses half the available cores)
 ##' 
-##' @return a vector containing the point estimate for mean transmission distance for each unique time step of the epidemic. 
+##' @return a numeric matrix containing the point estimate for mean transmission distance for each unique time step of the epidemic and the sample size $n$ used to make the estimate 
 ##' NAs are returned for time steps which contain fewer than three cases
 ##'
 ##' @author Justin Lessler, Henrik Salje, and John Giles
@@ -645,6 +657,7 @@ est.transdist.temporal <- function(
   max.sep, 		                         # Maximum time between cases considered in calculation
   max.dist, 	                         # Maximum distance considered in calculation
   n.transtree.reps=10, 			           # How many times to simulate transmission trees
+  mean.equals.sd=FALSE,
   theta.weights=NULL,  			           # External matrix of theta weights
   parallel=FALSE,
   n.cores=NULL
@@ -669,7 +682,6 @@ est.transdist.temporal <- function(
     out <- foreach::foreach(i=seq_along(unique.times), .combine='rbind') %do% {
       
       d <- epi.data[epi.data[,3] <= unique.times[i],]
-      n <- nrow(matrix(d, ncol=ncol(epi.data)))
       
       pt.est <- try(est.transdist(epi.data=d,
                                   gen.t.mean=gen.t.mean,
@@ -682,9 +694,10 @@ est.transdist.temporal <- function(
                     silent=TRUE)
       if(class(pt.est) == "try-error") {
         pt.est <- NA } else {
-          pt.est <- pt.est$mu.est
+          if(mean.equals.sd == TRUE) pt.est <- pt.est$mu.est
+          if(mean.equals.sd == FALSE) pt.est <- pt.est$bound.mu.est
         }
-      pt.est
+      x <- c(pt.est, nrow(d))
     }
   }
   
@@ -703,7 +716,6 @@ est.transdist.temporal <- function(
     out <- foreach::foreach(i=seq_along(unique.times), .combine='rbind') %dopar% {
       
       d <- epi.data[epi.data[,3] <= unique.times[i],]
-      n <- nrow(matrix(d, ncol=ncol(epi.data)))
       
       pt.est <- try(est.transdist(epi.data=d,
                                   gen.t.mean=gen.t.mean,
@@ -717,13 +729,16 @@ est.transdist.temporal <- function(
       if(class(pt.est) == "try-error") {
         pt.est <- NA 
       } else {
-        pt.est <- pt.est$mu.est
+           if(mean.equals.sd == TRUE) pt.est <- pt.est$mu.est
+           if(mean.equals.sd == FALSE) pt.est <- pt.est$bound.mu.est
       }
-      pt.est
+      x <- c(pt.est, nrow(d))
     }
     parallel::stopCluster(clust)
   }
-  return(as.vector(out))
+  rownames(out) <- NULL
+  colnames(out) <- c('pt.est', 'n')
+  return(out)
 }
 
 ##' Bootstrapped confidence intervals for the change in mean transmission distance over time
@@ -738,6 +753,7 @@ est.transdist.temporal <- function(
 ##' @param max.sep maximum number of time steps allowed between two cases (passed to the \code{get.transdist.theta} function)
 ##' @param max.dist maximum spatial distance between two cases considered in calculation
 ##' @param n.transtree.reps number of time to simulate transmission trees when estimating the weights of theta (passed to the \code{est.transdist.theta.weights} function, default = 10). Warning: higher values of this parameter cause significant increases in computation time.
+##' @param mean.equals.sd logical term indicating if the mean and standard deviation of the transmission kernel are expected to be equal (default = FALSE)
 ##' @param theta.weights use external matrix of theta weights. If NULL (default) the matrix of theta weights is automatically estimated by calling the \code{est.transdist.theta.weights} function
 ##' @param boot.iter the number of bootstrapped iterations to perform
 ##' @param ci.low low end of the confidence interval (default = 0.025)
@@ -745,7 +761,7 @@ est.transdist.temporal <- function(
 ##' @param parallel run bootstraps in parallel (default = FALSE)
 ##' @param n.cores number of cores to use when \code{parallel} = TRUE (default = NULL, which uses half the available cores)
 ##' 
-##' @return a three-column matrix containing the point estimate for mean transmission distance and low and high bootstrapped confidence intervals
+##' @return a four-column numeric matrix containing the point estimate for mean transmission distance, low and high bootstrapped confidence intervals, and the sample size up to each time step
 ##'
 ##' @author Justin Lessler, Henrik Salje, and John Giles
 ##' 
@@ -757,7 +773,6 @@ est.transdist.temporal <- function(
 ##' @example R/examples/est_transdist_temporal_bootstrap_ci.R
 ##'
 
-
 est.transdist.temporal.bootstrap.ci <- function(
   epi.data,				                     # Three column matrix: coordinates and time of case (must be in x, y, t, order)
   gen.t.mean,				                   # Mean of generation time
@@ -766,6 +781,7 @@ est.transdist.temporal.bootstrap.ci <- function(
   max.sep, 		                         # Maximum time between cases considered in calculation
   max.dist, 	                         # Maximum distance considered in calculation
   n.transtree.reps=100, 			         # How many times to simulate transmission trees
+  mean.equals.sd=FALSE,
   theta.weights=NULL,  			           # External matrix of theta weights
   boot.iter,
   ci.low=0.025,
@@ -806,7 +822,8 @@ est.transdist.temporal.bootstrap.ci <- function(
                     silent=TRUE)
       if(class(pt.est) == "try-error") {
         pt.est <- NA } else {
-          pt.est <- pt.est$mu.est
+             if(mean.equals.sd == TRUE) pt.est <- pt.est$mu.est
+             if(mean.equals.sd == FALSE) pt.est <- pt.est$bound.mu.est
         }
       
       bs <- rep(NA, boot.iter)
@@ -825,12 +842,13 @@ est.transdist.temporal.bootstrap.ci <- function(
                  silent=TRUE)
         if(class(a) == "try-error") {
           bs[j] <- NA} else {
-            bs[j] <- a$mu.est
+               if(mean.equals.sd == TRUE) bs[j] <- a$mu.est
+               if(mean.equals.sd == FALSE) bs[j] <- a$bound.mu.est
           }
       }
       
       suppressWarnings(bs.probs <- quantile(as.numeric(bs), probs=c(ci.low, ci.high), na.rm=TRUE))
-      x <- c(pt.est, bs.probs[1], bs.probs[2])
+      x <- c(pt.est, bs.probs[1], bs.probs[2], n)
     }
   }
   
@@ -863,7 +881,8 @@ est.transdist.temporal.bootstrap.ci <- function(
       if(class(pt.est) == "try-error") {
         pt.est <- NA 
         } else {
-          pt.est <- pt.est$mu.est
+             if(mean.equals.sd == TRUE) pt.est <- pt.est$mu.est
+             if(mean.equals.sd == FALSE) pt.est <- pt.est$bound.mu.est
         }
       
       bs <- rep(NA, boot.iter)
@@ -883,18 +902,19 @@ est.transdist.temporal.bootstrap.ci <- function(
         if(class(a) == "try-error") {
           bs[j] <- NA
           } else {
-            bs[j] <- a$mu.est
+               if(mean.equals.sd == TRUE) bs[j] <- a$mu.est
+               if(mean.equals.sd == FALSE) bs[j] <- a$bound.mu.est
           }
       }
       
       suppressWarnings(bs.probs <- quantile(as.numeric(bs), probs=c(ci.low, ci.high), na.rm=TRUE))
-      x <- c(pt.est, bs.probs[1], bs.probs[2])
+      x <- c(pt.est, bs.probs[1], bs.probs[2], n)
     }
     parallel::stopCluster(clust)
   }
   
   row.names(out) <- NULL
-  colnames(out) <- c('mu.est', 'mu.ci.low', 'mu.ci.high')
+  colnames(out) <- c('mu.est', 'mu.ci.low', 'mu.ci.high', 'n')
   return(out)
 }
 

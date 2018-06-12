@@ -111,56 +111,62 @@ knitr::include_graphics('figs/sim2.png')
 #                                  n.cores=2)
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  c <- est.transdist.temporal(epi.data=a,
+#  # Estimate mean transmission kernel over time
+#  b <- est.transdist.temporal(epi.data=a,
 #                              gen.t.mean=7,
 #                              gen.t.sd=2,
 #                              t1=0,
 #                              max.sep=1e10,
 #                              max.dist=1e10,
-#                              n.transtree.reps=10,
-#                              parallel=TRUE,
-#                              n.cores=2)
+#                              n.transtree.reps=5,
+#                              mean.equals.sd=TRUE,
+#                              parallel=FALSE)
 #  
-#  plot(c, pch=19, col='grey', ylim=c(min(c, na.rm=TRUE), max(c, na.rm=TRUE)), xlab='Time step', ylab='Estimated mean of transmission kernel')
-#  low <- loess(c ~ as.vector(1:length(c)))
-#  low <- predict(low, newdata=data.frame(as.vector(1:length(c))))
-#  lines(low, lwd=3, col='blue')
+#  plot(b[,1], pch=19, col='grey', ylim=c(min(b[,1], na.rm=TRUE), max(b[,1], na.rm=TRUE)),
+#       xlab='Time step', ylab='Estimated mean of transmission kernel')
 #  abline(h=100, col='red', lty=2)
+#  axis(3, 1:nrow(b), b[,2])
+#  
+#  low <- loess(b[,1] ~ as.vector(1:length(b[,1])))
+#  low <- predict(low, newdata=data.frame(as.vector(1:length(b[,1]))))
+#  lines(low, lwd=3, col='blue')
 
-## ---- echo=FALSE, fig.height=5, fig.width=6, fig.cap='Output from the `est.transdist.temporal` function showing the change in the mean transmission distance over the course of a simulated epidemic. Point estimates are plotted as grey circles and a loess smooth of the mean estimate is plotted with the blue line.'----
+## ---- echo=FALSE, out.width='100%', fig.cap='Output from the `est.transdist.temporal` function showing the change in the mean transmission distance over the course of a simulated epidemic. Point estimates are plotted as grey circles and a loess smooth of the mean estimate is plotted with the blue line. Sample size is plotted on the top axis.'----
 knitr::include_graphics('figs/td_temp.png')
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  nc <- parallel::detectCores() # use all available cores
 #  
-#  c <- est.transdist.temporal.bootstrap.ci(epi.data=a,
-#                                           gen.t.mean=7,
-#                                           gen.t.sd=2,
-#                                           t1=0,
-#                                           max.sep=1e10,
-#                                           max.dist=1e10,
-#                                           n.transtree.reps=5,
-#                                           boot.iter=10,
-#                                           ci.low=0.025,
-#                                           ci.high=0.975,
-#                                           parallel=TRUE,
-#                                           n.cores=nc)
+#  b <- est.transdist.temporal.bootstrap.ci(epi.data=a,
+#                                             gen.t.mean=7,
+#                                             gen.t.sd=2,
+#                                             t1=0,
+#                                             max.sep=1e10,
+#                                             max.dist=1e10,
+#                                             n.transtree.reps=10,
+#                                             mean.equals.sd=TRUE,
+#                                             boot.iter=10,
+#                                             ci.low=0.025,
+#                                             ci.high=0.975,
+#                                             parallel=TRUE,
+#                                             n.cores=nc)
 #  
-#  plot(c[,1], pch=19, col='grey', ylim=c(min(c, na.rm=TRUE), max(c, na.rm=TRUE)),
-#       xlab='Time step', ylab='Estimated mean of transmission kernel')
+#    plot(b[,1], pch=19, col='grey', ylim=c(min(b[,1:3], na.rm=TRUE), max(b[,1:3], na.rm=TRUE)),
+#         xlab='Time step', ylab='Estimated mean of transmission kernel')
+#    abline(h=100, col='red', lty=2)
+#    axis(3, 1:nrow(b), b[,4])
 #  
-#  low <- loess(c[,1] ~ as.vector(1:nrow(c)), span=0.25)
-#  low <- predict(low, newdata=data.frame(as.vector(1:nrow(c))))
-#  lines(low, lwd=3, col='blue')
+#    low <- loess(b[,1] ~ as.vector(1:nrow(b)), span=1)
+#    low <- predict(low, newdata=data.frame(as.vector(1:nrow(b))))
+#    lines(low, lwd=3, col='blue')
 #  
-#  for(i in 2:3) {
-#  low <- loess(c[,i] ~ as.vector(1:nrow(c)), span=0.25)
-#  low <- predict(low, newdata=data.frame(as.vector(1:nrow(c))))
-#  lines(low, lty=2, lwd=3, col='blue')
-#  }
-#  abline(h=100, col='red', lty=2)
+#    for(i in 2:3) {
+#      low <- loess(b[,i] ~ as.vector(1:nrow(b)), span=1)
+#      low <- predict(low, newdata=data.frame(as.vector(1:nrow(b))))
+#      lines(low, lty=2, lwd=3, col='blue')
+#    }
 
-## ---- echo=FALSE, fig.height=5, fig.width=6, fig.cap='Output from the `est.transdist.temporal.bootstrap.ci` function showing the change in the mean transmission distance over the course of a simulated epidemic. The point estimates are plotted as grey circles and a loess smooth of the mean estimate is plotted (blue line) along with its 95% bootstrapped confidence intervals (dashed blue lines).'----
+## ---- echo=FALSE, out.width='100%', fig.cap='Output from the `est.transdist.temporal.bootstrap.ci` function showing the change in the mean transmission distance over the course of a simulated epidemic. The point estimates are plotted as grey circles and a loess smooth of the mean estimate is plotted (blue line) along with its 95% bootstrapped confidence intervals (dashed blue lines). Sample size is plotted on the top axis.'----
 knitr::include_graphics('figs/td_temp_ci.png')
 
 ## ---- eval=F-------------------------------------------------------------
@@ -168,18 +174,9 @@ knitr::include_graphics('figs/td_temp_ci.png')
 #  data(fmd)
 #  fmd <- cbind(fmd$cases$x, fmd$cases$y, fmd$cases$marks)
 #  
-#  # Estimate transmission distance
-#  td <- est.transdist(epi.data=fmd,
-#                      gen.t.mean=6.1,
-#                      gen.t.sd=4.6,
-#                      t1=0,
-#                      max.sep=1e10,
-#                      max.dist=1e10,
-#                      n.transtree.reps=10)
-#  
 #  nc <- parallel::detectCores()
 #  
-#  # Bootstrapped confidence intervals
+#  # Estimate transmission distance with bootstrapped confidence intervals
 #  ci <- est.transdist.bootstrap.ci(epi.data=fmd,
 #                                   gen.t.mean=6.1,
 #                                   gen.t.sd=4.6,
@@ -201,12 +198,13 @@ knitr::include_graphics('figs/td_temp_ci.png')
 #                                             max.sep=1e10,
 #                                             max.dist=1e10,
 #                                             n.transtree.reps=10,
+#                                             mean.equals.sd=FALSE,
 #                                             boot.iter=10,
 #                                             ci.low=0.025,
 #                                             ci.high=0.975,
 #                                             parallel=TRUE,
 #                                             n.cores=nc)
 
-## ---- echo=FALSE, out.width='100%', fig.cap='Output from the `est.transdist.temporal.bootstrap.ci` function showing the change in the mean transmission distance over the course of the 2001 foot-and-mouth disease epidemic among farms in the UK. The point estimates are plotted as grey circles and a loess smooth of the mean estimate is plotted (blue line) along with its 95% bootstrapped confidence intervals (dashed blue lines).'----
+## ---- echo=FALSE, out.width='100%', fig.cap='Output from the `est.transdist.temporal.bootstrap.ci` function showing the change in the mean transmission distance over the course of the 2001 foot-and-mouth disease epidemic among farms in the UK. The point estimates are plotted as grey circles and a loess smooth of the mean estimate is plotted (blue line) along with its 95% bootstrapped confidence intervals (dashed blue lines). Sample size is plotted on the top axis.'----
 knitr::include_graphics('figs/fmd.png')
 

@@ -20,12 +20,15 @@ b <- est.transdist.temporal(epi.data=a,
                             t1=0,
                             max.sep=1e10,
                             max.dist=1e10,
-                            n.transtree.reps=3,
+                            n.transtree.reps=5,
+                            mean.equals.sd=TRUE,
                             parallel=FALSE)
 
-plot(b, pch=19, col='grey', ylim=c(min(b, na.rm=TRUE), max(b, na.rm=TRUE)), 
+plot(b[,1], pch=19, col='grey', ylim=c(min(b[,1], na.rm=TRUE), max(b[,1], na.rm=TRUE)), 
      xlab='Time step', ylab='Estimated mean of transmission kernel')
+abline(h=100, col='red', lty=2)
+axis(3, b[,2])
 
-low <- loess(b ~ as.vector(1:length(b)))
-low <- predict(low, newdata=data.frame(as.vector(1:length(b))))
+low <- loess(b[,1] ~ as.vector(1:length(b[,1])))
+low <- predict(low, newdata=data.frame(as.vector(1:length(b[,1]))))
 lines(low, lwd=3, col='blue')
