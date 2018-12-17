@@ -5,7 +5,8 @@
 \title{runs bootstrapping for \code{get.tau.typed}}
 \usage{
 get.tau.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), boot.iter, comparison.type = "representative")
+  r.low = rep(0, length(r)), boot.iter,
+  comparison.type = "representative")
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -32,12 +33,6 @@ tau values for all the distances we looked at
 \description{
 runs bootstrapping for \code{get.tau.typed}
 }
-\examples{
-\dontrun{
- R/examples/get_tau_typed_bootstrap.R
- }
-
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
@@ -47,3 +42,4 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.tau}

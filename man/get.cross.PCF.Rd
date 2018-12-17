@@ -21,10 +21,10 @@ get.cross.PCF(epi.data, type, hom, het = NULL, r = NULL,
 \item{correction}{type of edge correction to be applied (default set to simple 'border' edge correction). See the \link[spatstat]{Kcross} function in the \pkg{spatstat} package for more details}
 }
 \value{
-a data frame with two columns giving the radius \code{r} and value of the Pair Correlation Function \code{pcf}
+a data frame with two columns giving the radius \code{r}, the theoretical value of the Pair Correlation Function for a Poisson process (\code{theo}), and value of the Pair Correlation Function \code{pcf}
 }
 \description{
-A wrapper function of the \link[spatstat]{pcf} and \link[spatstat]{Kcross} functions from the \pkg{spatstat} package that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type Pair Correlation Function based on user defined case type homology
+A wrapper function of the \link[spatstat]{pcf} and \link[spatstat]{Kcross} functions from the \pkg{spatstat} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type Pair Correlation Function based on user defined case type homology
 }
 \examples{
 data(DengueSimulationR01)

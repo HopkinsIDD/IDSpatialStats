@@ -4,7 +4,8 @@
 \alias{get.pi.permute}
 \title{get the null distribution of the \code{get.pi} function}
 \usage{
-get.pi.permute(posmat, fun, r = 1, r.low = rep(0, length(r)), permutations)
+get.pi.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
+  permutations)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -25,12 +26,6 @@ Does permutations to calculate the null distribution of get pi
 if there were no spatial dependence. Randomly reassigns coordinates
 to each observation permutations times
 }
-\examples{
-\dontrun{
- R/examples/get_pi_permute.R
- }
-
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}},
@@ -38,3 +33,4 @@ Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.typed.permute}},
   \code{\link{get.pi.typed}}, \code{\link{get.pi}}
 }
+\concept{get.pi}

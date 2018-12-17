@@ -27,15 +27,10 @@ pi values for all the distances we looked at
 Bootstraps typed pi values. Makes sure distances between a sample and
 another draw of itself are left out
 }
-\examples{
-\dontrun{
- R/examples/get_pi_typed_bootstrap.R
- }
-
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
   \code{\link{get.pi.typed.permute}},
   \code{\link{get.pi.typed}}, \code{\link{get.pi}}
 }
+\concept{get.pi}

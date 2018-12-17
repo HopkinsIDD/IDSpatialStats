@@ -25,46 +25,6 @@ a three-dimensional array containing the mean normalized theta weights estimated
 This function estimates the weight of each theta value by performing a user defined number of replications with the \code{get.transdist.theta} function. The weights
 of each theta are calculated as the number of simulations in which a case at time \code{t1} and \code{t2} are separated by theta transmission events.
 }
-\examples{
-set.seed(1)
-
-gen.t.mean <- 7
-gen.t.sd <- 2
-t1 <- 0
-
-# Normally distributed transmission kernel with mean and standard deviation = 100
-dist.func <- alist(n=1, a=1/100, rexp(n, a)) 
-
-# Simulate epidemic
-a <- sim.epidemic(R=5,
-                  gen.t.mean=gen.t.mean,
-                  gen.t.sd=gen.t.sd,
-                  min.cases=5,
-                  tot.generations=3,
-                  trans.kern.func=dist.func)
-
-# Get case times
-a <- a[order(a[,3]),]
-case.times <- round(a[,3])
-unique.times <- unique(case.times)
-ntimes <- length(unique.times)
-
-
-# Generation time distribution
-max.t <- round(max(unique.times) - t1) - 1
-n.step <- round(max.t/gen.t.mean)
-gen <- rep(0, max.t*2)
-for (i in 1:n.step){gen <- gen + dnorm(1:(max.t*2), gen.t.mean*i, gen.t.sd*i)}
-gen[1] <- 0 # No instantaneous infections
-t.density <- gen/sum(gen)
-
-# Estimation of theta weights matrix
-b <- est.transdist.theta.weights(case.times=case.times,
-                                 n.rep=3, 
-                                 gen.t.mean=gen.t.mean, 
-                                 t1=t1, 
-                                 t.density=t.density)
-}
 \references{
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }
@@ -78,3 +38,4 @@ Other transdist: \code{\link{est.transdist.bootstrap.ci}},
 \author{
 Justin Lessler, Henrik Salje, and John Giles
 }
+\concept{transdist}

@@ -31,12 +31,6 @@ In each bootstrap iteration N observations are drawn from the existing data with
 inference resulting from the same observatin being compared with itself in the bootstrapped data set, original indices
 are perserved, and pairs of points in the bootstrapped dataset with the same original index are ignored.
 }
-\examples{
-\dontrun{
- R/examples/get_pi_bootstrap.R
- }
-
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.ci}},
   \code{\link{get.pi.permute}},
@@ -47,3 +41,4 @@ Other get.pi: \code{\link{get.pi.ci}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.pi}

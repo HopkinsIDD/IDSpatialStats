@@ -16,14 +16,7 @@ a numerical matrix with the number of columns and rows equal to the number of ti
 }
 \description{
 A function called by \code{est.wt.matrix}, which calculates the basic weights in the Wallinga-Teunis matrix given 
-the time of each case occurrence and the generation time distribution of the pathogen. Code adapted from the R0 package.
-}
-\examples{
-case.times <- c(1,2,2,3,3)
-gen <- c(0, 2/3, 1/3, 0, 0)
-t.density <- gen/sum(gen)
-
-a <- est.wt.matrix.weights(case.times=case.times, gen.t.dist=t.density)
+the time of each case occurrence and the generation time distribution of the pathogen. Code adapted from the \pkg{R0} package.
 }
 \references{
 Boelle P and Obadia T (2015). R0: Estimation of R0 and Real-Time Reproduction Number from Epidemics. R package version 1.2-6, \href{https://CRAN.R-project.org/package=R0}{https://CRAN.R-project.org/package=R0}.
@@ -37,3 +30,4 @@ Other est.wt: \code{\link{est.transdist}},
 \author{
 Justin Lessler, Henrik Salje, and John Giles
 }
+\concept{est.wt}

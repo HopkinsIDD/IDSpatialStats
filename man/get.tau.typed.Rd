@@ -2,7 +2,7 @@
 % Please edit documentation in R/spatialfuncs.r
 \name{get.tau.typed}
 \alias{get.tau.typed}
-\title{Optimizewd version of \code{get.tau} for typed data}
+\title{Optimized version of \code{get.tau} for typed data}
 \usage{
 get.tau.typed(posmat, typeA = -1, typeB = -1, r = 1, r.low = rep(0,
   length(r)), comparison.type = "representative")
@@ -32,23 +32,6 @@ Version of th e \code{get.tau} function that is optimized for
 statically typed data. That is data where we want the relationship between
 points of type A and points of type B
 }
-\examples{
-data(DengueSimulationR02)
-
-r.max<-seq(20,1000,20)
-r.min<-seq(0,980,20)
-r.mid<-(r.max+r.min)/2
-
-#Lets see if there's a difference in spatial dependence by time case occurs
-type<-2-(DengueSimR02[,"time"]<120)
-tmp<-cbind(DengueSimR02,type=type)
-
-typed.tau<-get.tau.typed(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min,comparison.type = "independent")
-
-plot(r.mid,typed.tau,log="y",cex.axis=1.25,
-     xlab="Distance (m)",ylab="Tau",cex.main=0.9,lwd=2,type="l")
-abline(h=1,lty=2)
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
@@ -59,3 +42,4 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.tau}

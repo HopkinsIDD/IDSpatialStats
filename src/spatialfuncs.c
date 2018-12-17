@@ -117,7 +117,7 @@ SEXP get_pi (SEXP Rpostmat,
   	dist = sqrt(pow(postmat[j+xcol*rows] - postmat[k+xcol*rows],2) +
   		    pow(postmat[j+ycol*rows] - postmat[k+ycol*rows],2));
 
-  	if ((dist>r[i]) | (dist<r_low[i])) continue;
+  	if ((dist>=r[i]) | (dist<r_low[i])) continue;
 
   	/*call the user supplied function*/
   	/*f_ans = (int)run_fun(Rfun,
@@ -216,7 +216,7 @@ SEXP get_theta (SEXP Rpostmat,
   	dist = sqrt(pow(postmat[j+xcol*rows] - postmat[k+xcol*rows],2) +
   		    pow(postmat[j+ycol*rows] - postmat[k+ycol*rows],2));
 
-  	if ((dist>r[i]) | (dist<r_low[i])) continue;
+  	if ((dist>=r[i]) | (dist<r_low[i])) continue;
 
   	/*call the user supplied function*/
   	/*f_ans = (int)run_fun(Rfun,
@@ -297,10 +297,10 @@ void get_pi_typed (int *type,
 	  if (inds[k]==inds[j]) continue;
 
 	  dist = sqrt(pow(x[j]-x[k],2)+pow(y[j]-y[k],2));
-	  if ((dist<=r[i])  & (dist>=r_low[i])) denom_cnt++;
+	  if ((dist<r[i])  & (dist>=r_low[i])) denom_cnt++;
 
 	  if (type[k] != *typeB) continue;
-	  if ((dist<=r[i])  & (dist>=r_low[i])) num_cnt++;
+	  if ((dist<r[i])  & (dist>=r_low[i])) num_cnt++;
 	}
       }
 
@@ -365,7 +365,7 @@ void get_theta_typed (int *type,
 
 	  dist = sqrt(pow(x[j]-x[k],2)+pow(y[j]-y[k],2));
 
-	  if ((dist<=r[i])  & (dist>=r_low[i])) {
+	  if ((dist<r[i])  & (dist>=r_low[i])) {
 	    if (type[k] == *typeB) {
 	      num_cnt++;
 	    } else {

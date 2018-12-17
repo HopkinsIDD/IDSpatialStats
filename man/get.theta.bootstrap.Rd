@@ -31,12 +31,6 @@ In each bootstrap iteration N observations are drawn from the existing data with
 inference resulting from the same observatin being compared with itself in the bootstrapped data set, original indices
 are perserved, and pairs of points in the bootstrapped dataset with the same original index are ignored.
 }
-\examples{
-\dontrun{
- R/examples/get_theta_bootstrap.R
- }
-
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.ci}},
   \code{\link{get.theta.permute}},
@@ -47,3 +41,4 @@ Other get.theta: \code{\link{get.theta.ci}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.theta}

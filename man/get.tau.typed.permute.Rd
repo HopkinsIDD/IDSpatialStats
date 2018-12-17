@@ -33,12 +33,6 @@ a matrix with permutation tau values for each distance specified
 \description{
 get the null distribution for the \code{get.tau.typed} function
 }
-\examples{
-\dontrun{
-R/examples/get_tau_typed_permute.R
-}
-
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
@@ -48,3 +42,4 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.tau}

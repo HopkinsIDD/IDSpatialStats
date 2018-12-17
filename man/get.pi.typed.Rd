@@ -26,18 +26,6 @@ Version of the \code{get.pi} function that is optimized for statically typed dat
 data where we are interested in the probability of points within some distance of points of
 typeA are of typeB.
 }
-\examples{
-data(DengueSimulationR02)
-
-r.max<-seq(20,1000,20)
-r.min<-seq(0,980,20)
-
-#Lets see if there's a difference in spatial dependence by time case occurs
-type<-2-(DengueSimR02[,"time"]<120)
-tmp<-cbind(DengueSimR02,type=type)
-
-typed.pi<-get.pi.typed(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min)
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
@@ -47,3 +35,4 @@ Other get.pi: \code{\link{get.pi.bootstrap}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.pi}

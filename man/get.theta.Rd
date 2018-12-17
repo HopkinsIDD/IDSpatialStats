@@ -27,26 +27,12 @@ interested in}
 \value{
 theta value for each distance range that we look at. Where:
 
-\deqn{ \theta(d_1,d_2) = \frac{\sum \boldsymbol{1} (d_{ij} \in (d_1,d_2)) \boldsymbol{1} (f(i,j)=1) }{\sum \sum \boldsymbol{1} (d_{ij} \in (d_1,d_2)) \boldsymbol{1} (f(i,j)=2) }}
+\deqn{ \theta(d_1,d_2) = \frac{\sum \boldsymbol{1} d_{ij} \in [d_1,d_2)) \boldsymbol{1} (f(i,j)=1) }{\sum \sum \boldsymbol{1} d_{ij} \in [d_1,d_2)) \boldsymbol{1} (f(i,j)=2) }}
 }
 \description{
 Generalized version of the \code{get.theta} function that takes in an arbitrary function and
 returns the odds that a point within a particular range of a point of interest shares the relationship
 specified by the passed in function with that point.
-}
-\examples{
-data(DengueSimulationR02)
-
-r.max<-seq(20,1000,20)
-r.min<-seq(0,980,20)
-
-sero.type.func<-function(a,b,tlimit=20){
-  if(a[5]==b[5]&(abs(a[3]-b[3])<=tlimit)){rc=1}
-  else{rc=2}
-  return(rc)
-}
-
-sero.theta<-get.theta(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
@@ -62,3 +48,5 @@ Other spatialtau: \code{\link{get.pi}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.theta}
+\concept{spatialtau}

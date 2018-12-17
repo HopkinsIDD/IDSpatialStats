@@ -4,8 +4,8 @@
 \alias{get.pi.ci}
 \title{Calculate bootstrapped confidence intervals for \code{get.pi} values.}
 \usage{
-get.pi.ci(posmat, fun, r = 1, r.low = rep(0, length(r)), boot.iter = 1000,
-  ci.low = 0.025, ci.high = 0.975)
+get.pi.ci(posmat, fun, r = 1, r.low = rep(0, length(r)),
+  boot.iter = 1000, ci.low = 0.025, ci.high = 0.975)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -30,12 +30,6 @@ a matrix with a row for the high and low values and
 Wrapper to \code{get.pi.bootstrap} that takes care of calculating the
 confidence intervals based on the bootstrapped values..
 }
-\examples{
-\dontrun{
- R/examples/get_pi_ci.R
- }
-
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.permute}},
@@ -46,3 +40,4 @@ Other get.pi: \code{\link{get.pi.bootstrap}},
 \author{
 Justin Lessler
 }
+\concept{get.pi}

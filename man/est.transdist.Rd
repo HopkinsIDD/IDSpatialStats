@@ -32,30 +32,6 @@ a list containing the estimated mean distance of the transmission kernel (\code{
 \description{
 this function estimates the mean transmission distance of an epidemic when given the locations and times of symptomatic cases and the mean and standard deviation of the generation time of the infecting pathogen
 }
-\examples{
-set.seed(123)
-
-# Exponentially distributed transmission kernel with mean and standard deviation = 100
-dist.func <- alist(n=1, a=1/100, rexp(n, a)) 
-
-# Simulate epidemic
-a <- sim.epidemic(R=1.5,
-                  gen.t.mean=7,
-                  gen.t.sd=2,
-                  min.cases=50,
-                  tot.generations=12,
-                  trans.kern.func=dist.func)
-
-# Estimate mean and standara deviation of transmission kernel
-b <- est.transdist(epi.data=a,
-                   gen.t.mean=7,
-                   gen.t.sd=2,
-                   t1=0,
-                   max.sep=1e10,
-                   max.dist=1e10,
-                   n.transtree.reps=10)
-b
-}
 \references{
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }
@@ -72,3 +48,5 @@ Other transdist: \code{\link{est.transdist.bootstrap.ci}},
 \author{
 Justin Lessler, Henrik Salje, and John Giles
 }
+\concept{est.wt}
+\concept{transdist}

@@ -1,6 +1,6 @@
 ##' Cross type K function using homotypic and heterotypic case types
 ##'
-##' A wrapper function of the \link[spatstat]{Kcross} function from the \pkg{spatstat} package that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type K-function based on user defined case type homology
+##' A wrapper function of the \link[spatstat]{Kcross} function from the \pkg{spatstat} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type K-function based on user defined case type homology
 ##'
 ##' @param epi.data a three-column numerical matrix that contains coordinates (\code{x} and \code{y}) for each case and information on case type (e.g. genotype or serotype). First two columns must be \code{x} and \code{y}
 ##' @param type an integer giving the column that contains information on case type. Must be an integer or a character
@@ -9,7 +9,7 @@
 ##' @param r a numeric vector giving the spatial distances
 ##' @param correction type of edge correction to be applied (default set to simple 'border' edge correction). See the \link[spatstat]{Kcross} function in the \pkg{spatstat} package for more details
 ##' 
-##' @return a data frame with a minimum of two columns giving the radius \code{r} and value of the K function, where the titel of the column the type of edge correction used 
+##' @return a data frame with a minimum of three columns giving the radius (\code{r}), the theoretical value of the K function for a Poisson process (\code{theo}), and value of the K function evaluated at radius \code{r}. The column name gives the type of edge correction used 
 ##'
 ##' @author Justin Lessler, Henrik Salje, and John Giles
 ##' 
@@ -27,16 +27,16 @@ get.cross.K <- function(epi.data, # matrix containing xy coordinates and case ty
                         correction='border' # type of edge correction to be applied
 ){
      
-     if(is.matrix(epi.data) == FALSE && is.numeric(epi.data) == FALSE) stop('epi.data must be a numeric matrix')
+     if(is.matrix(epi.data) == FALSE | is.numeric(epi.data) == FALSE) stop('epi.data must be a numeric matrix')
+     tmp <- type > ncol(epi.data); if(tmp == TRUE) stop('type column defined is out of bounds')
 
      xy <- epi.data[, 1:2, drop=FALSE]
      case.types <- epi.data[, type]
      unique.case.types <- unique(case.types)
      
      if(is.null(het))  het <- unique.case.types[!(unique.case.types %in% hom)]
-     
-     hom <- as.numeric(hom)
-     het <- as.numeric(het)
+     if(all(hom %in% unique.case.types) == FALSE | all(het %in% unique.case.types) == FALSE) 
+          stop('all homotypic and heterotypic case types are not found in case type data') 
      
      message("Calculating cross type K function for:")
      message(paste(c("Homotypic case type(s):", hom, paste("(n=", length(which(case.types %in% hom)), ")", sep="")), 
@@ -48,24 +48,24 @@ get.cross.K <- function(epi.data, # matrix containing xy coordinates and case ty
      message(paste(c("Excluded case type(s):", excl, paste("(n=", length(which(case.types %in% excl)), ")", sep="")), 
                    collapse=" "))
 
-     if(all(hom %in% unique.case.types) == FALSE | all(het %in% unique.case.types) == FALSE) 
-          stop('all homotypic and heterotypic case types are not found in case type data') 
-     
      case.marks <- rep(NA, length(case.types))
      case.marks[which(case.types %in% het)] <- 0
      case.marks[which(case.types %in% hom)] <- 1
      
      ppp.dat <- cbind(xy, case.types, case.marks)[complete.cases(case.marks),]
      
-     epi.data.ppp <- spatstat::as.ppp(ppp.dat, spatstat::bounding.box.xy(xy), check=FALSE)
-     marks(epi.data.ppp) <- as.factor(ppp.dat[,ncol(ppp.dat)])
+     epi.data.ppp <- spatstat::ppp(xy[,1], xy[,2], 
+                                   spatstat::bounding.box.xy(xy), 
+                                   marks=as.factor(ppp.dat[,ncol(ppp.dat)]),
+                                   check=FALSE)
+     #marks(epi.data.ppp) <- 
 
-     return(as.data.frame(spatstat::Kcross(X=epi.data.ppp, i=0, j=1, r=r, correction=correction))[,-2])
+     return(as.data.frame(spatstat::Kcross(X=epi.data.ppp, i=0, j=1, r=r, correction=correction)))
 }
 
 ##' Cross type Pair Correlation Function using homotypic and heterotypic case types
 ##'
-##' A wrapper function of the \link[spatstat]{pcf} and \link[spatstat]{Kcross} functions from the \pkg{spatstat} package that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type Pair Correlation Function based on user defined case type homology
+##' A wrapper function of the \link[spatstat]{pcf} and \link[spatstat]{Kcross} functions from the \pkg{spatstat} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type Pair Correlation Function based on user defined case type homology
 ##'
 ##' @param epi.data a three-column numerical matrix that contains coordinates (\code{x} and \code{y}) for each case and information on case type (e.g. genotype or serotype). First two columns must be \code{x} and \code{y}
 ##' @param type an integer giving the column that contains information on case type. Must be an integer or a character
@@ -74,7 +74,7 @@ get.cross.K <- function(epi.data, # matrix containing xy coordinates and case ty
 ##' @param r a numeric vector giving the spatial distances
 ##' @param correction type of edge correction to be applied (default set to simple 'border' edge correction). See the \link[spatstat]{Kcross} function in the \pkg{spatstat} package for more details
 ##' 
-##' @return a data frame with two columns giving the radius \code{r} and value of the Pair Correlation Function \code{pcf}
+##' @return a data frame with two columns giving the radius \code{r}, the theoretical value of the Pair Correlation Function for a Poisson process (\code{theo}), and value of the Pair Correlation Function \code{pcf}
 ##'
 ##' @author Justin Lessler, Henrik Salje, and John Giles
 ##' 
@@ -92,18 +92,18 @@ get.cross.PCF <- function(epi.data, # matrix containing xy coordinates and case 
                           correction='border' # type of edge correction to be applied
 ){
      
-     if(is.matrix(epi.data) == FALSE && is.numeric(epi.data) == FALSE) stop('epi.data must be a numeric matrix')
+     if(is.matrix(epi.data) == FALSE | is.numeric(epi.data) == FALSE) stop('epi.data must be a numeric matrix')
+     tmp <- type > ncol(epi.data); if(tmp == TRUE) stop('type column defined is out of bounds')
      
      xy <- epi.data[, 1:2, drop=FALSE]
      case.types <- epi.data[, type]
      unique.case.types <- unique(case.types)
      
      if(is.null(het))  het <- unique.case.types[!(unique.case.types %in% hom)]
+     if(all(hom %in% unique.case.types) == FALSE | all(het %in% unique.case.types) == FALSE) 
+          stop('all homotypic and heterotypic case types are not found in case type data') 
      
-     hom <- as.numeric(hom)
-     het <- as.numeric(het)
-     
-     message("Calculating cross type Pair Correlation Function for:")
+     message("Calculating cross type PCF function for:")
      message(paste(c("Homotypic case type(s):", hom, paste("(n=", length(which(case.types %in% hom)), ")", sep="")), 
                    collapse=" "))
      message(paste(c("Heterotypic case type(s):", het, paste("(n=", length(which(case.types %in% het)), ")", sep="")), 
@@ -113,17 +113,17 @@ get.cross.PCF <- function(epi.data, # matrix containing xy coordinates and case 
      message(paste(c("Excluded case type(s):", excl, paste("(n=", length(which(case.types %in% excl)), ")", sep="")), 
                    collapse=" "))
      
-     if(all(hom %in% unique.case.types) == FALSE | all(het %in% unique.case.types) == FALSE) 
-          stop('all homotypic and heterotypic case types are not found in case type data') 
-     
      case.marks <- rep(NA, length(case.types))
      case.marks[which(case.types %in% het)] <- 0
      case.marks[which(case.types %in% hom)] <- 1
      
      ppp.dat <- cbind(xy, case.types, case.marks)[complete.cases(case.marks),]
      
-     epi.data.ppp <- spatstat::as.ppp(ppp.dat, spatstat::bounding.box.xy(xy), check=FALSE)
-     marks(epi.data.ppp) <- as.factor(ppp.dat[,ncol(ppp.dat)])
+     epi.data.ppp <- spatstat::ppp(xy[,1], xy[,2], 
+                                   spatstat::bounding.box.xy(xy), 
+                                   marks=as.factor(ppp.dat[,ncol(ppp.dat)]),
+                                   check=FALSE)
      
-     return(as.data.frame(spatstat::pcf(spatstat::Kcross(X=epi.data.ppp, i=0, j=1, r=r, correction=correction), spar=1, method='b'))[,-2])
+     return(as.data.frame(spatstat::pcf(spatstat::Kcross(X=epi.data.ppp, i=0, j=1, r=r, correction=correction), spar=0.8, method='c')))
 }
+

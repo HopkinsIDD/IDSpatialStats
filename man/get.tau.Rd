@@ -34,22 +34,16 @@ interested in}
 \value{
 The tau value for each distance we look at. If \code{comparison.type} is "representative", this is:
 
-\code{tau = get.pi(posmat, fun, r, r.low)/get.pi(posmat,fun,0,infinity)}
+\code{tau = get.pi(posmat, fun, r, r.low)/get.pi(posmat,fun,infinity,0)}
 
 If \code{comparison.type} is "independent", this is:
 
-\code{tau = get.theta(posmat, fun, r, r.low)/get.theta(posmat,fun,0,infinity)}
+\code{tau = get.theta(posmat, fun, r, r.low)/get.theta(posmat,fun,infinity,0)}
 }
 \description{
 returns the relative probability (or odds) that points at some distance
 from an index point share some relationship with that point versus
 the probability (or odds) any point shares that relationship with that point.
-}
-\examples{
-\dontrun{
-R/examples/get_tau.R
-}
-
 }
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
@@ -64,3 +58,5 @@ Other spatialtau: \code{\link{get.pi}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.tau}
+\concept{spatialtau}

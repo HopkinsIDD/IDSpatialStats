@@ -4,8 +4,8 @@
 \alias{get.tau.bootstrap}
 \title{Bootstrap \code{get.tau} values.}
 \usage{
-get.tau.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)), boot.iter,
-  comparison.type = "representative")
+get.tau.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
+  boot.iter, comparison.type = "representative")
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -28,12 +28,6 @@ Runs \code{get.tau} on multiple bootstraps of the data. Is formulated
 such that the relationship between points and themselves will not be
 calculated
 }
-\examples{
-\dontrun{
- R/examples/get_tau_bootstrap.R
- }
-
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.ci}},
   \code{\link{get.tau.permute}},
@@ -44,3 +38,4 @@ Other get.tau: \code{\link{get.tau.ci}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.tau}

@@ -26,12 +26,6 @@ Does permutations to calculate the null distribution of get theta
 if there were no spatial dependence. Randomly reassigns coordinates
 to each observation permutations times
 }
-\examples{
-\dontrun{
- R/examples/get_theta_permute.R
- }
-
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.ci}},
@@ -39,3 +33,4 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.typed.permute}},
   \code{\link{get.theta.typed}}, \code{\link{get.theta}}
 }
+\concept{get.theta}

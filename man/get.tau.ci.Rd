@@ -5,8 +5,8 @@
 \title{Bootstrap confidence interval for the \code{get.tau} values}
 \usage{
 get.tau.ci(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  boot.iter = 1000, comparison.type = "representative", ci.low = 0.025,
-  ci.high = 0.975)
+  boot.iter = 1000, comparison.type = "representative",
+  ci.low = 0.025, ci.high = 0.975)
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -32,12 +32,6 @@ tau values for all the distances examined
 Wrapper to \code{get.tau.bootstrap} that takes care of calulating
 the confidence intervals based on the bootstrapped values
 }
-\examples{
-\dontrun{
- R/examples/get_tau_ci.R
- }
-
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.permute}},
@@ -48,3 +42,4 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.tau}

@@ -19,7 +19,10 @@
 ##'
 ##' @author Justin Lessler, Henrik Salje, and John Giles
 ##'
-##' @example R/examples/sim_epidemic.R
+##' @example 
+##' \dontrun{
+##' R/examples/sim_epidemic.R
+##' }
 ##'
 
 sim.epidemic <- function(
@@ -120,9 +123,11 @@ sim.plot <- function(sim) {
 ##' 
 ##' @family est.wt
 ##'
-##' @example R/examples/est_wt_matrix.R
+##' @example 
+##' \dontrun{
+##' R/examples/est_wt_matrix.R
+##'}
 ##'
-
 est.wt.matrix <- function(
      case.times,                   # a vector of case times (the time step in which each case occurs)
      gen.t.dist,                   # the generation time distribution
@@ -152,7 +157,7 @@ est.wt.matrix <- function(
 ##' Estimate matrix of basic Wallinga-Teunis weights
 ##'
 ##' A function called by \code{est.wt.matrix}, which calculates the basic weights in the Wallinga-Teunis matrix given 
-##' the time of each case occurrence and the generation time distribution of the pathogen. Code adapted from the R0 package.
+##' the time of each case occurrence and the generation time distribution of the pathogen. Code adapted from the \pkg{R0} package.
 ##'
 ##' @param case.times a vector giving the occurrence time for each case
 ##' @param gen.t.dist a vector giving the generation time distribution for the infecting pathogen
@@ -168,7 +173,10 @@ est.wt.matrix <- function(
 ##' 
 ##' @family est.wt
 ##'
-##' @example R/examples/est_wt_matrix_weights.R
+##' @example 
+##' \dontrun{
+##' R/examples/est_wt_matrix_weights.R
+##'}
 ##'
 
 est.wt.matrix.weights <- function(
@@ -224,8 +232,10 @@ est.wt.matrix.weights <- function(
 ##' 
 ##' @family transdist
 ##'
-##' @example R/examples/get_transdist_theta.R
-##'
+##' @example 
+##' \dontrun{
+##' R/examples/get_transdist_theta.R
+##'}
 ##'
 
 # 'get.theta' is already taken
@@ -313,7 +323,10 @@ get.transdist.theta <-function(wal.teun.mat,
 ##' 
 ##' @family transdist
 ##'
-##' @example R/examples/est_transdist_theta_weights.R
+##' @example 
+##' \dontrun{
+##' R/examples/est_transdist_theta_weights.R
+##'}
 ##'
 
 est.transdist.theta.weights <- function(case.times,
@@ -379,7 +392,10 @@ est.transdist.theta.weights <- function(case.times,
 ##' @family est.wt
 ##' @family transdist
 ##'
-##' @example R/examples/est_transdist.R
+##' @example 
+##' \dontrun{
+##' R/examples/est_transdist.R
+##'}
 ##'
 
 est.transdist <- function(
@@ -523,7 +539,10 @@ est.transdist <- function(
 ##' 
 ##' @family transdist
 ##'
-##' @example R/examples/est_transdist_bootstrap_ci.R
+##' @example 
+##' \dontrun{
+##' R/examples/est_transdist_bootstrap_ci.R
+##' }
 ##'
 
 est.transdist.bootstrap.ci <- function(
@@ -646,7 +665,10 @@ est.transdist.bootstrap.ci <- function(
 ##' 
 ##' @family transdist
 ##'
-##' @example R/examples/est_transdist_temporal.R
+##' @example 
+##' \dontrun{
+##' R/examples/est_transdist_temporal.R
+##'}
 ##'
 
 est.transdist.temporal <- function(
@@ -770,7 +792,10 @@ est.transdist.temporal <- function(
 ##' 
 ##' @family transdist
 ##'
-##' @example R/examples/est_transdist_temporal_bootstrap_ci.R
+##' @example 
+##' \dontrun{
+##' R/examples/est_transdist_temporal_bootstrap_ci.R
+##'}
 ##'
 
 est.transdist.temporal.bootstrap.ci <- function(

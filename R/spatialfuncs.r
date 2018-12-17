@@ -5,29 +5,32 @@
 ##' specified by the passed in function with that point.
 ##'
 ##' @param posmat a matrix with columns x, y and any other named columns
-##'    columns needed by fun
-##' @param fun a function that takes in two rows of posmat and returns:
+##'    columns needed by \code{fun}
+##' @param fun a function that takes in two rows of \code{posmat} and returns:
 ##' \enumerate{
-##'      \item  for pairs included in the numerator and denominator
+##'      \item for pairs included in the numerator and denominator
 ##'      \item for pairs that should only be included in the denominator
 ##'      \item for pairs that should be ignored all together}
 ##' Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
 ##' referenced numerically
-##' so this is not available to the fun
+##' so this is not available to the \code{fun}
 ##' @param r the series of spatial distances (or there maximums) we are
 ##'          interested in
 ##' @param r.low the low end of each range, 0 by default
 ##'
 ##' @return  pi value for each distance range that we look at. Where:
 ##'
-##' \deqn{ \pi(d_1,d_2) = \frac{\sum \boldsymbol{1} (d_{ij} \in (d_1,d_2)) \boldsymbol{1} (f(i,j)=1) }{\sum \sum \boldsymbol{1} (d_{ij} \in (d_1,d_2)) \boldsymbol{1} (f(i,j) \in \{1,2\}) }}
+##'\deqn{ \pi(d_1, d_2) = \frac{\sum \boldsymbol{1} (d_{ij} \in [d_1,d_2)) \boldsymbol{1} (f(i,j)=1) }{\sum \sum \boldsymbol{1} [d_{ij} \in (d_1,d_2)) \boldsymbol{1} (f(i,j) \in \{1,2\}) }}
 ##'
 ##' @author Justin Lessler and Henrik Salje
 ##'
 ##' @family get.pi
 ##' @family spatialtau
 ##'
-##' @example R/examples/get_pi.R
+##' @example 
+##' \dontrun{
+##' R/examples/get_pi.R
+##' }
 ##'
 
 get.pi <- function(posmat,
@@ -79,15 +82,19 @@ get.pi <- function(posmat,
 ##'
 ##' @return  theta value for each distance range that we look at. Where:
 ##'
-##' \deqn{ \theta(d_1,d_2) = \frac{\sum \boldsymbol{1} (d_{ij} \in (d_1,d_2)) \boldsymbol{1} (f(i,j)=1) }{\sum \sum \boldsymbol{1} (d_{ij} \in (d_1,d_2)) \boldsymbol{1} (f(i,j)=2) }}
+##' \deqn{ \theta(d_1,d_2) = \frac{\sum \boldsymbol{1} d_{ij} \in [d_1,d_2)) \boldsymbol{1} (f(i,j)=1) }{\sum \sum \boldsymbol{1} d_{ij} \in [d_1,d_2)) \boldsymbol{1} (f(i,j)=2) }}
 ##'
 ##' @author Justin Lessler and Henrik Salje
 ##'
 ##' @family get.theta
 ##' @family spatialtau
 ##'
-##' @example R/examples/get_theta.R
+##' @example 
+##' \dontrun{
+##' R/examples/get_theta.R
+##' }
 ##'
+
 get.theta <- function(posmat,
                       fun,
                       r = 1,
@@ -132,7 +139,10 @@ get.theta <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example R/examples/get_pi_typed.R
+##' @example 
+##' \dontrun{
+##' R/examples/get_pi_typed.R
+##' }
 ##'
 get.pi.typed <- function(posmat,
                          typeA = -1,
@@ -176,7 +186,10 @@ get.pi.typed <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example R/examples/get_theta_typed.R
+##' @example 
+##' \dontrun{
+##' R/examples/get_theta_typed.R
+##' }
 ##'
 get.theta.typed <- function(posmat,
                             typeA = -1,
@@ -221,10 +234,10 @@ get.theta.typed <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @examples
+##' @example 
 ##' \dontrun{
-##'  R/examples/get_pi_ci.R
-##'  }
+##' R/examples/get_pi_ci.R
+##' }
 ##'
 get.pi.ci <- function(posmat,
                       fun,
@@ -270,10 +283,10 @@ get.pi.ci <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @examples
+##' @example 
 ##' \dontrun{
-##'  R/examples/get_theta_ci.R
-##'  }
+##' R/examples/get_theta_ci.R
+##' }
 ##'
 get.theta.ci <- function(posmat,
                          fun,
@@ -319,7 +332,7 @@ get.theta.ci <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_pi_bootstrap.R
 ##'  }
@@ -377,7 +390,7 @@ get.pi.bootstrap <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_theta_bootstrap.R
 ##'  }
@@ -430,7 +443,7 @@ get.theta.bootstrap <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_pi_typed_bootstrap.R
 ##'  }
@@ -481,7 +494,7 @@ get.pi.typed.bootstrap <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_theta_typed_bootstrap.R
 ##'  }
@@ -514,7 +527,6 @@ get.theta.typed.bootstrap <- function(posmat,
   return(rc)
 }
 
-
 ##' get the null distribution of the \code{get.pi} function
 ##'
 ##' Does permutations to calculate the null distribution of get pi
@@ -531,7 +543,7 @@ get.theta.typed.bootstrap <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_pi_permute.R
 ##'  }
@@ -586,7 +598,7 @@ get.pi.permute <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_theta_permute.R
 ##'  }
@@ -644,7 +656,7 @@ get.theta.permute <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_pi_typed_permute.R
 ##'  }
@@ -705,7 +717,7 @@ get.pi.typed.permute <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_theta_typed_permute.R
 ##'  }
@@ -776,18 +788,18 @@ get.theta.typed.permute <- function(posmat,
 ##'
 ##' @return The tau value for each distance we look at. If \code{comparison.type} is "representative", this is:
 ##'
-##' \code{tau = get.pi(posmat, fun, r, r.low)/get.pi(posmat,fun,0,infinity)}
+##' \code{tau = get.pi(posmat, fun, r, r.low)/get.pi(posmat,fun,infinity,0)}
 ##'
 ##' If \code{comparison.type} is "independent", this is:
 ##'
-##' \code{tau = get.theta(posmat, fun, r, r.low)/get.theta(posmat,fun,0,infinity)}
+##' \code{tau = get.theta(posmat, fun, r, r.low)/get.theta(posmat,fun,infinity,0)}
 ##'
 ##' @author Justin Lessler and Henrik Salje
 ##'
 ##' @family get.tau
 ##' @family spatialtau
 ##'
-##' @examples
+##' @example 
 ##' \dontrun{
 ##' R/examples/get_tau.R
 ##' }
@@ -827,7 +839,7 @@ get.tau <- function(posmat,
   return(rc)
 }
 ##'
-##' Optimizewd version of \code{get.tau} for typed data
+##' Optimized version of \code{get.tau} for typed data
 ##'
 ##' Version of th e \code{get.tau} function that is optimized for
 ##' statically typed data. That is data where we want the relationship between
@@ -850,8 +862,10 @@ get.tau <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @example R/examples/get_tau_typed.R
-##'
+##' @example 
+##' \dontrun{
+##' R/examples/get_tau_typed.R
+##'}
 get.tau.typed <- function(posmat,
                           typeA = -1,
                           typeB = -1,
@@ -906,7 +920,7 @@ get.tau.typed <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_tau_ci.R
 ##'  }
@@ -955,7 +969,7 @@ get.tau.ci <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_tau_bootstrap.R
 ##'  }
@@ -1022,7 +1036,7 @@ get.tau.bootstrap <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_tau_typed_bootstrap.R
 ##'  }
@@ -1086,7 +1100,7 @@ get.tau.typed.bootstrap <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##'  R/examples/get_tau_permute.R
 ##'  }
@@ -1159,7 +1173,7 @@ get.tau.permute <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @examples
+##' @example
 ##' \dontrun{
 ##' R/examples/get_tau_typed_permute.R
 ##' }

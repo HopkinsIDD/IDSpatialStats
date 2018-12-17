@@ -30,12 +30,6 @@ a matrix with a row for the high and low values and
 Wrapper to \code{get.theta.bootstrap} that takes care of calculating the
 confience intervals based on the bootstrapped values.
 }
-\examples{
-\dontrun{
- R/examples/get_theta_ci.R
- }
-
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.permute}},
@@ -46,3 +40,4 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
 \author{
 Justin Lessler
 }
+\concept{get.theta}

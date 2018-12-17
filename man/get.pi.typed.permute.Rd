@@ -28,12 +28,6 @@ Does permutations to calculate the null distribution of get pi
 if there were no spatial dependence. Randomly reassigns coordinates
 to each observation permutations times
 }
-\examples{
-\dontrun{
- R/examples/get_pi_typed_permute.R
- }
-
-}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
@@ -43,3 +37,4 @@ Other get.pi: \code{\link{get.pi.bootstrap}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.pi}

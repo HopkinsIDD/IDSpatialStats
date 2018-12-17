@@ -4,8 +4,8 @@
 \alias{get.tau.permute}
 \title{get the null distribution of the \code{get.tau} function}
 \usage{
-get.tau.permute(posmat, fun, r = 1, r.low = rep(0, length(r)), permutations,
-  comparison.type = "representative")
+get.tau.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
+  permutations, comparison.type = "representative")
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -28,12 +28,6 @@ Does permutations to calculate the null distribution of get pi
 if there were no spatial dependence. Randomly reassigns coordinates
 to each observation permutations times
 }
-\examples{
-\dontrun{
- R/examples/get_tau_permute.R
- }
-
-}
 \seealso{
 Other get.tau: \code{\link{get.tau.bootstrap}},
   \code{\link{get.tau.ci}},
@@ -44,3 +38,4 @@ Other get.tau: \code{\link{get.tau.bootstrap}},
 \author{
 Justin Lessler and Henrik Salje
 }
+\concept{get.tau}

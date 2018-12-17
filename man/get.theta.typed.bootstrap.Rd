@@ -27,12 +27,6 @@ theta values for all the distances we looked at
 Bootstraps typed pi values. Makes sure distances between a sample and
 another draw of itself are left out
 }
-\examples{
-\dontrun{
- R/examples/get_theta_typed_bootstrap.R
- }
-
-}
 \seealso{
 Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.ci}},
@@ -40,3 +34,4 @@ Other get.theta: \code{\link{get.theta.bootstrap}},
   \code{\link{get.theta.typed.permute}},
   \code{\link{get.theta.typed}}, \code{\link{get.theta}}
 }
+\concept{get.theta}
