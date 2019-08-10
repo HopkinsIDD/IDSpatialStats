@@ -6,9 +6,9 @@ The current implementation of the package includes a function which simulates in
 
 Detailed description of the methods can be found here:
 
-[The IDSpatialStats R package: Quantifying spatial dependence of infectious disease spread (Giles et al. )]()
+[The IDSpatialStats R package: Quantifying spatial dependence of infectious disease spread (Giles et al. in review)]()
 
-[Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2012)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
+[Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
 
 [Measuring spatial dependence for infectious disease epidemiology (Lessler et al. 2016)](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249)
 
