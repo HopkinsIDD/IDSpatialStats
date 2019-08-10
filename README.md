@@ -1,6 +1,6 @@
 ## IDSpatialStats
 
-This github repository provides source code for the `IDSpatialStats` R package, which is designed to help epidemiologists assess the scale of spatial and temporal dependence in epidemic case occurrence data. 
+This GitHub repository provides source code for the `IDSpatialStats` R package, which is designed to help epidemiologists assess the scale of spatial and temporal dependence in epidemic case occurrence data. 
 
 The current implementation of the package includes a function which simulates infectious disease spread as a spatial branching process, along with two novel spatial statistics that estimate: 1) the mean of the spatial transmission kernel, which is a measure of fine-scale spatial dependence between two cases, and 2) the tau-statistic, a measure of global clustering based on pathogen subtype.
 
@@ -21,7 +21,7 @@ To install the offical release of the `IDSpatialStats` package, open `R` and typ
 install.packages('IDSpatialStats')
 ```
 
-To install the install the development version, first install the `devtools` package and then install `IDSpatialStats` from source via github:
+To install the install the development version, first install the `devtools` package and then install `IDSpatialStats` from source via GitHub:
 ```
 install.packages('devtools')
 library(devtools)
@@ -32,6 +32,6 @@ install_github('HopkinsIDD/IDSpatialStats')
 
 For general questions, contact package maintainers John Giles (giles@jhu.edu) or Justin Lessler (justin@jhu.edu).
 
-To report bugs or problems with documentation, please go to the [Issues](https://github.com/HopkinsIDD/IDSpatialStats/issues) page associated with this github page and click *new issue*.
+To report bugs or problems with documentation, please go to the [Issues](https://github.com/HopkinsIDD/IDSpatialStats/issues) page associated with this GitHub page and click *new issue*.
 
 If you wish to contribute to `IDSpatialStats`, please get in touch via email and then fork the latest version of the package. After committing your code to your own forked version, submit a pull request when you are ready to share.
