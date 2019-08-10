@@ -21,4 +21,4 @@ install_github('HopkinsIDD/IDSpatialStats')
 ```
 
 ### Bug reports
-To report bugs or problems with documentation, please go to the [Issues](https://pages.github.com/) page associated with this github page and click *new issue*.
+To report bugs or problems with documentation, please go to the [Issues](https://github.com/HopkinsIDD/IDSpatialStats/issues) page associated with this github page and click *new issue*.
