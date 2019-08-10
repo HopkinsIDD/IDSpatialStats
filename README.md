@@ -13,12 +13,17 @@ To install the offical release of the `IDSpatialStats` package, open `R` and typ
 install.packages('IDSpatialStats')
 ```
 
-To install the install the development version, first install the `devtools` package and then install the `IDSpatialStats` from source via github:
+To install the install the development version, first install the `devtools` package and then install `IDSpatialStats` from source via github:
 ```
 install.packages('devtools')
 library(devtools)
 install_github('HopkinsIDD/IDSpatialStats')
 ```
 
-### Bug reports
+### Troubleshooting
+
+For general questions, contact package maintainers John Giles (giles@jhu.edu) or Justin Lessler (justin@jhu.edu).
+
 To report bugs or problems with documentation, please go to the [Issues](https://github.com/HopkinsIDD/IDSpatialStats/issues) page associated with this github page and click *new issue*.
+
+If you wish to contribute to `IDSpatialStats`, please get in touch via email and then fork the latest version of the package. After committing your code to your own forked version, submit a pull request when you are ready to share.
