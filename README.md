@@ -4,6 +4,12 @@ This github repository provides source code for the `IDSpatialStats` R package, 
 
 The current implementation of the package includes a function which simulates infectious disease spread as a spatial branching process, along with two novel spatial statistics that estimate: 1) the mean of the spatial transmission kernel, which is a measure of fine-scale spatial dependence between two cases, and 2) the tau-statistic, a measure of global clustering based on pathogen subtype.
 
+Detailed description of the methods can be found here:
+
+[Measuring Spatial Dependence for Infectious Disease Epidemiology](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249)
+
+
+
 This package is maintained by John Giles (@gilesjohnr) and Justin Lessler (@jlessler) as part of the Johns Hopkins Bloomberg School of Public Health Infectious Disease Dynamics team (@HopkinsIDD).
 
 ### Installation
