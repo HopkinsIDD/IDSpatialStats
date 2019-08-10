@@ -9,7 +9,14 @@ This package is maintained by John Giles (@gilesjohnr) and Justin Lessler (@jles
 ### Installation
 
 To install the offical release of the `IDSpatialStats` package, open `R` and type:
-
 ```
 install.packages('IDSpatialStats')
 ```
+
+To install the install the development version, first install the `devtools` package and then install the `IDSpatialStats` from source via github:
+```
+install.packages('devtools')
+library(devtools)
+install_github('HopkinsIDD/IDSpatialStats')
+```
+
