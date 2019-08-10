@@ -8,12 +8,9 @@ Detailed description of the methods can be found here:
 
 [The IDSpatialStats R package: Quantifying spatial dependence of infectious disease spread (Giles et al. in review)]()
 
-[Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
-
 [Measuring spatial dependence for infectious disease epidemiology (Lessler et al. 2016)](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249)
 
-
-
+[Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
 
 This package is maintained by John Giles (@gilesjohnr) and Justin Lessler (@jlessler) as part of the Johns Hopkins Bloomberg School of Public Health Infectious Disease Dynamics team (@HopkinsIDD).
 
