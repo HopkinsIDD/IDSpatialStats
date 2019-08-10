@@ -1,4 +1,4 @@
-# IDSpatialStats
+## IDSpatialStats
 
 This github repository provides source code for the `IDSpatialStats` R package, which is designed to help epidemiologists assess the scale of spatial and temporal dependence in epidemic case occurrence data. 
 
