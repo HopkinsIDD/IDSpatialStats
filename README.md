@@ -24,8 +24,7 @@ install.packages('IDSpatialStats')
 To install the install the development version, first install the `devtools` package and then install `IDSpatialStats` from source via GitHub:
 ```
 install.packages('devtools')
-library(devtools)
-install_github('HopkinsIDD/IDSpatialStats')
+devtools::install_github('HopkinsIDD/IDSpatialStats')
 ```
 
 ### Troubleshooting
