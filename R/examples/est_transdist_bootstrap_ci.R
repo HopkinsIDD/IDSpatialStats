@@ -1,3 +1,5 @@
+\donttest{
+
 set.seed(1)
 
 # Exponentially distributed transmission kernel with mean and standard deviation = 100
@@ -24,4 +26,6 @@ b <- est.transdist.bootstrap.ci(epi.data=a,
                                 ci.low=0.025,
                                 ci.high=0.975,
                                 parallel=FALSE)
+b
 
+}

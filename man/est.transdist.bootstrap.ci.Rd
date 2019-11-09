@@ -44,6 +44,39 @@ a list object containing the point estimate for mean transmission distance and l
 \description{
 Runs \code{est.trandsdist} on multiple bootstraps of the data and calculates confidence intervals for the mean transmission distance.
 }
+\examples{
+\donttest{
+
+set.seed(1)
+
+# Exponentially distributed transmission kernel with mean and standard deviation = 100
+dist.func <- alist(n=1, a=1/100, rexp(n, a)) 
+
+# Simulate epidemic
+a <- sim.epidemic(R=2.5,
+                  gen.t.mean=7,
+                  gen.t.sd=2,
+                  min.cases=20,
+                  tot.generations=5,
+                  trans.kern.func=dist.func)
+
+# Estimate mean transmission kernel and its bootstrapped confidence intervals
+b <- est.transdist.bootstrap.ci(epi.data=a,
+                                gen.t.mean=7,
+                                gen.t.sd=2,
+                                t1=0,
+                                max.sep=1e10,
+                                max.dist=1e10,
+                                n.transtree.reps=10,
+                                mean.equals.sd=TRUE,
+                                boot.iter=10,
+                                ci.low=0.025,
+                                ci.high=0.975,
+                                parallel=FALSE)
+b
+
+}
+}
 \references{
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }

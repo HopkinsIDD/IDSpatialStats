@@ -1,3 +1,5 @@
+\donttest{
+     
 set.seed(123)
 
 # Exponentially distributed transmission kernel with mean and standard deviation = 100
@@ -23,12 +25,15 @@ b <- est.transdist.temporal(epi.data=a,
                             n.transtree.reps=5,
                             mean.equals.sd=TRUE,
                             parallel=FALSE)
+b
 
-plot(b[,1], pch=19, col='grey', ylim=c(min(b[,1], na.rm=TRUE), max(b[,1], na.rm=TRUE)), 
+plot(b[,2], pch=19, col='grey', ylim=c(min(b[,2], na.rm=TRUE), max(b[,2], na.rm=TRUE)), 
      xlab='Time step', ylab='Estimated mean of transmission kernel')
 abline(h=100, col='red', lty=2)
 axis(3, b[,2])
 
-low <- loess(b[,1] ~ as.vector(1:length(b[,1])))
-low <- predict(low, newdata=data.frame(as.vector(1:length(b[,1]))))
+low <- loess(b[,2] ~ as.vector(1:length(b[,2])))
+low <- predict(low, newdata=data.frame(as.vector(1:length(b[,2]))))
 lines(low, lwd=3, col='blue')
+
+}

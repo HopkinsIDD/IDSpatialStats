@@ -1,3 +1,5 @@
+\donttest{
+
 set.seed(123)
 
 # Exponentially distributed transmission kernel with mean and standard deviation = 100
@@ -20,3 +22,5 @@ b <- est.transdist(epi.data=a,
                    max.dist=1e10,
                    n.transtree.reps=10)
 b
+
+}

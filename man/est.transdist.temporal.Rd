@@ -39,6 +39,47 @@ NAs are returned for time steps which contain fewer than three cases
 Estimates the change in mean transmission distance over the duration of the epidemic by running \code{est.trandsdist} on all cases 
 occuring up to each time point.
 }
+\examples{
+\donttest{
+     
+set.seed(123)
+
+# Exponentially distributed transmission kernel with mean and standard deviation = 100
+dist.func <- alist(n=1, a=1/100, rexp(n, a)) 
+
+# Simulate epidemic
+a <- sim.epidemic(R=2,
+                  gen.t.mean=7,
+                  gen.t.sd=2,
+                  tot.generations=7,
+                  min.cases=30,
+                  trans.kern.func=dist.func)
+
+a <- a[sample(1:nrow(a), 50),] # subsample a to 50 observations
+
+# Estimate mean transmission kernel over time
+b <- est.transdist.temporal(epi.data=a,
+                            gen.t.mean=7,
+                            gen.t.sd=2,
+                            t1=0,
+                            max.sep=1e10,
+                            max.dist=1e10,
+                            n.transtree.reps=5,
+                            mean.equals.sd=TRUE,
+                            parallel=FALSE)
+b
+
+plot(b[,2], pch=19, col='grey', ylim=c(min(b[,2], na.rm=TRUE), max(b[,2], na.rm=TRUE)), 
+     xlab='Time step', ylab='Estimated mean of transmission kernel')
+abline(h=100, col='red', lty=2)
+axis(3, b[,2])
+
+low <- loess(b[,2] ~ as.vector(1:length(b[,2])))
+low <- predict(low, newdata=data.frame(as.vector(1:length(b[,2]))))
+lines(low, lwd=3, col='blue')
+
+}
+}
 \references{
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }

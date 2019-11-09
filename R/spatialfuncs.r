@@ -144,6 +144,7 @@ get.theta <- function(posmat,
 ##' R/examples/get_pi_typed.R
 ##' }
 ##'
+
 get.pi.typed <- function(posmat,
                          typeA = -1,
                          typeB = -1,
@@ -164,7 +165,6 @@ get.pi.typed <- function(posmat,
             rc=double(length(r))
   )$rc)
 }
-
 
 
 ##'
@@ -191,6 +191,7 @@ get.pi.typed <- function(posmat,
 ##' R/examples/get_theta_typed.R
 ##' }
 ##'
+
 get.theta.typed <- function(posmat,
                             typeA = -1,
                             typeB = -1,
@@ -239,6 +240,7 @@ get.theta.typed <- function(posmat,
 ##' R/examples/get_pi_ci.R
 ##' }
 ##'
+
 get.pi.ci <- function(posmat,
                       fun,
                       r=1,
@@ -259,8 +261,6 @@ get.pi.ci <- function(posmat,
   return(rc)
 }
  
-
-
 
 ##' Calculate bootstrapped confidence intervals for \code{get.theta} values.
 ##'
@@ -288,6 +288,7 @@ get.pi.ci <- function(posmat,
 ##' R/examples/get_theta_ci.R
 ##' }
 ##'
+
 get.theta.ci <- function(posmat,
                          fun,
                          r=1,
@@ -307,7 +308,6 @@ get.theta.ci <- function(posmat,
 
   return(rc)
 }
-
 
 
 ##' Bootstrap \code{get.pi} values.
@@ -337,6 +337,7 @@ get.theta.ci <- function(posmat,
 ##'  R/examples/get_pi_bootstrap.R
 ##'  }
 ##'
+
 get.pi.bootstrap <- function(posmat,
                              fun,
                              r=1,
@@ -395,6 +396,7 @@ get.pi.bootstrap <- function(posmat,
 ##'  R/examples/get_theta_bootstrap.R
 ##'  }
 ##'
+
 get.theta.bootstrap <- function(posmat,
                                 fun,
                                 r=1,
@@ -426,7 +428,6 @@ get.theta.bootstrap <- function(posmat,
 }
 
 
-
 ##' runs bootstrapping on \code{get.pi.typed}
 ##'
 ##' Bootstraps typed pi values. Makes sure distances between a sample and
@@ -448,6 +449,7 @@ get.theta.bootstrap <- function(posmat,
 ##'  R/examples/get_pi_typed_bootstrap.R
 ##'  }
 ##'
+
 get.pi.typed.bootstrap <- function(posmat,
                                    typeA = -1,
                                    typeB = -1,
@@ -475,7 +477,6 @@ get.pi.typed.bootstrap <- function(posmat,
   }
   return(rc)
 }
-
 
 
 ##' runs bootstrapping on \code{get.theta.typed}
@@ -527,6 +528,7 @@ get.theta.typed.bootstrap <- function(posmat,
   return(rc)
 }
 
+
 ##' get the null distribution of the \code{get.pi} function
 ##'
 ##' Does permutations to calculate the null distribution of get pi
@@ -548,6 +550,7 @@ get.theta.typed.bootstrap <- function(posmat,
 ##'  R/examples/get_pi_permute.R
 ##'  }
 ##'
+
 get.pi.permute <- function(posmat,
                            fun,
                            r=1,
@@ -603,6 +606,7 @@ get.pi.permute <- function(posmat,
 ##'  R/examples/get_theta_permute.R
 ##'  }
 ##'
+
 get.theta.permute <- function(posmat,
                               fun,
                               r=1,
@@ -661,6 +665,7 @@ get.theta.permute <- function(posmat,
 ##'  R/examples/get_pi_typed_permute.R
 ##'  }
 ##'
+
 get.pi.typed.permute <- function(posmat,
                                  typeA = -1,
                                  typeB = -1,
@@ -722,6 +727,7 @@ get.pi.typed.permute <- function(posmat,
 ##'  R/examples/get_theta_typed_permute.R
 ##'  }
 ##'
+
 get.theta.typed.permute <- function(posmat,
                                     typeA = -1,
                                     typeB = -1,
@@ -757,7 +763,6 @@ get.theta.typed.permute <- function(posmat,
   }
   return(rc)
 }
-
 
 
 ##' generalized version of \code{get.tau}
@@ -804,6 +809,7 @@ get.theta.typed.permute <- function(posmat,
 ##' R/examples/get_tau.R
 ##' }
 ##'
+
 get.tau <- function(posmat,
                     fun,
                     r = 1,
@@ -838,7 +844,8 @@ get.tau <- function(posmat,
               ycol)
   return(rc)
 }
-##'
+
+
 ##' Optimized version of \code{get.tau} for typed data
 ##'
 ##' Version of th e \code{get.tau} function that is optimized for
@@ -866,6 +873,8 @@ get.tau <- function(posmat,
 ##' \dontrun{
 ##' R/examples/get_tau_typed.R
 ##'}
+##'
+
 get.tau.typed <- function(posmat,
                           typeA = -1,
                           typeB = -1,
@@ -899,7 +908,6 @@ get.tau.typed <- function(posmat,
 }
 
 
-
 ##' Bootstrap confidence interval for the \code{get.tau} values
 ##'
 ##' Wrapper to \code{get.tau.bootstrap} that takes care of calulating
@@ -925,6 +933,7 @@ get.tau.typed <- function(posmat,
 ##'  R/examples/get_tau_ci.R
 ##'  }
 ##'
+
 get.tau.ci <- function(posmat,
                        fun,
                        r=1,
@@ -974,6 +983,7 @@ get.tau.ci <- function(posmat,
 ##'  R/examples/get_tau_bootstrap.R
 ##'  }
 ##'
+
 get.tau.bootstrap <- function(posmat,
                               fun,
                               r=1,
@@ -1015,7 +1025,6 @@ get.tau.bootstrap <- function(posmat,
 }
 
 
-
 ##' runs bootstrapping for \code{get.tau.typed}
 ##'
 ##' @param posmat a matrix with columns type, x and y
@@ -1041,6 +1050,7 @@ get.tau.bootstrap <- function(posmat,
 ##'  R/examples/get_tau_typed_bootstrap.R
 ##'  }
 ##'
+
 get.tau.typed.bootstrap <- function(posmat,
                                     typeA = -1,
                                     typeB = -1,
@@ -1080,7 +1090,6 @@ get.tau.typed.bootstrap <- function(posmat,
 }
 
 
-
 ##' get the null distribution of the \code{get.tau} function
 ##'
 ##' Does permutations to calculate the null distribution of get pi
@@ -1105,6 +1114,7 @@ get.tau.typed.bootstrap <- function(posmat,
 ##'  R/examples/get_tau_permute.R
 ##'  }
 ##'
+
 get.tau.permute <- function(posmat,
                             fun,
                             r=1,
@@ -1151,7 +1161,6 @@ get.tau.permute <- function(posmat,
 }
 
 
-
 ##' get the null distribution for the \code{get.tau.typed} function
 ##'
 ##'
@@ -1178,6 +1187,7 @@ get.tau.permute <- function(posmat,
 ##' R/examples/get_tau_typed_permute.R
 ##' }
 ##'
+
 get.tau.typed.permute <- function(posmat,
                                   typeA = -1,
                                   typeB = -1,

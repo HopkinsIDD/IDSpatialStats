@@ -1,3 +1,5 @@
+\donttest{
+
 set.seed(1)
 
 gen.t.mean <- 7
@@ -36,3 +38,4 @@ b <- est.transdist.theta.weights(case.times=case.times,
                                  gen.t.mean=gen.t.mean, 
                                  t1=t1, 
                                  t.density=t.density)
+}

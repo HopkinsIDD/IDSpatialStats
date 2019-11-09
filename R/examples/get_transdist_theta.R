@@ -1,3 +1,5 @@
+\donttest{
+
 case.times <- c(1,2,2,3,3)
 gen <- c(0, 2/3, 1/3, 0, 0)
 t.density <- gen/sum(gen)
@@ -12,3 +14,5 @@ a <- get.transdist.theta(wal.teun.mat=wt,
                          cases=case.times,
                          gen.t.mean=gen.time,
                          max.sep=ngen*2)
+
+}
