@@ -13,9 +13,8 @@ test_that("get.pi.permute returns appropriate values for test case 1 (equilatera
 
 
     #should return .5 for every permutation
-    res <- get.pi.permute(x, test, 1.5, 0, 500)
-    res2 <- get.pi.typed.permute(x, 1, 2, 1.5, 0, 500)
-
+    res <- get.pi.permute(x, test, 1.5, 0, 500)[,-(1:2)]
+    res2 <- get.pi.typed.permute(x, 1, 2, 1.5, 0, 500)[,-(1:2)]
 
     expect_that(as.numeric(res), equals(rep(0.5,500)))
     expect_that(as.numeric(res2), equals(rep(0.5,500)))
@@ -36,16 +35,16 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
 
     #the mean of the null distribution should be 0.5
     #the 95% CI equals 0,1 with windows
-    res <- get.pi.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)
-    res2 <- get.pi.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)
+    res <- get.pi.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
+    res2 <- get.pi.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
 
-    expect_that(colMeans(res,na.rm=T), equals(rep(.5,3), tolerance=0.1))
-    expect_that(colMeans(res2, na.rm=T), equals(rep(.5,3), tolerance=0.1))
+    expect_that(rowMeans(res,na.rm=T), equals(rep(.5,3), tolerance=0.1))
+    expect_that(rowMeans(res2, na.rm=T), equals(rep(.5,3), tolerance=0.1))
 
     for (i in 1:3) {
-        expect_that(as.numeric(quantile(res[,i], probs=c(.025,.975))),
+        expect_that(as.numeric(quantile(res[i,], probs=c(.025,.975))),
                     equals(c(0,1)))
-        expect_that(as.numeric(quantile(res2[,i], probs=c(.025,.975))),
+        expect_that(as.numeric(quantile(res2[i,], probs=c(.025,.975))),
                     equals(c(0,1)))
     }
 
@@ -53,9 +52,9 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
     #since quantiles, that is 0.25 and 0.75
     res <- get.pi.permute(x, test, 4,0, 500)
     res2 <- get.pi.typed.permute(x, 1, 2, 4,0, 500)
-    expect_that(as.numeric(quantile(res[,1], probs=c(.025,.975))),
+    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975))),
                 equals(c(0.25,0.75)))
-    expect_that(as.numeric(quantile(res2[,1], probs=c(.025,.975))),
+    expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975))),
                 equals(c(0.25,0.75)))
 })
 

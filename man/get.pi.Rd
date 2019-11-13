@@ -34,6 +34,24 @@ Generalized version of the \code{get.pi} function that takes in an arbitrary fun
 returns the probability that a point within a particular range of a point of interest shares the relationship
 specified by the passed in function with that point.
 }
+\examples{
+\donttest{
+
+data(DengueSimulationR02)
+
+r.max<-seq(20,1000,20)
+r.min<-seq(0,980,20)
+
+sero.type.func<-function(a,b,tlimit=20){
+  if(a[5]==b[5]&(abs(a[3]-b[3])<=tlimit)){rc=1}
+  else{rc=2}
+  return(rc)
+}
+
+sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
+
+}
+}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},

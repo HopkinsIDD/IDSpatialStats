@@ -1,3 +1,5 @@
+\donttest{
+
 data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
@@ -10,6 +12,8 @@ tmp<-cbind(DengueSimR02,type=type)
 
 typed.tau<-get.tau.typed(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min,comparison.type = "independent")
 
-plot(r.mid,typed.tau,log="y",cex.axis=1.25,
+plot(r.mid,typed.tau$tau,log="y",cex.axis=1.25,
      xlab="Distance (m)",ylab="Tau",cex.main=0.9,lwd=2,type="l")
 abline(h=1,lty=2)
+
+}

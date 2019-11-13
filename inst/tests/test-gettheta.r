@@ -8,11 +8,11 @@ test_that("get.theta returns Inf when all relations are 1", { #Would throwing an
     test <- function(a,b) {return(1)}
 
     #with no lower limit
-    res <- get.theta(x,test,seq(10,100,10))
+    res <- get.theta(x,test,seq(10,100,10))$theta
     expect_that(res,equals(rep(Inf,10)))
 
     #with lower and upper limit
-    res <- get.theta(x,test,seq(10,100,10), seq(0,90,10))
+    res <- get.theta(x,test,seq(10,100,10), seq(0,90,10))$theta
     expect_that(res,equals(rep(Inf,10)))
 })
 
@@ -26,11 +26,11 @@ test_that("get.theta returns 0 when all relations are 2", {
     test <- function(a,b) {return(2)}
 
     #with no lower limit
-    res <- get.theta(x,test,seq(10,100,10))
+    res <- get.theta(x,test,seq(10,100,10))$theta
     expect_that(res,equals(rep(0,10)))
 
     #with lower and upper limit
-    res <- get.theta(x,test,seq(10,100,10), seq(0,90,10))
+    res <- get.theta(x,test,seq(10,100,10), seq(0,90,10))$theta
     expect_that(res,equals(rep(0,10)))
 })
 
@@ -51,16 +51,16 @@ test_that("get.theta returns appropriate values for cannonical test case 1 (equi
 
 
     #first no lower limit
-    res <- get.theta(x,test,1.5)
-    res2 <- get.theta.typed(x,1,2,1.5)
+    res <- get.theta(x,test,1.5)$theta
+    res2 <- get.theta.typed(x,1,2,1.5)$theta
 
     expect_that(res, equals(1))
     expect_that(res2, equals(1))
 
     #now with a lower limit
 
-    res <- get.theta(x,test,1.5,.5)
-    res2 <- get.theta.typed(x,1,2,1.5,.5)
+    res <- get.theta(x,test,1.5,.5)$theta
+    res2 <- get.theta.typed(x,1,2,1.5,.5)$theta
 
     expect_that(res, equals(1))
     expect_that(res2, equals(1))
@@ -81,8 +81,8 @@ test_that("get.theta returns appropriate values cannonical test case 2 (points o
 
 
     #pi 0,1.5 should be 1, 1.5-2.5 should be 0.5 and 2.5+ should be 0
-    res <- get.theta(x, test, c(1.5,2.5,Inf), c(0,1.5,2.5))
-    res2 <- get.theta.typed(x, 1, 2, c(1.5,2.5,1000), c(0,1.5,2.5))
+    res <- get.theta(x, test, c(1.5,2.5,Inf), c(0,1.5,2.5))$theta
+    res2 <- get.theta.typed(x, 1, 2, c(1.5,2.5,1000), c(0,1.5,2.5))$theta
 
     expect_that(res,equals(c(Inf,1,0)))
     expect_that(res2,equals(c(Inf,1,0)))
@@ -103,13 +103,13 @@ test_that("get.theta and get.theta.typed have same behavior on random data", {
     }
 
     #no lower limit
-    res1 <- get.theta(x,test,seq(10,100,10))
-    res2 <- get.theta.typed(x, 1,1, seq(10,100,10))
+    res1 <- get.theta(x,test,seq(10,100,10))$theta
+    res2 <- get.theta.typed(x, 1,1, seq(10,100,10))$theta
     expect_that(res1,equals(res2))
 
     #lower limit
-    res1 <- get.theta(x,test,seq(10,100,10), seq(0,90,10))
-    res2 <- get.theta.typed(x, 1,1, seq(10,100,10), seq(0,90,10))
+    res1 <- get.theta(x,test,seq(10,100,10), seq(0,90,10))$theta
+    res2 <- get.theta.typed(x, 1,1, seq(10,100,10), seq(0,90,10))$theta
     expect_that(res1,equals(res2))
 })
 
@@ -126,7 +126,7 @@ test_that("get.theta returns identical results regardless of column order",
                   return(2)
               }
 
-              res1 <- get.theta(x,test,seq(10,100,10), seq(0,90,10))
+              res1 <- get.theta(x,test,seq(10,100,10), seq(0,90,10))$theta
 
               test <- function(a,b) {
                   if (a[3] != 1) return(3)
@@ -134,7 +134,7 @@ test_that("get.theta returns identical results regardless of column order",
                   return(2)
               }
 
-              res2 <- get.theta(x[,c(3,2,1)],test,seq(10,100,10), seq(0,90,10))
+              res2 <- get.theta(x[,c(3,2,1)],test,seq(10,100,10), seq(0,90,10))$theta
 
               test <- function(a,b) {
                   if (a[2] != 1) return(3)
@@ -142,7 +142,7 @@ test_that("get.theta returns identical results regardless of column order",
                   return(2)
               }
 
-              res3 <- get.theta(x[,c(2,1,3)],test,seq(10,100,10), seq(0,90,10))
+              res3 <- get.theta(x[,c(2,1,3)],test,seq(10,100,10), seq(0,90,10))$theta
 
               expect_that(res1, equals(res2))
               expect_that(res2, equals(res3))

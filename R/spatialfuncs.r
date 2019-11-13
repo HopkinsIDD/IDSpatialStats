@@ -27,10 +27,7 @@
 ##' @family get.pi
 ##' @family spatialtau
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_pi.R
-##' }
+##' @example R/examples/get_pi.R
 ##'
 
 get.pi <- function(posmat,
@@ -38,8 +35,8 @@ get.pi <- function(posmat,
                    r = 1,
                    r.low=rep(0,length(r))) {
 
-  xcol <-  which(colnames(posmat)=="x")
-  ycol <- which(colnames(posmat)=="y")
+  xcol <-  which(colnames(posmat) == "x")
+  ycol <- which(colnames(posmat) == "y")
 
   #check that both columns exist
   if (length(xcol)!=1 & length(ycol)!=1) {
@@ -54,7 +51,7 @@ get.pi <- function(posmat,
               1:nrow(posmat),
               xcol,
               ycol)
-  return(rc)
+  return(data.frame(r.low=r.low, r=r, pi=rc))
 }
 
 
@@ -89,10 +86,7 @@ get.pi <- function(posmat,
 ##' @family get.theta
 ##' @family spatialtau
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_theta.R
-##' }
+##' @example R/examples/get_theta.R
 ##'
 
 get.theta <- function(posmat,
@@ -116,7 +110,7 @@ get.theta <- function(posmat,
               1:nrow(posmat),
               xcol,
               ycol)
-  return(rc)
+  return(data.frame(r.low=r.low, r=r, theta=rc))
 }
 
 
@@ -139,10 +133,7 @@ get.theta <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_pi_typed.R
-##' }
+##' @example  R/examples/get_pi_typed.R
 ##'
 
 get.pi.typed <- function(posmat,
@@ -151,7 +142,7 @@ get.pi.typed <- function(posmat,
                          r=1,
                          r.low=rep(0,length(r))) {
 
-  return(.C("get_pi_typed",
+  rc <- .C("get_pi_typed",
             as.integer(posmat[,"type"]),
             as.double(posmat[,"x"]),
             as.double(posmat[,"y"]),
@@ -162,8 +153,9 @@ get.pi.typed <- function(posmat,
             as.double(r),
             as.integer(length(r)),
             as.integer(1:nrow(posmat)),
-            rc=double(length(r))
-  )$rc)
+            rc=double(length(r)))
+     
+     return(data.frame(r.low=r.low, r=r, pi=rc$rc))
 }
 
 
@@ -186,10 +178,7 @@ get.pi.typed <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_theta_typed.R
-##' }
+##' @example R/examples/get_theta_typed.R
 ##'
 
 get.theta.typed <- function(posmat,
@@ -197,20 +186,21 @@ get.theta.typed <- function(posmat,
                             typeB = -1,
                             r=1,
                             r.low=rep(0,length(r))) {
-
-  return(.C("get_theta_typed",
-            as.integer(posmat[,"type"]),
-            as.double(posmat[,"x"]),
-            as.double(posmat[,"y"]),
-            as.integer(nrow(posmat)),
-            as.integer(typeA),
-            as.integer(typeB),
-            as.double(r.low),
-            as.double(r),
-            as.integer(length(r)),
-            as.integer(1:nrow(posmat)),
-            rc=double(length(r))
-  )$rc)
+     
+     rc <- .C("get_theta_typed",
+              as.integer(posmat[,"type"]),
+              as.double(posmat[,"x"]),
+              as.double(posmat[,"y"]),
+              as.integer(nrow(posmat)),
+              as.integer(typeA),
+              as.integer(typeB),
+              as.double(r.low),
+              as.double(r),
+              as.integer(length(r)),
+              as.integer(1:nrow(posmat)),
+              rc=double(length(r)))
+     
+     return(data.frame(r.low=r.low, r=r, theta=rc$rc))
 }
 
 
@@ -235,10 +225,7 @@ get.theta.typed <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_pi_ci.R
-##' }
+##' @example R/examples/get_pi_ci.R
 ##'
 
 get.pi.ci <- function(posmat,
@@ -248,17 +235,16 @@ get.pi.ci <- function(posmat,
                       boot.iter = 1000,
                       ci.low=0.025,
                       ci.high=0.975) {
+     
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
 
-  rc <- matrix(nrow=2,ncol=ncol(boots))
-
-  rownames(rc) <- c(ci.low,ci.high)
-
-  for (i in 1:ncol(rc)) {
-    rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
-  }
-
-  return(rc)
+  rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
+  
+  return(data.frame(r.low=r.low, 
+                    r=r, 
+                    pt.est=get.pi(posmat, fun, r, r.low)$pi, 
+                    ci.low=rc[1,], 
+                    ci.high=rc[2,]))
 }
  
 
@@ -283,10 +269,7 @@ get.pi.ci <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_theta_ci.R
-##' }
+##' @example R/examples/get_theta_ci.R
 ##'
 
 get.theta.ci <- function(posmat,
@@ -298,15 +281,13 @@ get.theta.ci <- function(posmat,
                          ci.high=0.975) {
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
 
-  rc <- matrix(nrow=2,ncol=ncol(boots))
-
-  rownames(rc) <- c(ci.low,ci.high)
-
-  for (i in 1:ncol(rc)) {
-    rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
-  }
-
-  return(rc)
+  rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
+  
+  return(data.frame(r.low=r.low, 
+                    r=r, 
+                    pt.est=get.theta(posmat, fun, r, r.low)$theta, 
+                    ci.low=rc[1,], 
+                    ci.high=rc[2,]))
 }
 
 
@@ -332,10 +313,7 @@ get.theta.ci <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_pi_bootstrap.R
-##'  }
+##' @example R/examples/get_pi_bootstrap.R
 ##'
 
 get.pi.bootstrap <- function(posmat,
@@ -365,7 +343,7 @@ get.pi.bootstrap <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(rc)
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -391,10 +369,7 @@ get.pi.bootstrap <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_theta_bootstrap.R
-##'  }
+##' @example R/examples/get_theta_bootstrap.R
 ##'
 
 get.theta.bootstrap <- function(posmat,
@@ -424,7 +399,7 @@ get.theta.bootstrap <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(rc)
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -444,10 +419,7 @@ get.theta.bootstrap <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_pi_typed_bootstrap.R
-##'  }
+##' @example R/examples/get_pi_typed_bootstrap.R
 ##'
 
 get.pi.typed.bootstrap <- function(posmat,
@@ -475,7 +447,8 @@ get.pi.typed.bootstrap <- function(posmat,
                  rc=double(length(r))
     )$rc
   }
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -495,11 +468,9 @@ get.pi.typed.bootstrap <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_theta_typed_bootstrap.R
-##'  }
+##' @example R/examples/get_theta_typed_bootstrap.R
 ##'
+
 get.theta.typed.bootstrap <- function(posmat,
                                       typeA = -1,
                                       typeB = -1,
@@ -525,7 +496,8 @@ get.theta.typed.bootstrap <- function(posmat,
                  rc=double(length(r))
     )$rc
   }
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -545,10 +517,7 @@ get.theta.typed.bootstrap <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_pi_permute.R
-##'  }
+##' @example R/examples/get_pi_permute.R
 ##'
 
 get.pi.permute <- function(posmat,
@@ -581,7 +550,8 @@ get.pi.permute <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -601,10 +571,7 @@ get.pi.permute <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_theta_permute.R
-##'  }
+##' @example R/examples/get_theta_permute.R
 ##'
 
 get.theta.permute <- function(posmat,
@@ -637,7 +604,8 @@ get.theta.permute <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -660,10 +628,7 @@ get.theta.permute <- function(posmat,
 ##'
 ##' @family get.pi
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_pi_typed_permute.R
-##'  }
+##' @example R/examples/get_pi_typed_permute.R
 ##'
 
 get.pi.typed.permute <- function(posmat,
@@ -699,7 +664,8 @@ get.pi.typed.permute <- function(posmat,
                  rc=double(length(r))
     )$rc
   }
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -722,10 +688,7 @@ get.pi.typed.permute <- function(posmat,
 ##'
 ##' @family get.theta
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_theta_typed_permute.R
-##'  }
+##' @example R/examples/get_theta_typed_permute.R
 ##'
 
 get.theta.typed.permute <- function(posmat,
@@ -761,7 +724,8 @@ get.theta.typed.permute <- function(posmat,
                  rc=double(length(r))
     )$rc
   }
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -804,10 +768,7 @@ get.theta.typed.permute <- function(posmat,
 ##' @family get.tau
 ##' @family spatialtau
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_tau.R
-##' }
+##' @example R/examples/get_tau.R
 ##'
 
 get.tau <- function(posmat,
@@ -832,7 +793,6 @@ get.tau <- function(posmat,
     stop("unkown comparison type specified")
   }
 
-
   rc <- .Call("get_tau",
               posmat,
               fun,
@@ -842,7 +802,8 @@ get.tau <- function(posmat,
               1:nrow(posmat),
               xcol,
               ycol)
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, tau=rc))
 }
 
 
@@ -863,16 +824,13 @@ get.tau <- function(posmat,
 ##'   \item "independent" if comparison set is cases/events coming from an indepedent process
 ##' }
 ##'
-##' @return tau values for all the distances we looked at
+##' @return data frame of tau values for all the distances
 ##'
 ##' @author Justin Lessler and Henrik Salje
 ##'
 ##' @family get.tau
 ##'
-##' @example 
-##' \dontrun{
-##' R/examples/get_tau_typed.R
-##'}
+##' @example R/examples/get_tau_typed.R
 ##'
 
 get.tau.typed <- function(posmat,
@@ -881,30 +839,30 @@ get.tau.typed <- function(posmat,
                           r=1,
                           r.low=rep(0,length(r)),
                           comparison.type = "representative") {
-
-  if (comparison.type == "representative") {
-    comp.type.int <- 0
-  } else if (comparison.type == "independent") {
-    comp.type.int <- 1
-  } else {
-    stop("unkown comparison type specified")
-  }
-
-
-  return(.C("get_tau_typed",
-            as.integer(posmat[,"type"]),
-            as.double(posmat[,"x"]),
-            as.double(posmat[,"y"]),
-            as.integer(nrow(posmat)),
-            as.integer(typeA),
-            as.integer(typeB),
-            as.double(r.low),
-            as.double(r),
-            as.integer(length(r)),
-            as.integer(1:nrow(posmat)),
-            as.integer(comp.type.int),
-            rc=double(length(r))
-  )$rc)
+     
+     if (comparison.type == "representative") {
+          comp.type.int <- 0
+     } else if (comparison.type == "independent") {
+          comp.type.int <- 1
+     } else {
+          stop("unkown comparison type specified")
+     }
+     
+     rc <- .C("get_tau_typed",
+              as.integer(posmat[,"type"]),
+              as.double(posmat[,"x"]),
+              as.double(posmat[,"y"]),
+              as.integer(nrow(posmat)),
+              as.integer(typeA),
+              as.integer(typeB),
+              as.double(r.low),
+              as.double(r),
+              as.integer(length(r)),
+              as.integer(1:nrow(posmat)),
+              as.integer(comp.type.int),
+              rc=double(length(r)))
+     
+     return(data.frame(r.low=r.low, r=r, tau=rc$rc))
 }
 
 
@@ -922,16 +880,13 @@ get.tau.typed <- function(posmat,
 ##' @param ci.low the low end of the ci...0.025 by default
 ##' @param ci.high the high end of the ci...0.975 by default
 ##'
-##' @return tau values for all the distances examined
+##' @return a data frame with the point estimate of tau and its low and high confidence interval at each distance
 ##'
 ##' @author Justin Lessler and Henrik Salje
 ##'
 ##' @family get.tau
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_tau_ci.R
-##'  }
+##' @example R/examples/get_tau_ci.R
 ##'
 
 get.tau.ci <- function(posmat,
@@ -942,19 +897,18 @@ get.tau.ci <- function(posmat,
                        comparison.type = "representative",
                        ci.low=0.025,
                        ci.high=0.975) {
-  boots <- get.tau.bootstrap(posmat, fun,
-                             r, r.low, boot.iter,
-                             comparison.type)
-
-  rc <- matrix(nrow=2, ncol=ncol(boots))
-
-  rownames(rc) <- c(ci.low,ci.high)
-
-  for (i in 1:ncol(rc)) {
-    rc[,i] <- quantile(boots[,i], probs=c(ci.low, ci.high))
-  }
-
-  return(rc)
+     
+     boots <- get.tau.bootstrap(posmat, fun,
+                                r, r.low, boot.iter,
+                                comparison.type)
+     
+     rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
+     
+     return(data.frame(r.low=r.low, 
+                       r=r, 
+                       pt.est=get.tau(posmat, fun, r, r.low)$tau, 
+                       ci.low=rc[1,], 
+                       ci.high=rc[2,]))
 }
 
 
@@ -972,16 +926,13 @@ get.tau.ci <- function(posmat,
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param comparison.type the comparison type to pass as input to \code{get.pi}
 ##'
-##' @return tau values for all the distances we looked at
+##' @return a matrix containing all bootstrapped values of tau for each distance interval
 ##'
 ##' @author Justin Lessler and Henrik Salje
 ##'
 ##' @family get.tau
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_tau_bootstrap.R
-##'  }
+##' @example R/examples/get_tau_bootstrap.R
 ##'
 
 get.tau.bootstrap <- function(posmat,
@@ -1021,7 +972,7 @@ get.tau.bootstrap <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(rc)
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -1045,10 +996,7 @@ get.tau.bootstrap <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_tau_typed_bootstrap.R
-##'  }
+##' @example R/examples/get_tau_typed_bootstrap.R
 ##'
 
 get.tau.typed.bootstrap <- function(posmat,
@@ -1086,7 +1034,7 @@ get.tau.typed.bootstrap <- function(posmat,
                  rc=double(length(r))
     )$rc
   }
-  return(rc)
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -1109,10 +1057,7 @@ get.tau.typed.bootstrap <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @example
-##' \dontrun{
-##'  R/examples/get_tau_permute.R
-##'  }
+##' @example R/examples/get_tau_permute.R
 ##'
 
 get.tau.permute <- function(posmat,
@@ -1139,7 +1084,6 @@ get.tau.permute <- function(posmat,
     stop("unknown comparison type specified")
   }
 
-
   rc <- matrix(nrow=permutations, ncol=length(r))
   for (i in 1:permutations) {
     inds <- sample(nrow(posmat))#, replace=T)
@@ -1157,7 +1101,7 @@ get.tau.permute <- function(posmat,
                     ycol)
   }
 
-  return(rc)
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 
@@ -1182,10 +1126,7 @@ get.tau.permute <- function(posmat,
 ##'
 ##' @family get.tau
 ##'
-##' @example
-##' \dontrun{
-##' R/examples/get_tau_typed_permute.R
-##' }
+##' @example R/examples/get_tau_typed_permute.R
 ##'
 
 get.tau.typed.permute <- function(posmat,
@@ -1230,7 +1171,8 @@ get.tau.typed.permute <- function(posmat,
                  rc=double(length(r))
     )$rc
   }
-  return(rc)
+  
+  return(data.frame(r.low=r.low, r=r, t(rc)))
 }
 
 NULL

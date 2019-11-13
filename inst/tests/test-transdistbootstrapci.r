@@ -2,9 +2,6 @@ context("estimate transdist bootstraps")
 
 test_that("Data checks performed", {
   
-  msg <- 'Epidemic data must be an integer or numeric matrix'
-  msg <- paste(strwrap(msg), collapse = "\n")
-  
   set.seed(1)
   dist.func <- alist(n=1, 
                      a=100, 
@@ -25,16 +22,7 @@ test_that("Data checks performed", {
                                          max.sep=1e10,
                                          max.dist=1e10,
                                          n.transtree.reps=10), 
-              throws_error(msg))
-  
-  expect_that(est.transdist.bootstrap.ci(epi.data=as.data.frame(a),
-                                         gen.t.mean=7,
-                                         gen.t.sd=2,
-                                         t1=0,
-                                         max.sep=1e10,
-                                         max.dist=1e10,
-                                         n.transtree.reps=10), 
-              throws_error(msg))
+              throws_error())
 })
 
 test_that("Outputs list and numerics", {

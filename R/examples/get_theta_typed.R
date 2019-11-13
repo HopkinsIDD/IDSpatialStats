@@ -1,3 +1,5 @@
+\donttest{
+
 data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
@@ -8,3 +10,5 @@ type<-2-(DengueSimR02[,"time"]<120)
 tmp<-cbind(DengueSimR02,type=type)
 
 typed.theta.R01<-get.theta.typed(tmp,typeA=2,typeB=2,r=r.max,r.low=r.min)
+
+}

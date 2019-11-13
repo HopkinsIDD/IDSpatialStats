@@ -2,9 +2,6 @@ context("estimate transdist")
 
 test_that("Data checks performed", {
   
-  msg <- 'Epidemic data must be an integer or numeric matrix'
-  msg <- paste(strwrap(msg), collapse = "\n")
-  
   set.seed(1)
   dist.func <- alist(n=1, 
                      a=100, 
@@ -24,19 +21,19 @@ test_that("Data checks performed", {
                             t1=0,
                             max.sep=1e10,
                             max.dist=1e10,
-                            n.transtree.reps=10,
-                            silent=TRUE), 
-              throws_error(msg))
+                            n.transtree.reps=10), 
+              throws_error())
   
-  expect_that(est.transdist(epi.data=as.data.frame(a),
+  a$t <- factor(a$t)
+  
+  expect_that(est.transdist(epi.data=a,
                             gen.t.mean=7,
                             gen.t.sd=2,
                             t1=0,
                             max.sep=1e10,
                             max.dist=1e10,
-                            n.transtree.reps=10,
-                            silent=TRUE), 
-              throws_error(msg))
+                            n.transtree.reps=10), 
+              throws_error())
 })
 
 test_that("Outputs list and numerics", {
@@ -51,7 +48,7 @@ test_that("Outputs list and numerics", {
                     gen.t.mean=7,
                     gen.t.sd=2,
                     min.cases=5,
-                    tot.generations=5,
+                    tot.generations=3,
                     trans.kern.func=dist.func)
   
   b <- est.transdist(epi.data=a,
@@ -60,8 +57,7 @@ test_that("Outputs list and numerics", {
                      t1=0,
                      max.sep=1e10,
                      max.dist=1e10,
-                     n.transtree.reps=5,
-                     silent=TRUE)
+                     n.transtree.reps=3)
   
   expect_true(is.list(b))
   expect_true(is.numeric(b$mu.est))
@@ -87,8 +83,7 @@ test_that("Border condition: zero transmission distance ", {
                      t1=0,
                      max.sep=1e10,
                      max.dist=1e10,
-                     n.transtree.reps=5,
-                     silent=TRUE)
+                     n.transtree.reps=3)
   
   expect_true(b$mu.est == 0)
   expect_true(b$sigma.est == 0)

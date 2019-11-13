@@ -27,6 +27,22 @@ pi values for all the distances we looked at
 Bootstraps typed pi values. Makes sure distances between a sample and
 another draw of itself are left out
 }
+\examples{
+\donttest{
+
+data(DengueSimulationR02)
+
+r.max<-seq(20,1000,20)
+r.min<-seq(0,980,20)
+
+#Lets see if there's a difference in spatial dependence by time case occurs
+type<-2-(DengueSimR02[,"time"]<120)
+tmp<-cbind(DengueSimR02,type=type)
+
+typed.pi.bs<-get.pi.typed.bootstrap(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min,boot.iter=100)
+
+}
+}
 \seealso{
 Other get.pi: \code{\link{get.pi.bootstrap}},
   \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},

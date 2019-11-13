@@ -1,3 +1,5 @@
+\donttest{
+
 data(DengueSimulationR01)
 
 r.max<-seq(20,1000,20)
@@ -8,4 +10,7 @@ type<-2-(DengueSimR01[,"time"]<75)
 tmp<-cbind(DengueSimR01,type=type)
 
 typed.theta.R01<-get.theta.typed(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min)
-typed.theta.type.null<-get.theta.typed.permute(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min,permutations=100)
+typed.theta.type.null<-get.theta.typed.permute(tmp, typeA=1, typeB=2, 
+                                               r=r.max, r.low=r.min, permutations=100)
+
+}

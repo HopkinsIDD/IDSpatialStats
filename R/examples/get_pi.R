@@ -1,3 +1,5 @@
+\donttest{
+
 data(DengueSimulationR02)
 
 r.max<-seq(20,1000,20)
@@ -10,3 +12,5 @@ sero.type.func<-function(a,b,tlimit=20){
 }
 
 sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
+
+}

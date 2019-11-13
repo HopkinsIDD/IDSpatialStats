@@ -17,5 +17,5 @@ A simple visualization function which plots the location of the index case and t
 and the epidemic curve showing the case count over time.
 }
 \author{
-Justin Lessler, Henrik Salje, and John Giles
+John Giles, Justin Lessler, and Henrik Salje
 }

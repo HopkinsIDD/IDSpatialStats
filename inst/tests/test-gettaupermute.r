@@ -14,8 +14,8 @@ test_that("get.tau.permute returns appropriate values for test case 1 (equilater
 
     ###REPRESENTATIVE
     #should return 1 for every permutation
-    res <- get.tau.permute(x, test, 1.5, 0, 500)
-    res2 <- get.tau.typed.permute(x, 1, 2, 1.5, 0, 500)
+    res <- get.tau.permute(x, test, 1.5, 0, 500)[,-(1:2)]
+    res2 <- get.tau.typed.permute(x, 1, 2, 1.5, 0, 500)[,-(1:2)]
 
 
     expect_that(as.numeric(res), equals(rep(1,500)))
@@ -24,9 +24,9 @@ test_that("get.tau.permute returns appropriate values for test case 1 (equilater
     ###INDEPENDENT
     #should return 1 for every permutation
     res <- get.tau.permute(x, test, 1.5, 0, 500,
-                           comparison.type="independent")
+                           comparison.type="independent")[,-(1:2)]
     res2 <- get.tau.typed.permute(x, 1, 2, 1.5, 0, 500,
-                                  comparison.type="independent")
+                                  comparison.type="independent")[,-(1:2)]
 
 
     expect_that(as.numeric(res), equals(rep(1,500)))
@@ -50,16 +50,16 @@ test_that("get.tau.permute returns appropriate values for test case 2 (points on
     ####REPRESENTATIVE
     #the mean of the null distribution should be 1
     #the 95% CI equals 0,2 with windows
-    res <- get.tau.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)
-    res2 <- get.tau.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)
+    res <- get.tau.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
+    res2 <- get.tau.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
 
-    expect_that(colMeans(res,na.rm=T), equals(rep(1,3), tolerance=0.1))
-    expect_that(colMeans(res2, na.rm=T), equals(rep(1,3), tolerance=0.1))
+    expect_that(rowMeans(res, na.rm=T), equals(rep(1,3), tolerance=0.1))
+    expect_that(rowMeans(res2, na.rm=T), equals(rep(1,3), tolerance=0.1))
 
     for (i in 1:3) {
-        expect_that(as.numeric(quantile(res[,i], probs=c(.025,.975))),
+        expect_that(as.numeric(quantile(res[i,], probs=c(.025,.975))),
                     equals(c(0,2)))
-        expect_that(as.numeric(quantile(res2[,i], probs=c(.025,.975))),
+        expect_that(as.numeric(quantile(res2[i,], probs=c(.025,.975))),
                     equals(c(0,2)))
     }
 
@@ -67,15 +67,15 @@ test_that("get.tau.permute returns appropriate values for test case 2 (points on
     #the mean of the null distribution should be 1
     #the 95% CI equals 0,Inf with windows
     res <- get.tau.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500,
-                           comparison.type="independent")
+                           comparison.type="independent")[,-(1:2)]
     res2 <- get.tau.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500,
-                                  comparison.type="independent")
+                                  comparison.type="independent")[,-(1:2)]
 
 
     for (i in 1:3) {
-        expect_that(as.numeric(quantile(res[,i], probs=c(.025,.5,.975))),
+        expect_that(as.numeric(quantile(res[i,], probs=c(.025,.5,.975))),
                     equals(c(0,1,Inf)))
-        expect_that(as.numeric(quantile(res2[,i], probs=c(.025,.5,.975))),
+        expect_that(as.numeric(quantile(res2[i,], probs=c(.025,.5,.975))),
                     equals(c(0,1,Inf)))
     }
 

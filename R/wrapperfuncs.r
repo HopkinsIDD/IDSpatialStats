@@ -11,7 +11,7 @@
 ##' 
 ##' @return a data frame with a minimum of three columns giving the radius (\code{r}), the theoretical value of the K function for a Poisson process (\code{theo}), and value of the K function evaluated at radius \code{r}. The column name gives the type of edge correction used 
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles
 ##' 
 ##' @references
 ##' Baddeley A, Rubak E, and Turner R. (2016). "Spatial Point Patterns: Methodology and Applications with R". CRC Press.
@@ -76,7 +76,7 @@ get.cross.K <- function(epi.data, # matrix containing xy coordinates and case ty
 ##' 
 ##' @return a data frame with two columns giving the radius \code{r}, the theoretical value of the Pair Correlation Function for a Poisson process (\code{theo}), and value of the Pair Correlation Function \code{pcf}
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles
 ##' 
 ##' @references
 ##' Baddeley A, Rubak E, and Turner R. (2016). "Spatial Point Patterns: Methodology and Applications with R". CRC Press.

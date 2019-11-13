@@ -11,20 +11,20 @@ test_that("get.tau returns 1 when labels are ignored", {
 
     #######FIRST WITH REPRESENTATIVE SAMPLE ASSUMED
     #with no lower limit
-    res <- get.tau(x,test,seq(10,100,10))
+    res <- get.tau(x,test,seq(10,100,10))$tau
     expect_that(res,equals(rep(1,10)))
 
     #with lower and upper limit
-    res <- get.tau(x,test,seq(10,100,10), seq(0,90,10))
+    res <- get.tau(x,test,seq(10,100,10), seq(0,90,10))$tau
     expect_that(res,equals(rep(1,10)))
 
     #######SECOND WITH INDEPENDENT PROCESS ASSUMED
     #with no lower limit
-    res <- get.tau(x,test,seq(10,100,10), comparison.type="independent")
+    res <- get.tau(x,test,seq(10,100,10), comparison.type="independent")$tau
     expect_that(res,equals(rep(1,10)))
 
     #with lower and upper limit
-    res <- get.tau(x,test,seq(10,100,10), seq(0,90,10), comparison.type="independent")
+    res <- get.tau(x,test,seq(10,100,10), seq(0,90,10), comparison.type="independent")$tau
     expect_that(res,equals(rep(1,10)))
 })
 
@@ -40,32 +40,32 @@ test_that("correct results for test case 1 (equilateral triangle)", {
 
     #######FIRST WITH REPRESENTATIVE SAMPLE ASSUMED
     #first no lower limit
-    res <- get.tau(x,test,1.5)
-    res2 <- get.tau.typed(x,1,2,1.5)
+    res <- get.tau(x,test,1.5)$tau
+    res2 <- get.tau.typed(x,1,2,1.5)$tau
 
     expect_that(res, equals(1))
     expect_that(res2, equals(1))
 
     #now with a lower limit
 
-    res <- get.tau(x,test,1.5,.5)
-    res2 <- get.tau.typed(x,1,2,1.5,.5)
+    res <- get.tau(x,test,1.5,.5)$tau
+    res2 <- get.tau.typed(x,1,2,1.5,.5)$tau
 
     expect_that(res, equals(1))
     expect_that(res2, equals(1))
 
     #######SECOND WITH INDEPENDENT PROCESS ASSUMED
     #first no lower limit
-    res <- get.tau(x,test,1.5, comparison.type="independent")
-    res2 <- get.tau.typed(x,1,2,1.5, comparison.type="independent")
+    res <- get.tau(x,test,1.5, comparison.type="independent")$tau
+    res2 <- get.tau.typed(x,1,2,1.5, comparison.type="independent")$tau
 
     expect_that(res, equals(1))
     expect_that(res2, equals(1))
 
     #now with a lower limit
 
-    res <- get.tau(x,test,1.5,.5, comparison.type="independent")
-    res2 <- get.tau.typed(x,1,2,1.5,.5, comparison.type="independent")
+    res <- get.tau(x,test,1.5,.5, comparison.type="independent")$tau
+    res2 <- get.tau.typed(x,1,2,1.5,.5, comparison.type="independent")$tau
 
     expect_that(res, equals(1))
     expect_that(res2, equals(1))
@@ -89,16 +89,16 @@ test_that("get.tau returns appropriate values cannonical test case 2 (points on 
 
     #######FIRST WITH REPRESENTATIVE SAMPLE ASSUMED
     #tau 0,1.5 should be 2, 1.5-2.5 should be 1 and 2.5+ should be 0
-    res <- get.tau(x, test, c(1.5,2.5,Inf), c(0,1.5,2.5))
-    res2 <- get.tau.typed(x, 1, 2, c(1.5,2.5,1000), c(0,1.5,2.5))
+    res <- get.tau(x, test, c(1.5,2.5,Inf), c(0,1.5,2.5))$tau
+    res2 <- get.tau.typed(x, 1, 2, c(1.5,2.5,1000), c(0,1.5,2.5))$tau
 
     expect_that(res,equals(c(2,1,0)))
     expect_that(res2,equals(c(2,1,0)))
 
     #######SECOND WITH INDEPENDENT PROCESS ASSUMED
     #tau 0,1.5 should be Inf, 1.5-2.5 should be 1 and 2.5+ should be 0
-    res <- get.tau(x, test, c(1.5,2.5,Inf), c(0,1.5,2.5), comparison.type="independent")
-    res2 <- get.tau.typed(x, 1, 2, c(1.5,2.5,1000), c(0,1.5,2.5), comparison.type="independent")
+    res <- get.tau(x, test, c(1.5,2.5,Inf), c(0,1.5,2.5), comparison.type="independent")$tau
+    res2 <- get.tau.typed(x, 1, 2, c(1.5,2.5,1000), c(0,1.5,2.5), comparison.type="independent")$tau
 
     expect_that(res,equals(c(Inf,1,0)))
     expect_that(res2,equals(c(Inf,1,0)))

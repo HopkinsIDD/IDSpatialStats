@@ -41,6 +41,6 @@ Other est.wt: \code{\link{est.transdist}},
   \code{\link{est.wt.matrix.weights}}
 }
 \author{
-Justin Lessler, Henrik Salje, and John Giles
+John Giles, Justin Lessler, and Henrik Salje
 }
 \concept{est.wt}

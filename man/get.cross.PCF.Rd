@@ -38,5 +38,5 @@ abline(h=1, col='red', lty=2)
 Baddeley A, Rubak E, and Turner R. (2016). "Spatial Point Patterns: Methodology and Applications with R". CRC Press.
 }
 \author{
-Justin Lessler, Henrik Salje, and John Giles
+John Giles
 }

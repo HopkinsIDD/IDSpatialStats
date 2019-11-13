@@ -108,6 +108,6 @@ Other transdist: \code{\link{est.transdist.bootstrap.ci}},
   \code{\link{get.transdist.theta}}
 }
 \author{
-Justin Lessler, Henrik Salje, and John Giles
+John Giles, Justin Lessler, and Henrik Salje
 }
 \concept{transdist}

@@ -17,7 +17,7 @@
 ##' 
 ##' @return a numerical matrix with three columns giving the coordinates \code{x} and \code{y}, and time \code{t} of simulated cases
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##'
 ##' @example R/examples/sim_epidemic.R
 ##'
@@ -90,7 +90,7 @@ sim.epidemic <- function(
 ##' 
 ##' @return A two-panel plotted object
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 
 sim.plot <- function(sim) {
@@ -113,7 +113,7 @@ sim.plot <- function(sim) {
 ##' 
 ##' @return a numerical matrix with the number of columns and rows equal to the number of cases in the epidemic
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##'
 ##' @references 
 ##' Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
@@ -159,7 +159,7 @@ est.wt.matrix <- function(
 ##' 
 ##' @return a numerical matrix with the number of columns and rows equal to the number of time steps in the epidemic
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 ##' @references
 ##' Boelle P and Obadia T (2015). R0: Estimation of R0 and Real-Time Reproduction Number from Epidemics. R package version 1.2-6, \href{https://CRAN.R-project.org/package=R0}{https://CRAN.R-project.org/package=R0}.
@@ -218,7 +218,7 @@ est.wt.matrix.weights <- function(
 ##' 
 ##' @return a three-dimensional array containing normalized theta weights. Columns and rows represent unique case times. The third dimension is the number of transmission events between two cases.
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 ##' @references 
 ##' Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
@@ -306,7 +306,7 @@ get.transdist.theta <-function(wal.teun.mat,
 ##' 
 ##' @return a three-dimensional array containing the mean normalized theta weights estimated across all replications
 ##' 
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 ##' @references 
 ##' Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
@@ -370,7 +370,7 @@ est.transdist.theta.weights <- function(case.times,
 ##' 
 ##' @return a list containing the estimated mean distance of the transmission kernel (\code{mu.est}) and its standard deviation (\code{sigma.est}). Bounded estimates (\code{bound.mu.est} and \code{bound.sigma.est}) are also given for when the assumption of equal mean and standard deviation is violated.
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 ##' @references
 ##' Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
@@ -515,7 +515,7 @@ est.transdist <- function(
 ##' 
 ##' @return a list object containing the point estimate for mean transmission distance and low and high bootstrapped confidence intervals
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 ##' @references
 ##' Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
@@ -541,6 +541,11 @@ est.transdist.bootstrap.ci <- function(
      parallel=FALSE,
      n.cores=NULL
 ){
+     
+     # Data check
+     if(is.matrix(epi.data) == FALSE & is.data.frame(epi.data) == FALSE) stop('Check x,y,t variables in epidemic data')
+     if(is.numeric(as.matrix(epi.data[,1:3])) == FALSE & is.integer(as.matrix(epi.data[,1:3])) == FALSE) stop('Check x,y,t variables in epidemic data')
+     
      
      # Point estimate
      p <- est.transdist(epi.data=epi.data,
@@ -643,7 +648,7 @@ est.transdist.bootstrap.ci <- function(
 ##' @return a numeric matrix containing the point estimate for mean transmission distance for each unique time step of the epidemic and the sample size $n$ used to make the estimate 
 ##' NAs are returned for time steps which contain fewer than three cases
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 ##' @references
 ##' Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
@@ -666,8 +671,11 @@ est.transdist.temporal <- function(
      parallel=FALSE,
      n.cores=NULL
 ){
-     
 
+     # Data check
+     if(is.matrix(epi.data) == FALSE & is.data.frame(epi.data) == FALSE) stop('Check x,y,t variables in epidemic data')
+     if(is.numeric(as.matrix(epi.data[,1:3])) == FALSE & is.integer(as.matrix(epi.data[,1:3])) == FALSE) stop('Check x,y,t variables in epidemic data')
+     
      miss <- sum(complete.cases(epi.data) != TRUE)
      if(miss > 0) {
           epi.data <- epi.data[complete.cases(epi.data),]
@@ -683,6 +691,7 @@ est.transdist.temporal <- function(
           out <- foreach::foreach(i=seq_along(unique.times), .combine='rbind') %do% {
                
                d <- epi.data[epi.data[,3] <= unique.times[i],]
+               n <- nrow(d); if (is.null(n)) n <-1
                
                pt.est <- tryCatch(
                     suppressMessages(est.transdist(epi.data=d,
@@ -700,7 +709,7 @@ est.transdist.temporal <- function(
                     if(mean.equals.sd == FALSE) pt.est <- pt.est$bound.mu.est
                }
                
-               data.frame(t=unique.times[i], pt.est=pt.est, n=nrow(d), row.names=NULL)
+               data.frame(t=unique.times[i], pt.est=pt.est, n=n, row.names=NULL)
           }
      }
      
@@ -719,6 +728,7 @@ est.transdist.temporal <- function(
           out <- foreach::foreach(i=seq_along(unique.times), .combine='rbind') %dopar% {
                
                d <- epi.data[epi.data[,3] <= unique.times[i],]
+               n <- nrow(d); if (is.null(n)) n <-1
                
                pt.est <- tryCatch(
                     suppressMessages(est.transdist(epi.data=d,
@@ -736,7 +746,7 @@ est.transdist.temporal <- function(
                     if(mean.equals.sd == FALSE) pt.est <- pt.est$bound.mu.est
                }
                
-               data.frame(t=unique.times[i], pt.est=pt.est, n=nrow(d), row.names=NULL)
+               data.frame(t=unique.times[i], pt.est=pt.est, n=n, row.names=NULL)
           }
           parallel::stopCluster(clust)
      }
@@ -766,7 +776,7 @@ est.transdist.temporal <- function(
 ##' 
 ##' @return a four-column numeric matrix containing the point estimate for mean transmission distance, low and high bootstrapped confidence intervals, and the sample size up to each time step
 ##'
-##' @author Justin Lessler, Henrik Salje, and John Giles
+##' @author John Giles, Justin Lessler, and Henrik Salje
 ##' 
 ##' @references
 ##' Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
@@ -793,6 +803,11 @@ est.transdist.temporal.bootstrap.ci <- function(
      n.cores=NULL
 ){
      
+     # Data check
+     if(is.matrix(epi.data) == FALSE & is.data.frame(epi.data) == FALSE) stop('Check x,y,t variables in epidemic data')
+     if(is.numeric(as.matrix(epi.data[,1:3])) == FALSE & is.integer(as.matrix(epi.data[,1:3])) == FALSE) stop('Check x,y,t variables in epidemic data')
+     
+     
      miss <- sum(complete.cases(epi.data) != TRUE)
      if(miss > 0) {
           epi.data <- epi.data[complete.cases(epi.data),]
@@ -808,7 +823,7 @@ est.transdist.temporal.bootstrap.ci <- function(
           out <- foreach::foreach(i=seq_along(unique.times), .combine='rbind') %do% {
                
                d <- epi.data[epi.data[,3] <= unique.times[i],]
-               n <- nrow(d)
+               n <- nrow(d); if (is.null(n)) n <-1
                
                pt.est <- tryCatch(
                     suppressMessages(est.transdist(epi.data=d,
@@ -868,7 +883,7 @@ est.transdist.temporal.bootstrap.ci <- function(
           out <- foreach::foreach(i=seq_along(unique.times), .combine='rbind') %dopar% {
                
                d <- epi.data[epi.data[,3] <= unique.times[i],]
-               n <- nrow(d)
+               n <- nrow(d); if (is.null(n)) n <-1
                
                pt.est <- tryCatch(
                     suppressMessages(est.transdist(epi.data=d,
