@@ -5,7 +5,7 @@
 \title{get the null distribution of the get.pi.typed function}
 \usage{
 get.pi.typed.permute(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), permutations)
+  r.low = rep(0, length(r)), permutations, data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -19,6 +19,8 @@ get.pi.typed.permute(posmat, typeA = -1, typeB = -1, r = 1,
 \item{r.low}{the low end of each range....0  by default}
 
 \item{permutations}{the number of permute iterations}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 pi values for all the distances we looked at

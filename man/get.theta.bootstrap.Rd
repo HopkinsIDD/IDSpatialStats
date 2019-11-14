@@ -5,7 +5,7 @@
 \title{Bootstrap \code{get.theta} values.}
 \usage{
 get.theta.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  boot.iter = 500)
+  boot.iter = 500, data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -17,6 +17,8 @@ get.theta.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
 \item{r.low}{the low end of each range. 0 by default}
 
 \item{boot.iter}{the number of bootstrap iterations}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 theta values for all the distances we looked at

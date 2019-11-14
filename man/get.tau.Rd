@@ -5,7 +5,7 @@
 \title{generalized version of \code{get.tau}}
 \usage{
 get.tau(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  comparison.type = "representative")
+  comparison.type = "representative", data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns x, y and any other named columns
@@ -30,6 +30,8 @@ interested in}
   \item "representative" if comparison set is representative of the underlying population
   \item "independent" if comparison set is cases/events coming from an indepedent process
 }}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 The tau value for each distance we look at. If \code{comparison.type} is "representative", this is:

@@ -5,7 +5,7 @@
 \title{runs bootstrapping on \code{get.theta.typed}}
 \usage{
 get.theta.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), boot.iter)
+  r.low = rep(0, length(r)), boot.iter, data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -19,6 +19,8 @@ get.theta.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
 \item{r.low}{the low end of each range....0  by default}
 
 \item{boot.iter}{the number of bootstrap iterations}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 theta values for all the distances we looked at

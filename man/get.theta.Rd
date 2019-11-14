@@ -4,7 +4,8 @@
 \alias{get.theta}
 \title{Generalized version of \code{get.theta}}
 \usage{
-get.theta(posmat, fun, r = 1, r.low = rep(0, length(r)))
+get.theta(posmat, fun, r = 1, r.low = rep(0, length(r)),
+  data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns x, y and any other named columns
@@ -23,6 +24,8 @@ so this is not available to the fun}
 interested in}
 
 \item{r.low}{the low end of each range, 0 by default}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 theta value for each distance range that we look at. Where:

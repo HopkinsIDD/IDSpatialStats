@@ -5,7 +5,7 @@
 \title{get the null distribution of the \code{get.tau} function}
 \usage{
 get.tau.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  permutations, comparison.type = "representative")
+  permutations, comparison.type = "representative", data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -19,6 +19,8 @@ get.tau.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
 \item{permutations}{the number of permute iterations}
 
 \item{comparison.type}{the comparison type to pass as input to \code{get.pi}}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 tau values for all the distances we looked at

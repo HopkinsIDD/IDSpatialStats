@@ -6,7 +6,7 @@
 \usage{
 get.tau.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
   r.low = rep(0, length(r)), boot.iter,
-  comparison.type = "representative")
+  comparison.type = "representative", data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -26,6 +26,8 @@ get.tau.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
   \item "representative" if comparison set is representative of the underlying population
   \item "independent" if comparison set is cases/events coming from an independent process
 }}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 tau values for all the distances we looked at

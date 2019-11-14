@@ -5,7 +5,7 @@
 \title{Optimized version of \code{get.tau} for typed data}
 \usage{
 get.tau.typed(posmat, typeA = -1, typeB = -1, r = 1, r.low = rep(0,
-  length(r)), comparison.type = "representative")
+  length(r)), comparison.type = "representative", data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -23,6 +23,8 @@ get.tau.typed(posmat, typeA = -1, typeB = -1, r = 1, r.low = rep(0,
   \item "representative" if comparison set is representative of the underlying population
   \item "independent" if comparison set is cases/events coming from an indepedent process
 }}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 data frame of tau values for all the distances

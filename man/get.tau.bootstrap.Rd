@@ -5,7 +5,7 @@
 \title{Bootstrap \code{get.tau} values.}
 \usage{
 get.tau.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  boot.iter, comparison.type = "representative")
+  boot.iter, comparison.type = "representative", data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -19,6 +19,8 @@ get.tau.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
 \item{boot.iter}{the number of bootstrap iterations}
 
 \item{comparison.type}{the comparison type to pass as input to \code{get.pi}}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 a matrix containing all bootstrapped values of tau for each distance interval

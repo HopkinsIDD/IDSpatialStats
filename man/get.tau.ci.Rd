@@ -6,7 +6,7 @@
 \usage{
 get.tau.ci(posmat, fun, r = 1, r.low = rep(0, length(r)),
   boot.iter = 1000, comparison.type = "representative",
-  ci.low = 0.025, ci.high = 0.975)
+  ci.low = 0.025, ci.high = 0.975, data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -24,6 +24,8 @@ get.tau.ci(posmat, fun, r = 1, r.low = rep(0, length(r)),
 \item{ci.low}{the low end of the ci...0.025 by default}
 
 \item{ci.high}{the high end of the ci...0.975 by default}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 a data frame with the point estimate of tau and its low and high confidence interval at each distance

@@ -17,6 +17,7 @@
 ##' @param r the series of spatial distances (or there maximums) we are
 ##'          interested in
 ##' @param r.low the low end of each range, 0 by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return  pi value for each distance range that we look at. Where:
 ##'
@@ -33,7 +34,8 @@
 get.pi <- function(posmat,
                    fun,
                    r = 1,
-                   r.low=rep(0,length(r))) {
+                   r.low=rep(0,length(r)),
+                   data.frame=TRUE) {
 
   xcol <-  which(colnames(posmat) == "x")
   ycol <- which(colnames(posmat) == "y")
@@ -51,7 +53,12 @@ get.pi <- function(posmat,
               1:nrow(posmat),
               xcol,
               ycol)
-  return(data.frame(r.low=r.low, r=r, pi=rc))
+  
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, pi=rc))
+  }
 }
 
 
@@ -76,6 +83,7 @@ get.pi <- function(posmat,
 ##' @param r the series of spatial distances (or there maximums) we are
 ##'          interested in
 ##' @param r.low the low end of each range, 0 by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return  theta value for each distance range that we look at. Where:
 ##'
@@ -92,7 +100,8 @@ get.pi <- function(posmat,
 get.theta <- function(posmat,
                       fun,
                       r = 1,
-                      r.low=rep(0,length(r))) {
+                      r.low=rep(0,length(r)),
+                      data.frame=TRUE) {
 
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
@@ -110,7 +119,12 @@ get.theta <- function(posmat,
               1:nrow(posmat),
               xcol,
               ycol)
-  return(data.frame(r.low=r.low, r=r, theta=rc))
+  
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, theta=rc))
+  }
 }
 
 
@@ -126,6 +140,7 @@ get.theta <- function(posmat,
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
 ##' @param r the series of spatial distances wer are interested in
 ##' @param r.low the low end of each range....0  by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return pi values for all the distances we looked at
 ##'
@@ -140,7 +155,8 @@ get.pi.typed <- function(posmat,
                          typeA = -1,
                          typeB = -1,
                          r=1,
-                         r.low=rep(0,length(r))) {
+                         r.low=rep(0,length(r)),
+                         data.frame=TRUE) {
 
   rc <- .C("get_pi_typed",
             as.integer(posmat[,"type"]),
@@ -155,7 +171,11 @@ get.pi.typed <- function(posmat,
             as.integer(1:nrow(posmat)),
             rc=double(length(r)))
      
-     return(data.frame(r.low=r.low, r=r, pi=rc$rc))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, pi=rc$rc))
+  }
 }
 
 
@@ -171,6 +191,7 @@ get.pi.typed <- function(posmat,
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
 ##' @param r the series of spatial distances wer are interested in
 ##' @param r.low the low end of each range....0  by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return theta values for all the distances we looked at
 ##'
@@ -185,7 +206,8 @@ get.theta.typed <- function(posmat,
                             typeA = -1,
                             typeB = -1,
                             r=1,
-                            r.low=rep(0,length(r))) {
+                            r.low=rep(0,length(r)),
+                            data.frame=TRUE) {
      
      rc <- .C("get_theta_typed",
               as.integer(posmat[,"type"]),
@@ -200,7 +222,11 @@ get.theta.typed <- function(posmat,
               as.integer(1:nrow(posmat)),
               rc=double(length(r)))
      
-     return(data.frame(r.low=r.low, r=r, theta=rc$rc))
+     if (data.frame == FALSE) {
+          return(rc)
+     } else if (data.frame == TRUE) {
+          return(data.frame(r.low=r.low, r=r, theta=rc$rc))
+     }
 }
 
 
@@ -217,6 +243,7 @@ get.theta.typed <- function(posmat,
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param ci.low the low end of the ci...0.025 by default
 ##' @param ci.high the high end of the ci...0.975 by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return a matrix with a row for the high and low values and
 ##'     a column per distance
@@ -234,17 +261,22 @@ get.pi.ci <- function(posmat,
                       r.low=rep(0,length(r)),
                       boot.iter = 1000,
                       ci.low=0.025,
-                      ci.high=0.975) {
+                      ci.high=0.975,
+                      data.frame=TRUE) {
      
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
 
   rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
   
-  return(data.frame(r.low=r.low, 
-                    r=r, 
-                    pt.est=get.pi(posmat, fun, r, r.low)$pi, 
-                    ci.low=rc[1,], 
-                    ci.high=rc[2,]))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, 
+                         r=r, 
+                         pt.est=get.pi(posmat, fun, r, r.low)$pi, 
+                         ci.low=rc[1,], 
+                         ci.high=rc[2,]))
+  }
 }
  
 
@@ -261,6 +293,7 @@ get.pi.ci <- function(posmat,
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param ci.low the low end of the ci...0.025 by default
 ##' @param ci.high the high end of the ci...0.975 by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return a matrix with a row for the high and low values and
 ##'     a column per distance
@@ -278,16 +311,22 @@ get.theta.ci <- function(posmat,
                          r.low=rep(0,length(r)),
                          boot.iter = 1000,
                          ci.low=0.025,
-                         ci.high=0.975) {
+                         ci.high=0.975,
+                         data.frame=TRUE) {
+     
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
 
   rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
   
-  return(data.frame(r.low=r.low, 
-                    r=r, 
-                    pt.est=get.theta(posmat, fun, r, r.low)$theta, 
-                    ci.low=rc[1,], 
-                    ci.high=rc[2,]))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, 
+                         r=r, 
+                         pt.est=get.theta(posmat, fun, r, r.low)$theta, 
+                         ci.low=rc[1,], 
+                         ci.high=rc[2,]))
+  }
 }
 
 
@@ -302,6 +341,7 @@ get.theta.ci <- function(posmat,
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range. 0 by default
 ##' @param boot.iter the number of bootstrap iterations
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return pi values for all the distances we looked at
 ##'
@@ -320,7 +360,8 @@ get.pi.bootstrap <- function(posmat,
                              fun,
                              r=1,
                              r.low=rep(0,length(r)),
-                             boot.iter = 500) {
+                             boot.iter=500,
+                             data.frame=TRUE) {
 
 
   xcol <-  which(colnames(posmat)=="x")
@@ -343,7 +384,12 @@ get.pi.bootstrap <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -358,6 +404,7 @@ get.pi.bootstrap <- function(posmat,
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range. 0 by default
 ##' @param boot.iter the number of bootstrap iterations
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return theta values for all the distances we looked at
 ##'
@@ -376,7 +423,8 @@ get.theta.bootstrap <- function(posmat,
                                 fun,
                                 r=1,
                                 r.low=rep(0,length(r)),
-                                boot.iter = 500) {
+                                boot.iter=500,
+                                data.frame=TRUE) {
 
 
   xcol <-  which(colnames(posmat)=="x")
@@ -399,7 +447,12 @@ get.theta.bootstrap <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -414,6 +467,7 @@ get.theta.bootstrap <- function(posmat,
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return pi values for all the distances we looked at
 ##'
@@ -427,7 +481,8 @@ get.pi.typed.bootstrap <- function(posmat,
                                    typeB = -1,
                                    r=1,
                                    r.low=rep(0,length(r)),
-                                   boot.iter) {
+                                   boot.iter,
+                                   data.frame=TRUE) {
 
 
   rc <- matrix(nrow=boot.iter, ncol=length(r))
@@ -448,7 +503,11 @@ get.pi.typed.bootstrap <- function(posmat,
     )$rc
   }
   
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -463,6 +522,7 @@ get.pi.typed.bootstrap <- function(posmat,
 ##' @param typeB the "to" type that we are interested i, -1 is wildcard
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return theta values for all the distances we looked at
 ##'
@@ -476,7 +536,8 @@ get.theta.typed.bootstrap <- function(posmat,
                                       typeB = -1,
                                       r=1,
                                       r.low=rep(0,length(r)),
-                                      boot.iter) {
+                                      boot.iter,
+                                      data.frame=TRUE) {
 
 
   rc <- matrix(nrow=boot.iter, ncol=length(r))
@@ -497,7 +558,11 @@ get.theta.typed.bootstrap <- function(posmat,
     )$rc
   }
   
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -512,6 +577,7 @@ get.theta.typed.bootstrap <- function(posmat,
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return pi values for all the distances we looked at
 ##'
@@ -524,7 +590,8 @@ get.pi.permute <- function(posmat,
                            fun,
                            r=1,
                            r.low=rep(0,length(r)),
-                           permutations) {
+                           permutations,
+                           data.frame=TRUE) {
 
 
   xcol <-  which(colnames(posmat)=="x")
@@ -551,7 +618,11 @@ get.pi.permute <- function(posmat,
                     ycol)
   }
   
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -566,6 +637,7 @@ get.pi.permute <- function(posmat,
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return theta values for all the distances we looked at
 ##'
@@ -578,7 +650,8 @@ get.theta.permute <- function(posmat,
                               fun,
                               r=1,
                               r.low=rep(0,length(r)),
-                              permutations) {
+                              permutations,
+                              data.frame=TRUE) {
 
 
   xcol <-  which(colnames(posmat)=="x")
@@ -605,7 +678,11 @@ get.theta.permute <- function(posmat,
                     ycol)
   }
   
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -621,6 +698,7 @@ get.theta.permute <- function(posmat,
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return pi values for all the distances we looked at
 ##'
@@ -636,7 +714,8 @@ get.pi.typed.permute <- function(posmat,
                                  typeB = -1,
                                  r=1,
                                  r.low=rep(0,length(r)),
-                                 permutations) {
+                                 permutations,
+                                 data.frame=TRUE) {
 
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
@@ -665,7 +744,11 @@ get.pi.typed.permute <- function(posmat,
     )$rc
   }
   
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -681,6 +764,7 @@ get.pi.typed.permute <- function(posmat,
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return theta values for all the distances we looked at
 ##'
@@ -696,7 +780,8 @@ get.theta.typed.permute <- function(posmat,
                                     typeB = -1,
                                     r=1,
                                     r.low=rep(0,length(r)),
-                                    permutations) {
+                                    permutations,
+                                    data.frame=TRUE) {
 
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
@@ -725,7 +810,11 @@ get.theta.typed.permute <- function(posmat,
     )$rc
   }
   
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -754,6 +843,7 @@ get.theta.typed.permute <- function(posmat,
 ##'   \item "representative" if comparison set is representative of the underlying population
 ##'   \item "independent" if comparison set is cases/events coming from an indepedent process
 ##' }
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return The tau value for each distance we look at. If \code{comparison.type} is "representative", this is:
 ##'
@@ -775,7 +865,8 @@ get.tau <- function(posmat,
                     fun,
                     r = 1,
                     r.low=rep(0,length(r)),
-                    comparison.type = "representative") {
+                    comparison.type = "representative",
+                    data.frame=TRUE) {
 
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
@@ -803,7 +894,11 @@ get.tau <- function(posmat,
               xcol,
               ycol)
   
-  return(data.frame(r.low=r.low, r=r, tau=rc))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, tau=rc))
+  }
 }
 
 
@@ -823,6 +918,7 @@ get.tau <- function(posmat,
 ##'   \item "representative" if comparison set is representative of the underlying population
 ##'   \item "independent" if comparison set is cases/events coming from an indepedent process
 ##' }
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return data frame of tau values for all the distances
 ##'
@@ -838,7 +934,8 @@ get.tau.typed <- function(posmat,
                           typeB = -1,
                           r=1,
                           r.low=rep(0,length(r)),
-                          comparison.type = "representative") {
+                          comparison.type = "representative",
+                          data.frame=TRUE) {
      
      if (comparison.type == "representative") {
           comp.type.int <- 0
@@ -862,7 +959,11 @@ get.tau.typed <- function(posmat,
               as.integer(comp.type.int),
               rc=double(length(r)))
      
-     return(data.frame(r.low=r.low, r=r, tau=rc$rc))
+     if (data.frame == FALSE) {
+          return(rc)
+     } else if (data.frame == TRUE) {
+          return(data.frame(r.low=r.low, r=r, tau=rc$rc))
+     }
 }
 
 
@@ -879,6 +980,7 @@ get.tau.typed <- function(posmat,
 ##' @param comparison.type the comparison type to pass to get.tau
 ##' @param ci.low the low end of the ci...0.025 by default
 ##' @param ci.high the high end of the ci...0.975 by default
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return a data frame with the point estimate of tau and its low and high confidence interval at each distance
 ##'
@@ -896,7 +998,8 @@ get.tau.ci <- function(posmat,
                        boot.iter = 1000,
                        comparison.type = "representative",
                        ci.low=0.025,
-                       ci.high=0.975) {
+                       ci.high=0.975,
+                       data.frame=TRUE) {
      
      boots <- get.tau.bootstrap(posmat, fun,
                                 r, r.low, boot.iter,
@@ -904,11 +1007,15 @@ get.tau.ci <- function(posmat,
      
      rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
      
-     return(data.frame(r.low=r.low, 
-                       r=r, 
-                       pt.est=get.tau(posmat, fun, r, r.low)$tau, 
-                       ci.low=rc[1,], 
-                       ci.high=rc[2,]))
+     if (data.frame == FALSE) {
+          return(rc)
+     } else if (data.frame == TRUE) {
+          return(data.frame(r.low=r.low, 
+                            r=r, 
+                            pt.est=get.tau(posmat, fun, r, r.low)$tau, 
+                            ci.low=rc[1,], 
+                            ci.high=rc[2,]))
+     }
 }
 
 
@@ -925,6 +1032,7 @@ get.tau.ci <- function(posmat,
 ##' @param r.low the low end of each range....0  by default
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param comparison.type the comparison type to pass as input to \code{get.pi}
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return a matrix containing all bootstrapped values of tau for each distance interval
 ##'
@@ -940,7 +1048,8 @@ get.tau.bootstrap <- function(posmat,
                               r=1,
                               r.low=rep(0,length(r)),
                               boot.iter,
-                              comparison.type = "representative") {
+                              comparison.type = "representative",
+                              data.frame=TRUE) {
 
 
   xcol <-  which(colnames(posmat)=="x")
@@ -972,7 +1081,12 @@ get.tau.bootstrap <- function(posmat,
                     xcol,
                     ycol)
   }
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -989,6 +1103,7 @@ get.tau.bootstrap <- function(posmat,
 ##'   \item "representative" if comparison set is representative of the underlying population
 ##'   \item "independent" if comparison set is cases/events coming from an independent process
 ##' }
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return tau values for all the distances we looked at
 ##'
@@ -1005,7 +1120,8 @@ get.tau.typed.bootstrap <- function(posmat,
                                     r=1,
                                     r.low=rep(0,length(r)),
                                     boot.iter,
-                                    comparison.type = "representative") {
+                                    comparison.type = "representative",
+                                    data.frame=TRUE) {
 
 
   if (comparison.type == "representative") {
@@ -1034,7 +1150,12 @@ get.tau.typed.bootstrap <- function(posmat,
                  rc=double(length(r))
     )$rc
   }
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))  
+  }
 }
 
 
@@ -1050,6 +1171,7 @@ get.tau.typed.bootstrap <- function(posmat,
 ##' @param r.low the low end of each range....0  by default
 ##' @param permutations the number of permute iterations
 ##' @param comparison.type the comparison type to pass as input to \code{get.pi}
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return tau values for all the distances we looked at
 ##'
@@ -1065,7 +1187,8 @@ get.tau.permute <- function(posmat,
                             r=1,
                             r.low=rep(0,length(r)),
                             permutations,
-                            comparison.type = "representative") {
+                            comparison.type = "representative",
+                            data.frame=TRUE) {
 
 
   xcol <-  which(colnames(posmat)=="x")
@@ -1101,7 +1224,12 @@ get.tau.permute <- function(posmat,
                     ycol)
   }
 
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 
@@ -1119,6 +1247,7 @@ get.tau.permute <- function(posmat,
 ##'   \item "representative" if comparison set is representative of the underlying population
 ##'   \item "independent" if comparison set is cases/events coming from an indepedent process
 ##' }
+##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return a matrix with permutation tau values for each distance specified
 ##'
@@ -1135,7 +1264,8 @@ get.tau.typed.permute <- function(posmat,
                                   r=1,
                                   r.low=rep(0,length(r)),
                                   permutations,
-                                  comparison.type = "representative") {
+                                  comparison.type = "representative",
+                                  data.frame=TRUE) {
 
   xcol <-  which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
@@ -1172,7 +1302,11 @@ get.tau.typed.permute <- function(posmat,
     )$rc
   }
   
-  return(data.frame(r.low=r.low, r=r, t(rc)))
+  if (data.frame == FALSE) {
+       return(rc)
+  } else if (data.frame == TRUE) {
+       return(data.frame(r.low=r.low, r=r, t(rc)))
+  }
 }
 
 NULL

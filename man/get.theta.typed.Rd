@@ -5,7 +5,7 @@
 \title{Optimized version of \code{get.theta} for typed data.}
 \usage{
 get.theta.typed(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)))
+  r.low = rep(0, length(r)), data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -17,6 +17,8 @@ get.theta.typed(posmat, typeA = -1, typeB = -1, r = 1,
 \item{r}{the series of spatial distances wer are interested in}
 
 \item{r.low}{the low end of each range....0  by default}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 theta values for all the distances we looked at

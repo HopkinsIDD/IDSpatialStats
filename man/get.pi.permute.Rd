@@ -5,7 +5,7 @@
 \title{get the null distribution of the \code{get.pi} function}
 \usage{
 get.pi.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  permutations)
+  permutations, data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -17,6 +17,8 @@ get.pi.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
 \item{r.low}{the low end of each range....0  by default}
 
 \item{permutations}{the number of permute iterations}
+
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 pi values for all the distances we looked at
