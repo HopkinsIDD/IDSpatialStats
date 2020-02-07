@@ -40,11 +40,20 @@ For general questions, contact package maintainers John Giles (giles@jhu.edu) or
 
 To report bugs or problems with documentation, please go to the [Issues](https://github.com/HopkinsIDD/IDSpatialStats/issues) page associated with this GitHub page and click *New issue*.
 
-If you wish to contribute to `IDSpatialStats`, please get in touch via email and then fork the latest version of the package. After committing your code to your own forked version, submit a pull request when you are ready to share. To assist with inspecting your pull request, please:
+If you wish to contribute to `IDSpatialStats`, please first get in touch via email. Then please:
 
-* Commit...:
-  * Often
-  * Describe what was done and why, but not how
-  * Use the imperative
-  * $\leq$ 72 characters
-   e.g. "*Replace percentile CI with BCa CI, as tau bootstrap distrib. non-symm*"
+1. Fork a copy of the current development version on GitHub
+2. Add your functions and edits to your forked copy
+  * pay attention to existing naming conventions and outputs
+  * add examples
+  * line comments are welcome for non-intuitive commands.
+  * commit to your own forked version:
+    * often
+    * describe what was done and why, but not how
+    * use the imperative
+    * $\leq$ 72 characters  
+      e.g. "*Replace percentile CI with BCa CI, as tau bootstrap distrib. non-symm*"
+
+3. Any modified functions must return identical output as the current functions. Check that modified functions return the same output using package `testthat` and consider writing new test cases if appropriate. For new functions, write test cases should test that functions return expected values given expected inputs, and that they behave as expected in boundary conditions.
+4. Add conditional stops to functions so that they fail gracefully with unexpected inputs.
+5. Submit a pull request when you are ready to share.
