@@ -2,13 +2,13 @@ Package: IDSpatialStats
 Version: 0.4.0
 Date: 2020-02-06
 Title: Estimate Global Clustering in Infectious Disease
-Authors@R: c(person(given = "Justin Lessler", role = c("aut", "cre"),
+Authors@R: c(person(given = "Justin Lessler", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9741-8109", "Co-creator & maintainer"),
                      email = "justin@jhu.edu"),
-              person(given = "Henrik Salje", role = "aut",
+              person(given = "Henrik Salje", role = "aut", comment = c(ORCID = "0000-0003-3626-4254", "Co-creator"),
                      email = "hs743@cam.ac.uk"),
-              person(given = "John Giles", role = "aut",
+              person(given = "John Giles", role = "aut", comment = c(ORCID = "0000-0002-0954-4093", "Author & maintainer"),
                      email = "hs743@cam.ac.uk"),
-              person(given = "Timothy M Pollington", role = "ctb",
+              person(given = "Timothy M Pollington", role = "aut", comment = c(ORCID = "0000-0002-9688-5960", "Author"),
                      email = "timothy.pollington@gmail.com"))
 License: GPL (>=2)
 Description: Implements various novel and standard
