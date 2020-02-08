@@ -1,5 +1,5 @@
 Package: IDSpatialStats
-Version: 0.4.0
+Version: 1.0.0
 Date: 2020-02-06
 Title: Estimate Global Clustering in Infectious Disease
 Authors@R: c(person(given = "Justin Lessler", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9741-8109", "Co-creator & maintainer"),
@@ -20,4 +20,5 @@ Imports: igraph, spatstat
 Depends: doParallel, foreach, parallel, R (>= 2.10)
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
+URL: https://github.com/HopkinsIDD/IDSpatialStats
 BugReports: https://github.com/HopkinsIDD/IDSpatialStats/issues
