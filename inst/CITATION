@@ -1,0 +1,60 @@
+bibentry(
+   header = "To cite IDSpatialStats in publications please use:",
+   key = "Giles2019",
+   bibtype = "Unpublished",
+   title = "The IDSpatialStats R Package: Quantifying Spatial Dependence
+          of Infectious Disease Spread",
+   author = c(as.person("John R. Giles"),as.person("Henrik Salje"),as.person("Justin Lessler")),
+   year = 2019,
+   doi = "10.32614/RJ-2019-043",
+   journal = "The R Journal",
+   url = "https://journal.r-project.org/archive/2019/RJ-2019-043/index.html",
+   note = "Accepted article",
+)
+
+bibentry(
+   header = "If you calculate mean transmission distances using IDSpatialStats please also cite:",
+   key = "Salje2016",
+   bibtype = "Article",
+   title = "Estimating infectious disease transmission distances using the overall distribution of cases",
+   author = c(as.person("Henrik Salje"),as.person("Derek A.T. Cummings"),as.person("Justin Lessler")),
+   year = 2016,
+   doi = "10.1016/j.epidem.2016.10.001",
+   journal = "Epidemics",
+   url = "https://www.sciencedirect.com/science/article/pii/S1755436516300317"
+)
+
+c(bibentry(
+   header = "For the two foundational papers responsible for the tau statistic please also cite:",
+   key = "Salje2012",
+   bibtype = "Article",
+   title = "Revealing the microscale spatial signature of dengue transmission and immunity in an urban population",
+   author = c(as.person("Henrik Salje"),as.person("Justin Lessler"),as.person("Timothy P. Endy"),as.person("Frank C. Curriero"),as.person("Robert V. Gibbons"),as.person("Ananda Nisalak"),as.person("Suchitra Nimmannitya"),as.person("Siripen Kalayanarooj"),as.person("Richard G. Jarman"),as.person("Stephen J. Thomas"),as.person("Donald S. Burke"),as.person("Derek A. T. Cummings")),
+   year = 2012,
+   doi = "doi.org/10.1073/pnas.1120621109",
+   journal = "PNAS",
+   url = "https://www.pnas.org/content/109/24/9535"
+   ),
+   bibentry(
+   key = "Lessler2016",
+   bibtype = "Article",
+   title = "Measuring Spatial Dependence for Infectious Disease Epidemiology",
+   author = c(as.person("Justin Lessler"),as.person("Henrik Salje"),as.person("M. Kate Grabowski"),as.person("Derek A. T. Cummings")),
+   year = 2016,
+   doi = "10.1371/journal.pone.0155249",
+   journal = "PLoS ONE",
+   url = "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249"
+   )
+)
+
+bibentry(
+   header = "For the method and rationale of graphical hypothesis testing for the tau statistic please also cite:",
+   key = "Pollington2019",
+   bibtype = "Unpublished",
+   title = "Measuring spatiotemporal disease clustering with the tau statistic",
+   author = c(as.person("Timothy M. Pollington"),as.person("Michael J. Tildesley"),as.person("T. Déirdre Hollingsworth"),as.person("Lloyd A. C. Chapman")),
+   year = 2019,
+   journal = "arXiv",
+   url = "https://arxiv.org/abs/1911.08022",
+   note = "Under review"
+)
