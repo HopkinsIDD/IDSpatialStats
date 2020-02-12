@@ -4,7 +4,7 @@
 ##' returns the probability that a point within a particular range of a point of interest shares the relationship
 ##' specified by the passed in function with that point.
 ##'
-##' @param posmat a matrix with columns x, y and any other named columns
+##' @param posmat a matrix with columns x, y and any other named
 ##'    columns needed by \code{fun}
 ##' @param fun a function that takes in two rows of \code{posmat} and returns:
 ##' \enumerate{
@@ -70,8 +70,8 @@ get.pi <- function(posmat,
 ##' returns the odds that a point within a particular range of a point of interest shares the relationship
 ##' specified by the passed in function with that point.
 ##'
-##' @param posmat a matrix with columns x, y and any other named columns
-##'    columns needed by fun
+##' @param posmat a matrix with columns x, y and any other named
+##'    columns needed by \code{fun}
 ##' @param fun a function that takes in two rows of posmat and returns:
 ##' \enumerate{
 ##'      \item  for pairs that are (potentially) related
@@ -825,8 +825,8 @@ get.theta.typed.permute <- function(posmat,
 ##' from an index point share some relationship with that point versus
 ##' the probability (or odds) any point shares that relationship with that point.
 ##'
-##' @param posmat a matrix with columns x, y and any other named columns
-##'    columns needed by fun
+##' @param posmat a matrix with columns x, y and any other named
+##'    columns needed by \code{fun}
 ##' @param fun a function that takes in two rows of posmat and returns:
 ##' \enumerate{
 ##'      \item for pairs included in the numerator (and the denominator for independent data)
