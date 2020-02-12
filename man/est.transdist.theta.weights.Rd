@@ -4,8 +4,7 @@
 \alias{est.transdist.theta.weights}
 \title{Estimate transmission distance theta values by replication}
 \usage{
-est.transdist.theta.weights(case.times, gen.t.mean, t.density, t1,
-  n.rep = 100)
+est.transdist.theta.weights(case.times, gen.t.mean, t.density, t1, n.rep = 100)
 }
 \arguments{
 \item{case.times}{a vector giving the occurrence time for each case}
@@ -72,11 +71,12 @@ b <- est.transdist.theta.weights(case.times=case.times,
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }
 \seealso{
-Other transdist: \code{\link{est.transdist.bootstrap.ci}},
-  \code{\link{est.transdist.temporal.bootstrap.ci}},
-  \code{\link{est.transdist.temporal}},
-  \code{\link{est.transdist}},
-  \code{\link{get.transdist.theta}}
+Other transdist: 
+\code{\link{est.transdist.bootstrap.ci}()},
+\code{\link{est.transdist.temporal.bootstrap.ci}()},
+\code{\link{est.transdist.temporal}()},
+\code{\link{est.transdist}()},
+\code{\link{get.transdist.theta}()}
 }
 \author{
 John Giles, Justin Lessler, and Henrik Salje

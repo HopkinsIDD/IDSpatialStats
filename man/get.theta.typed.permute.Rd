@@ -4,8 +4,15 @@
 \alias{get.theta.typed.permute}
 \title{get the null distribution of the get.theta.typed function}
 \usage{
-get.theta.typed.permute(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), permutations, data.frame = TRUE)
+get.theta.typed.permute(
+  posmat,
+  typeA = -1,
+  typeB = -1,
+  r = 1,
+  r.low = rep(0, length(r)),
+  permutations,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -49,11 +56,13 @@ typed.theta.type.null<-get.theta.typed.permute(tmp, typeA=1, typeB=2,
 }
 }
 \seealso{
-Other get.theta: \code{\link{get.theta.bootstrap}},
-  \code{\link{get.theta.ci}},
-  \code{\link{get.theta.permute}},
-  \code{\link{get.theta.typed.bootstrap}},
-  \code{\link{get.theta.typed}}, \code{\link{get.theta}}
+Other get.theta: 
+\code{\link{get.theta.bootstrap}()},
+\code{\link{get.theta.ci}()},
+\code{\link{get.theta.permute}()},
+\code{\link{get.theta.typed.bootstrap}()},
+\code{\link{get.theta.typed}()},
+\code{\link{get.theta}()}
 }
 \author{
 Justin Lessler and Henrik Salje

@@ -4,8 +4,15 @@
 \alias{get.theta.typed.bootstrap}
 \title{runs bootstrapping on \code{get.theta.typed}}
 \usage{
-get.theta.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), boot.iter, data.frame = TRUE)
+get.theta.typed.bootstrap(
+  posmat,
+  typeA = -1,
+  typeB = -1,
+  r = 1,
+  r.low = rep(0, length(r)),
+  boot.iter,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -46,10 +53,12 @@ typed.theta.bs<-get.theta.typed.bootstrap(tmp,typeA=1,typeB=2,r=r.max,r.low=r.mi
 }
 }
 \seealso{
-Other get.theta: \code{\link{get.theta.bootstrap}},
-  \code{\link{get.theta.ci}},
-  \code{\link{get.theta.permute}},
-  \code{\link{get.theta.typed.permute}},
-  \code{\link{get.theta.typed}}, \code{\link{get.theta}}
+Other get.theta: 
+\code{\link{get.theta.bootstrap}()},
+\code{\link{get.theta.ci}()},
+\code{\link{get.theta.permute}()},
+\code{\link{get.theta.typed.permute}()},
+\code{\link{get.theta.typed}()},
+\code{\link{get.theta}()}
 }
 \concept{get.theta}

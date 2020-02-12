@@ -4,8 +4,15 @@
 \alias{get.tau.typed}
 \title{Optimized version of \code{get.tau} for typed data}
 \usage{
-get.tau.typed(posmat, typeA = -1, typeB = -1, r = 1, r.low = rep(0,
-  length(r)), comparison.type = "representative", data.frame = TRUE)
+get.tau.typed(
+  posmat,
+  typeA = -1,
+  typeB = -1,
+  r = 1,
+  r.low = rep(0, length(r)),
+  comparison.type = "representative",
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -56,11 +63,13 @@ abline(h=1,lty=2)
 }
 }
 \seealso{
-Other get.tau: \code{\link{get.tau.bootstrap}},
-  \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
-  \code{\link{get.tau.typed.bootstrap}},
-  \code{\link{get.tau.typed.permute}},
-  \code{\link{get.tau}}
+Other get.tau: 
+\code{\link{get.tau.bootstrap}()},
+\code{\link{get.tau.ci}()},
+\code{\link{get.tau.permute}()},
+\code{\link{get.tau.typed.bootstrap}()},
+\code{\link{get.tau.typed.permute}()},
+\code{\link{get.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

@@ -4,8 +4,14 @@
 \alias{get.theta.permute}
 \title{get the null distribution of the \code{get.theta} function}
 \usage{
-get.theta.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  permutations, data.frame = TRUE)
+get.theta.permute(
+  posmat,
+  fun,
+  r = 1,
+  r.low = rep(0, length(r)),
+  permutations,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -58,10 +64,12 @@ lines(r.mid, null.ci[2,] , lty=2)
 }
 }
 \seealso{
-Other get.theta: \code{\link{get.theta.bootstrap}},
-  \code{\link{get.theta.ci}},
-  \code{\link{get.theta.typed.bootstrap}},
-  \code{\link{get.theta.typed.permute}},
-  \code{\link{get.theta.typed}}, \code{\link{get.theta}}
+Other get.theta: 
+\code{\link{get.theta.bootstrap}()},
+\code{\link{get.theta.ci}()},
+\code{\link{get.theta.typed.bootstrap}()},
+\code{\link{get.theta.typed.permute}()},
+\code{\link{get.theta.typed}()},
+\code{\link{get.theta}()}
 }
 \concept{get.theta}

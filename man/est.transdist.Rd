@@ -4,8 +4,16 @@
 \alias{est.transdist}
 \title{Estimate transmission distance}
 \usage{
-est.transdist(epi.data, gen.t.mean, gen.t.sd, t1, max.sep, max.dist,
-  n.transtree.reps = 100, theta.weights = NULL)
+est.transdist(
+  epi.data,
+  gen.t.mean,
+  gen.t.sd,
+  t1,
+  max.sep,
+  max.dist,
+  n.transtree.reps = 100,
+  theta.weights = NULL
+)
 }
 \arguments{
 \item{epi.data}{a three-column matrix giving the coordinates (\code{x} and \code{y}) and time of infection (\code{t} for all cases in an epidemic (columns must be in \code{x}, \code{y}, \code{t} order)}
@@ -62,14 +70,16 @@ b
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }
 \seealso{
-Other est.wt: \code{\link{est.wt.matrix.weights}},
-  \code{\link{est.wt.matrix}}
+Other est.wt: 
+\code{\link{est.wt.matrix.weights}()},
+\code{\link{est.wt.matrix}()}
 
-Other transdist: \code{\link{est.transdist.bootstrap.ci}},
-  \code{\link{est.transdist.temporal.bootstrap.ci}},
-  \code{\link{est.transdist.temporal}},
-  \code{\link{est.transdist.theta.weights}},
-  \code{\link{get.transdist.theta}}
+Other transdist: 
+\code{\link{est.transdist.bootstrap.ci}()},
+\code{\link{est.transdist.temporal.bootstrap.ci}()},
+\code{\link{est.transdist.temporal}()},
+\code{\link{est.transdist.theta.weights}()},
+\code{\link{get.transdist.theta}()}
 }
 \author{
 John Giles, Justin Lessler, and Henrik Salje

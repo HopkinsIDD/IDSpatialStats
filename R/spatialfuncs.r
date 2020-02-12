@@ -230,30 +230,35 @@ get.theta.typed <- function(posmat,
 }
 
 
-##' Calculate bootstrapped confidence intervals for \code{get.pi} values.
+##' Calculate bootstrapped BCa confidence intervals from \code{get.pi} values.
 ##'
-##' Wrapper to \code{get.pi.bootstrap} that takes care of calculating the
-##' confidence intervals based on the bootstrapped values..
+##' Wrapper using \pkg{coxed} package to calculate the
+##' BCa (bias-corrected and accelerated) confidence interval (CI) for \eqn{\pi}(\code{r.low}, \code{r}), based on bootstrapped values from \code{get.pi.bootstrap}.
 ##'
+##' @param posmat a matrix with named columns x and y for 2D individual location
+##' @param fun the function to decide transmission-related pairs
+##' @param r the upper end of each distance band
+##' @param r.low the low end of each distance band (default: a vector of zeroes)
+##' @param boot.iter the number of bootstrap iterations (default = 1000)
+##' @param ci.low the low end of the BCa CI (default = 0.025)
+##' @param ci.high the high end of the BCa CI (default =  0.975)
+##' @param data.frame logical: indicating whether to return results as a data frame (default = TRUE)
 ##'
-##' @param posmat a matrix with columns type, x and y
-##' @param fun the function to decide relationships
-##' @param r the series of spatial distances wer are interested in
-##' @param r.low the low end of each range. 0 by default
-##' @param boot.iter the number of bootstrap iterations
-##' @param ci.low the low end of the ci...0.025 by default
-##' @param ci.high the high end of the ci...0.975 by default
-##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
+##' @return If \code{data.frame = TRUE} then a data frame of 5 variables \code{r.low}, \code{r}, \code{pt.est} (the point estimate from \code{get.pi}), \code{ci.low} and \code{ci.high}, with the observations representing ascending distance bands. Else a matrix with first row \code{ci.low} and second row \code{ci.high} with columns representing ascending distance bands.
 ##'
-##' @return a matrix with a row for the high and low values and
-##'     a column per distance
+##' @author Justin Lessler and Timothy M Pollington
 ##'
-##' @author Justin Lessler
+##' @references \href{https://arxiv.org/pdf/1911.08022.pdf#page=18}{Rationale for BCa rather than percentile CIs} is described in Pollington et al. (2019)
+##' Measuring spatiotemporal disease clustering with the tau statistic.
+##' *arXiv/stat.ME: 1911.08022v3*.
 ##'
 ##' @family get.pi
+##' 
+##' @section Depends on:
+##' coxed::bca()
 ##'
 ##' @example R/examples/get_pi_ci.R
-##'
+##' @md
 
 get.pi.ci <- function(posmat,
                       fun,
@@ -970,7 +975,7 @@ get.tau.typed <- function(posmat,
 ##' Bootstrap confidence interval for the \code{get.tau} values
 ##'
 ##' Wrapper to \code{get.tau.bootstrap} that takes care of calulating
-##' the confidence intervals based on the bootstrapped values
+##' the confidence intervals based on the bootstrapped values.
 ##'
 ##' @param posmat a matrix appropriate for input to \code{get.tau}
 ##' @param fun a function appropriate as input to \code{get.pi}

@@ -4,11 +4,10 @@
 \alias{get.pi}
 \title{Generalized version of \code{get.pi}}
 \usage{
-get.pi(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  data.frame = TRUE)
+get.pi(posmat, fun, r = 1, r.low = rep(0, length(r)), data.frame = TRUE)
 }
 \arguments{
-\item{posmat}{a matrix with columns x, y and any other named columns
+\item{posmat}{a matrix with columns x, y and any other named
 columns needed by \code{fun}}
 
 \item{fun}{a function that takes in two rows of \code{posmat} and returns:
@@ -56,14 +55,17 @@ sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.pi: \code{\link{get.pi.bootstrap}},
-  \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
-  \code{\link{get.pi.typed.bootstrap}},
-  \code{\link{get.pi.typed.permute}},
-  \code{\link{get.pi.typed}}
+Other get.pi: 
+\code{\link{get.pi.bootstrap}()},
+\code{\link{get.pi.ci}()},
+\code{\link{get.pi.permute}()},
+\code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.permute}()},
+\code{\link{get.pi.typed}()}
 
-Other spatialtau: \code{\link{get.tau}},
-  \code{\link{get.theta}}
+Other spatialtau: 
+\code{\link{get.tau}()},
+\code{\link{get.theta}()}
 }
 \author{
 Justin Lessler and Henrik Salje

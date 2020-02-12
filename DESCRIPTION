@@ -14,7 +14,7 @@ License: GPL (>=2)
 Description: Implements various novel and standard
     clustering statistics and other analyses useful for understanding the
     spread of infectious disease.
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8
 Imports: igraph, spatstat
 Depends: doParallel, foreach, parallel, R (>= 2.10)

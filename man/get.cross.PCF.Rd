@@ -4,8 +4,7 @@
 \alias{get.cross.PCF}
 \title{Cross type Pair Correlation Function using homotypic and heterotypic case types}
 \usage{
-get.cross.PCF(epi.data, type, hom, het = NULL, r = NULL,
-  correction = "border")
+get.cross.PCF(epi.data, type, hom, het = NULL, r = NULL, correction = "border")
 }
 \arguments{
 \item{epi.data}{a three-column numerical matrix that contains coordinates (\code{x} and \code{y}) for each case and information on case type (e.g. genotype or serotype). First two columns must be \code{x} and \code{y}}

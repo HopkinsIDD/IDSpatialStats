@@ -4,8 +4,14 @@
 \alias{get.theta.typed}
 \title{Optimized version of \code{get.theta} for typed data.}
 \usage{
-get.theta.typed(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), data.frame = TRUE)
+get.theta.typed(
+  posmat,
+  typeA = -1,
+  typeB = -1,
+  r = 1,
+  r.low = rep(0, length(r)),
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -45,12 +51,13 @@ typed.theta.R01<-get.theta.typed(tmp,typeA=2,typeB=2,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.theta: \code{\link{get.theta.bootstrap}},
-  \code{\link{get.theta.ci}},
-  \code{\link{get.theta.permute}},
-  \code{\link{get.theta.typed.bootstrap}},
-  \code{\link{get.theta.typed.permute}},
-  \code{\link{get.theta}}
+Other get.theta: 
+\code{\link{get.theta.bootstrap}()},
+\code{\link{get.theta.ci}()},
+\code{\link{get.theta.permute}()},
+\code{\link{get.theta.typed.bootstrap}()},
+\code{\link{get.theta.typed.permute}()},
+\code{\link{get.theta}()}
 }
 \author{
 Justin Lessler and Henrik Salje

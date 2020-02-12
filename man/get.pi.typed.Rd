@@ -4,8 +4,14 @@
 \alias{get.pi.typed}
 \title{Optimized version of \code{get.pi} for typed data.}
 \usage{
-get.pi.typed(posmat, typeA = -1, typeB = -1, r = 1, r.low = rep(0,
-  length(r)), data.frame = TRUE)
+get.pi.typed(
+  posmat,
+  typeA = -1,
+  typeB = -1,
+  r = 1,
+  r.low = rep(0, length(r)),
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -45,10 +51,13 @@ typed.pi<-get.pi.typed(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.pi: \code{\link{get.pi.bootstrap}},
-  \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
-  \code{\link{get.pi.typed.bootstrap}},
-  \code{\link{get.pi.typed.permute}}, \code{\link{get.pi}}
+Other get.pi: 
+\code{\link{get.pi.bootstrap}()},
+\code{\link{get.pi.ci}()},
+\code{\link{get.pi.permute}()},
+\code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.permute}()},
+\code{\link{get.pi}()}
 }
 \author{
 Justin Lessler and Henrik Salje
