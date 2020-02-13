@@ -16,7 +16,7 @@ Description: Implements various novel and standard
     spread of infectious disease.
 RoxygenNote: 7.0.2
 Encoding: UTF-8
-Imports: igraph, spatstat
+Imports: igraph, spatstat, coxed
 Depends: doParallel, foreach, parallel, R (>= 2.10)
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
