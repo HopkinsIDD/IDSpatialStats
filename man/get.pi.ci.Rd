@@ -10,8 +10,7 @@ get.pi.ci(
   r = 1,
   r.low = rep(0, length(r)),
   boot.iter = 1000,
-  ci.low = 0.025,
-  ci.high = 0.975,
+  ci.level = 0.95,
   data.frame = TRUE
 )
 }
@@ -26,14 +25,12 @@ get.pi.ci(
 
 \item{boot.iter}{the number of bootstrap iterations (default = 1000)}
 
-\item{ci.low}{the low end of the BCa CI (default = 0.025)}
-
-\item{ci.high}{the high end of the BCa CI (default =  0.975)}
+\item{ci.level}{the level of the desired BCa CI (default = 0.95)}
 
 \item{data.frame}{logical: indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
-If \code{data.frame = TRUE} then a data frame of 5 variables \code{r.low}, \code{r}, \code{pt.est} (the point estimate from \code{get.pi}), \code{ci.low} and \code{ci.high}, with the observations representing ascending distance bands. Else a matrix with first row \code{ci.low} and second row \code{ci.high} with columns representing ascending distance bands.
+If \code{data.frame = TRUE} then a data frame of 5 variables \code{r.low}, \code{r}, \code{pt.est} (the point estimate from \code{get.pi}), the confidence envelope as \code{ci.low} and \code{ci.high}, with the observations representing ascending distance bands. Else a matrix with first row \code{ci.low} and second row \code{ci.high} with columns representing ascending distance bands.
 }
 \description{
 Wrapper using \pkg{coxed} package to calculate the
