@@ -240,11 +240,10 @@ get.theta.typed <- function(posmat,
 ##' @param r the upper end of each distance band
 ##' @param r.low the low end of each distance band (default: a vector of zeroes)
 ##' @param boot.iter the number of bootstrap iterations (default = 1000)
-##' @param ci.low the low end of the BCa CI (default = 0.025)
-##' @param ci.high the high end of the BCa CI (default =  0.975)
+##' @param ci.level the level of the desired BCa CI (default = 0.95)
 ##' @param data.frame logical: indicating whether to return results as a data frame (default = TRUE)
 ##'
-##' @return If \code{data.frame = TRUE} then a data frame of 5 variables \code{r.low}, \code{r}, \code{pt.est} (the point estimate from \code{get.pi}), \code{ci.low} and \code{ci.high}, with the observations representing ascending distance bands. Else a matrix with first row \code{ci.low} and second row \code{ci.high} with columns representing ascending distance bands.
+##' @return If \code{data.frame = TRUE} then a data frame of 5 variables \code{r.low}, \code{r}, \code{pt.est} (the point estimate from \code{get.pi}), the confidence envelope as \code{ci.low} and \code{ci.high}, with the observations representing ascending distance bands. Else a matrix with first row \code{ci.low} and second row \code{ci.high} with columns representing ascending distance bands.
 ##'
 ##' @author Justin Lessler and Timothy M Pollington
 ##'
@@ -265,13 +264,12 @@ get.pi.ci <- function(posmat,
                       r=1,
                       r.low=rep(0,length(r)),
                       boot.iter = 1000,
-                      ci.low=0.025,
-                      ci.high=0.975,
+                      ci.level=0.95,
                       data.frame=TRUE) {
      
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
 
-  rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
+  rc <- apply(boots[,-(1:2)], 1, coxed::bca, conf.level = ci.level)
   
   if (data.frame == FALSE) {
        return(rc)
