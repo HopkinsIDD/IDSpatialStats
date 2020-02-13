@@ -1,6 +1,6 @@
 context("get.pi.bootstrap")
 
-test_that("get.pi.boostrap runs and returns 1 when it should", {
+test_that("get.pi.bootstrap runs and returns 1 when it should", {
 
     x<-cbind(rep(c(1,2),50), x=runif(100,0,100), y=runif(100,0,100))
 
@@ -142,31 +142,3 @@ test_that ("fails nicely if x and y column names are not provided", {
     expect_that(get.pi.ci(x,test,seq(10,50,10), seq(0,40,10),100),
                 throws_error("unique x and y columns must be defined"))
 })
-
-
-##################DEPRECATED TESTS...TAKE TO LONG...NOW USING SMALLER CANONICAL
-##################TESTS THAT HAVE VALUES THAT CAN BE WORKED OUT BY HAND
-
-
-
-## test_that("CIs calculated from get.pi.bootstrap include the true value", {
-##     set.seed(787)
-
-##     x<-cbind(rep(c(1,2),250), x=runif(500,0,100), y=runif(500,0,100))
-
-##     colnames(x) <-c("type","x","y")
-
-##     test <- function(a,b) {
-##         if (a[1] != 1) return(3)
-##         if (b[1] == 1) return(1)
-##         return(2)
-##     }
-
-##     res <- get.pi.ci(x, test, seq(10,100,10), seq(0,90,10), 100)
-
-##     expect_that(sum(!(res[1,]<res[2,])),equals(0))
-##     expect_that(sum(!(res[1,]<.5)),equals(0))
-##     expect_that(sum(!(res[2,]>.5)),equals(0))
-## })
-
-
