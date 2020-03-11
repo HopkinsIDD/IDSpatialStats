@@ -247,9 +247,10 @@ get.theta.typed <- function(posmat,
 ##'
 ##' @author Justin Lessler and Timothy M Pollington
 ##'
-##' @references \href{https://arxiv.org/pdf/1911.08022.pdf#page=18}{Rationale for BCa rather than percentile CIs} is described in Pollington et al. (2019)
-##' Measuring spatiotemporal disease clustering with the tau statistic.
-##' *arXiv/stat.ME: 1911.08022v3*.
+##' @references \href{https://arxiv.org/pdf/1911.08022v4.pdf#page=12}{Rationale for BCa rather than percentile CIs} is described in Pollington et al. (2020)
+##' Developments in statistical inference when assessing 
+##' spatiotemporal disease clustering with the tau statistic.
+##' *arXiv/stat.ME: 1911.08022v4*.
 ##'
 ##' @family get.pi
 ##' 
@@ -261,11 +262,11 @@ get.theta.typed <- function(posmat,
 
 get.pi.ci <- function(posmat,
                       fun,
-                      r=1,
-                      r.low=rep(0,length(r)),
+                      r = 1,
+                      r.low = rep(0,length(r)),
                       boot.iter = 1000,
-                      ci.level=0.95,
-                      data.frame=TRUE) {
+                      ci.level = 0.95,
+                      data.frame = TRUE) {
      
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
 
@@ -274,19 +275,19 @@ get.pi.ci <- function(posmat,
   if (data.frame == FALSE) {
        return(rc)
   } else if (data.frame == TRUE) {
-       return(data.frame(r.low=r.low, 
-                         r=r, 
-                         pt.est=get.pi(posmat, fun, r, r.low)$pi, 
-                         ci.low=rc[1,], 
-                         ci.high=rc[2,]))
+       return(data.frame(r.low = r.low, 
+                         r = r, 
+                         pt.est = get.pi(posmat, fun, r, r.low)$pi, 
+                         ci.low = rc[1,], 
+                         ci.high = rc[2,]))
   }
 }
- 
+
 
 ##' Calculate bootstrapped confidence intervals for \code{get.theta} values.
 ##'
 ##' Wrapper to \code{get.theta.bootstrap} that takes care of calculating the
-##' confience intervals based on the bootstrapped values.
+##' confidence intervals based on the bootstrapped values.
 ##'
 ##'
 ##' @param posmat a matrix with columns type, x and y
@@ -367,7 +368,7 @@ get.pi.bootstrap <- function(posmat,
                              data.frame=TRUE) {
 
 
-  xcol <-  which(colnames(posmat)=="x")
+  xcol <- which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
 
   #check that both columns exist
