@@ -270,7 +270,7 @@ get.pi.ci <- function(posmat,
      
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
 
-  rc <- apply(boots[,-(1:2)], 1, coxed::bca, conf.level = ci.level)
+  rc <- apply(boots, 1, coxed::bca, conf.level = ci.level)
   
   if (data.frame == FALSE) {
        return(rc)
@@ -366,7 +366,6 @@ get.pi.bootstrap <- function(posmat,
                              r.low=rep(0,length(r)),
                              boot.iter=500,
                              data.frame=TRUE) {
-
 
   xcol <- which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
