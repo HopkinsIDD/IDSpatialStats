@@ -71,9 +71,10 @@ lines(r.mid, pi.ci$ci.low, lty=2)
 lines(r.mid, pi.ci$ci.high, lty=2)}
 }
 \references{
-\href{https://arxiv.org/pdf/1911.08022.pdf#page=18}{Rationale for BCa rather than percentile CIs} is described in Pollington et al. (2019)
-Measuring spatiotemporal disease clustering with the tau statistic.
-\emph{arXiv/stat.ME: 1911.08022v3}.
+\href{https://arxiv.org/pdf/1911.08022v4.pdf#page=12}{Rationale for BCa rather than percentile CIs} is described in Pollington et al. (2020)
+Developments in statistical inference when assessing
+spatiotemporal disease clustering with the tau statistic.
+\emph{arXiv/stat.ME: 1911.08022v4}.
 }
 \seealso{
 Other get.pi: 

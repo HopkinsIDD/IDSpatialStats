@@ -38,7 +38,7 @@ a matrix with a row for the high and low values and
 }
 \description{
 Wrapper to \code{get.theta.bootstrap} that takes care of calculating the
-confience intervals based on the bootstrapped values.
+confidence intervals based on the bootstrapped values.
 }
 \examples{
 \donttest{
