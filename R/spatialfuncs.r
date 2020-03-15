@@ -326,8 +326,8 @@ get.theta.ci <- function(posmat,
                          data.frame=TRUE) {
      
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
-
-  rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
+  boots = boots[,-(1:2)]
+  rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
   
   if (data.frame == FALSE) {
        return(rc)
