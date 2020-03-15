@@ -51,7 +51,7 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
     #without windows the 95% CI should be around 2* 0.5+/- 1/sqrt(4) * 0.25
     #since quantiles, that is 0.25 and 0.75
     res <- get.pi.permute(x, test, 4,0, 500)
-    res2 <- get.pi.typed.permute(x, 1, 2, 4,0, 500)
+    res2 <- get.pi.typed.permute(x, 1, 2, 4, 0, 500)
     expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975))),
                 equals(c(0.25,0.75)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975))),

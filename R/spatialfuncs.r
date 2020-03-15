@@ -269,8 +269,15 @@ get.pi.ci <- function(posmat,
                       data.frame = TRUE) {
      
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
-
-  rc <- apply(boots, 1, coxed::bca, conf.level = ci.level)
+  boots = boots[,-(1:2)]
+  
+  applyBCa <- function(boots, ci.level){
+    boots = boots[!is.na(boots)]
+    CI = coxed::bca(boots, conf.level = ci.level)
+    return(CI)
+  }
+  
+  rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
   
   if (data.frame == FALSE) {
        return(rc)
@@ -347,7 +354,9 @@ get.theta.ci <- function(posmat,
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
-##' @return pi values for all the distances we looked at
+##' @return Values of pi for all distance bands. Return value dependent on data.frame argument.
+##' Asa matrix (rows = bootstrap samples, columns = increasing distance bands)
+##' or a data.frame (r.low, r and increasing distance bands)
 ##'
 ##' @note In each bootstrap iteration N observations are drawn from the existing data with replacement. To avoid errors in
 ##' inference resulting from the same observatin being compared with itself in the bootstrapped data set, original indices

@@ -27,7 +27,9 @@ get.pi.bootstrap(
 \item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
-pi values for all the distances we looked at
+Values of pi for all distance bands. Return value dependent on data.frame argument.
+Asa matrix (rows = bootstrap samples, columns = increasing distance bands)
+or a data.frame (r.low, r and increasing distance bands)
 }
 \description{
 Runs \code{get.pi} on multiple bootstraps of the data. Is formulated
