@@ -1008,15 +1008,12 @@ get.tau.ci <- function(posmat,
                        r.low=rep(0,length(r)),
                        boot.iter = 1000,
                        comparison.type = "representative",
-                       ci.low=0.025,
-                       ci.high=0.975,
+                       ci.level = 0.95,
                        data.frame=TRUE) {
      
-     boots <- get.tau.bootstrap(posmat, fun,
-                                r, r.low, boot.iter,
-                                comparison.type)
-     
-     rc <- apply(boots[,-(1:2)], 1, quantile, probs=c(ci.low, ci.high))
+     boots <- get.tau.bootstrap(posmat, fun, r, r.low, boot.iter, comparison.type)
+     boots = boots[,-(1:2)]
+     rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
      
      if (data.frame == FALSE) {
           return(rc)
