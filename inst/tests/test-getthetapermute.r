@@ -34,9 +34,9 @@ test_that("get.theta.permute returns appropriate values for test case 2 (points 
         return(2)
     }
 
-    #the median of the null distribution should be 1 (includes infs so
-    #  mean does not work)
-    #the 95% CI equals 0,Inf with windows
+    #the median of the null distribution should be 1 (includes infs so mean does not work)
+    #the 95% CI equals 0,Inf with windows. As it contains Infs we use quantile() rather than bca()
+    #to compute the confidence interval
     res <- get.theta.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
     res2 <- get.theta.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
 
@@ -50,9 +50,12 @@ test_that("get.theta.permute returns appropriate values for test case 2 (points 
                     equals(c(0,Inf)))
     }
 
-    #without windows the 95% CI should be 1/3 and 3
+    #without windows the 95% CI should be 1/3 and 3. As it contains Infs we use quantile() rather 
+    # than coxed::bca() to compute the confidence interval
     res <- get.theta.permute(x, test, 4,0, 500)[,-(1:2)]
     res2 <- get.theta.typed.permute(x, 1, 2, 4,0, 500)[,-(1:2)]
+    
+    
     expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975))),
                 equals(c(1/3,3)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975))),
