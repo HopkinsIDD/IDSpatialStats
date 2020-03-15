@@ -56,12 +56,14 @@ test_that("performs correctly for test case 1 (equilateral triangle)", {
     }
 
     res <- get.pi.bootstrap(x, test, 1.5, 0.1, 500)[,-(1:2)]
+    res = res[!is.na(res)]
     res2 <- get.pi.typed.bootstrap(x, 1,2, 1.5, 0.1, 500)[,-(1:2)]
-
+    res2 = res2[!is.na(res2)]
+    
     #should have 95% CI of 0,1 and mean/median of 0.5
-    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
+    expect_that(coxed::bca(res, conf.level = 0.95),
                 equals(c(0,1)))
-    expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975), na.rm=T)),
+    expect_that(coxed::bca(res2, conf.level = 0.95),
                 equals(c(0,1)))
 })
 
@@ -90,26 +92,34 @@ test_that("performs correctly for test case 2 (points on a line)", {
     expect_that(median(as.numeric(res2[2,]), na.rm=T), equals(0.5))
     expect_that(median(as.numeric(res2[3,]), na.rm=T), equals(0))
 
+    # For the first and third ranges we use the quantile method as the BCa method breaks down for 
+    # constant vectors of ones or zeroes
+    
     #FIRST RANGE
     #deterministically 1
+    
     expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
                 equals(c(1,1)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975), na.rm=T)),
                 equals(c(1,1)))
 
     #SECOND RANGE...should be 0 and 1 respectively a fairly large % of the time
-    expect_that(as.numeric(quantile(res[2,], probs=c(0.025,.975), na.rm=T)),
+    res1.2 = na.omit(as.numeric(res[2,]))
+    res2.2 = na.omit(as.numeric(res2[2,]))
+    
+    expect_that(coxed::bca(as.numeric(res1.2), conf.level = 0.95),
                 equals(c(0,1)))
-    expect_that(as.numeric(quantile(res2[2,], probs=c(.025,.975), na.rm=T)),
+    expect_that(coxed::bca(as.numeric(res2.2), conf.level = 0.95),
                 equals(c(0,1)))
+    
 
     #THIRD RANGE
     #deterministically 0
+    
     expect_that(as.numeric(quantile(res[3,], probs=c(.025,.975), na.rm=T)),
                 equals(c(0,0)))
     expect_that(as.numeric(quantile(res2[3,], probs=c(.025,.975), na.rm=T)),
                 equals(c(0,0)))
-
 
 })
 
