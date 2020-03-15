@@ -260,6 +260,12 @@ get.theta.typed <- function(posmat,
 ##' @example R/examples/get_pi_ci.R
 ##' @md
 
+applyBCa <- function(boots, ci.level){
+  boots = boots[!is.na(boots)]
+  CI = coxed::bca(boots, conf.level = ci.level)
+  return(CI)
+}
+
 get.pi.ci <- function(posmat,
                       fun,
                       r = 1,
@@ -270,12 +276,6 @@ get.pi.ci <- function(posmat,
      
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
   boots = boots[,-(1:2)]
-  
-  applyBCa <- function(boots, ci.level){
-    boots = boots[!is.na(boots)]
-    CI = coxed::bca(boots, conf.level = ci.level)
-    return(CI)
-  }
   
   rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
   
