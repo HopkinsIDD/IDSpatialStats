@@ -321,8 +321,7 @@ get.theta.ci <- function(posmat,
                          r=1,
                          r.low=rep(0,length(r)),
                          boot.iter = 1000,
-                         ci.low=0.025,
-                         ci.high=0.975,
+                         ci.level=0.95,
                          data.frame=TRUE) {
      
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
