@@ -6,23 +6,23 @@ The current implementation of the package includes a function which simulates in
 
 Detailed description of the methods can be found here:
 
-[The IDSpatialStats R package: Quantifying spatial dependence of infectious disease spread (Giles et al. in review)]()
+[The IDSpatialStats R package: Quantifying spatial dependence of infectious disease spread (Giles et al. 2019)](https://journal.r-project.org/archive/2019/RJ-2019-043/index.html)
 
 [Measuring spatial dependence for infectious disease epidemiology (Lessler et al. 2016)](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249)
 
 [Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
 
-This package is maintained by John Giles (@gilesjohnr) and Justin Lessler (@jlessler) as part of the Johns Hopkins Bloomberg School of Public Health Infectious Disease Dynamics team (@HopkinsIDD).
+This package is maintained by John Giles ([@gilesjohnr](https://github.com/gilesjohnr)) and Justin Lessler ([@jlessler](https://github.com/jlessler)) as part of the Johns Hopkins Bloomberg School of Public Health Infectious Disease Dynamics team ([@HopkinsIDD](https://github.com/HopkinsIDD)).
 
 ### Installation
 
 To install the offical release of the `IDSpatialStats` package, open `R` and type:
-```
+```r
 install.packages('IDSpatialStats')
 ```
 
 To install the install the development version, first install the `devtools` package and then install `IDSpatialStats` from source via GitHub:
-```
+```r
 install.packages('devtools')
 devtools::install_github('HopkinsIDD/IDSpatialStats')
 ```
