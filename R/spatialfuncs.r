@@ -893,7 +893,7 @@ get.tau <- function(posmat,
     comp.type.int <- 1
   } else {
     stop("unknown comparison.type specified")
-  }
+  } 
 
   rc <- .Call("get_tau",
               posmat,
