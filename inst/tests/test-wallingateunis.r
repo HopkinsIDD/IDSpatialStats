@@ -1,5 +1,3 @@
-context("Wallinga-Teunis")
-
 test_that("Basic case time WT weights are calculated correctly", {
      
      # Toy example from paper

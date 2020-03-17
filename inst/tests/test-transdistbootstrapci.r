@@ -1,5 +1,3 @@
-context("estimate transdist bootstraps")
-
 test_that("Data checks performed", {
   
   set.seed(1)

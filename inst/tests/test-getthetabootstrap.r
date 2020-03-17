@@ -1,5 +1,3 @@
-context("get.theta.bootstrap")
-
 test_that("get.theta.bootstrap runs and returns Inf when all relations are 1", {
 
     x<-cbind(rep(c(1,2),50), x=runif(100,0,100), y=runif(100,0,100))

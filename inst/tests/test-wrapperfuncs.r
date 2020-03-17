@@ -1,5 +1,3 @@
-context("crossK and crossPCF wrapper functions")
-
 test_that("Data checks performed", {
      
      msg <- "epi.data must be a numeric matrix"

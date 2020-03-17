@@ -1,5 +1,3 @@
-context("sim.epidemic")
-
 test_that("Plausible parameter values produce simulations: R", {
      
      for(i in seq(1, 2, 0.25)) {

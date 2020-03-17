@@ -1,5 +1,3 @@
-context("get.pi.bootstrap")
-
 test_that("get.pi.bootstrap runs and returns 1 when it should", {
 
     x <- cbind(rep(c(1,2),50), x=runif(100,0,100), y=runif(100,0,100))

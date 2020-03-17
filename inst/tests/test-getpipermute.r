@@ -1,5 +1,3 @@
-
-
 test_that("get.pi.permute returns appropriate values for test case 1 (equilateral triangle)" ,{
 
     x <- rbind(c(1,0,0), c(1,1,0),c(2,.5,sqrt(.75)))
@@ -21,7 +19,8 @@ test_that("get.pi.permute returns appropriate values for test case 1 (equilatera
 
 })
 
-test_that("get.pi.permute returns appropriate values for test case 2 (points on a line)" ,{
+test_that("get.pi.permute returns appropriate values for test case 2 (points on a line) with
+          windows" ,{
     x<-rbind(c(1,0,0), c(2,1,0), c(2,-1,0), c(3,2,0),
              c(2,-2,0), c(3,3,0),c(3,-3,0))
 
@@ -35,6 +34,7 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
 
     #the mean of the null distribution should be 0.5
     #the 95% CI equals 0,1 with windows
+    set.seed(seed = 1)
     res <- get.pi.permute(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
     res2 <- get.pi.typed.permute(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:2)]
 
@@ -48,8 +48,24 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
                     equals(c(0,1)))
     }
 
+})
+
+test_that("get.pi.permute returns appropriate values for test case 2 (points on a line),
+          no windows" ,{
+    x<-rbind(c(1,0,0), c(2,1,0), c(2,-1,0), c(3,2,0),
+             c(2,-2,0), c(3,3,0),c(3,-3,0))
+    
+    colnames(x) <-c("type","x","y")
+    
+    test <- function(a,b) {
+        if (a[1] != 1) return(3)
+        if (b[1] == 2) return(1)
+        return(2)
+    }
+    
     #without windows the distributions is asymmetric and 95% BCa CI is rather than [0.25,0.75] for 
     # percentile CIs
+    set.seed(seed = 1)
     res3 <- get.pi.permute(x, test, 4,0, 500)
     res4 <- get.pi.typed.permute(x, 1, 2, 4, 0, 500)
     expect_that(coxed::bca(as.numeric(res3[1,]), conf.level = 0.95), equals(c(1/3,1)))
@@ -70,4 +86,3 @@ test_that ("fails nicely if x and y column names are not provided", {
                 throws_error("unique x and y columns must be defined"))
 
 })
-

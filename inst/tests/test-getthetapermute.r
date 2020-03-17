@@ -1,5 +1,3 @@
-context("get.theta.permute")
-
 test_that("get.theta.permute returns appropriate values for test case 1 (equilateral triangle)" ,{
 
     x <- rbind(c(1,0,0), c(1,1,0),c(2,.5,sqrt(.75)))

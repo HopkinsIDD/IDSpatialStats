@@ -1,5 +1,3 @@
-context("theta weights")
-
 test_that("Correct array for theta values is returned", {
      
      case.times <- c(1,2,2,3,3)

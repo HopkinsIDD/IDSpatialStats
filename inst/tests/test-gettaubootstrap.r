@@ -1,5 +1,3 @@
-context("get.tau.bootstrap")
-
 test_that("get.tau.bootstrap runs and returs 1 when it should", {
 
     x<-cbind(rep(c(1,2),50), x=runif(100,0,100), y=runif(100,0,100))
