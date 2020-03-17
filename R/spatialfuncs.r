@@ -915,6 +915,11 @@ get.tau <- function(posmat,
   }
 }
 
+print.tau <- function(x, ...)
+{
+  cat("Call:\n")
+  print(x$call)
+}
 
 ##' Optimized version of \code{get.tau} for typed data
 ##'
