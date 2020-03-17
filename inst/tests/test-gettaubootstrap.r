@@ -109,12 +109,8 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
     expect_that(as.numeric(quantile(res2[2,], probs=c(.025), na.rm=T)),
                 equals(0))
 
-    expect_that(as.numeric(quantile(res[2,], probs=c(.99), na.rm=T))<6,
-                expect_true())
-    expect_that(as.numeric(quantile(res2[2,], probs=c(.99), na.rm=T))<6,
-                expect_true())
-
-
+    expect_true(as.numeric(quantile(res[2,], probs=c(.99), na.rm=T))<6)
+    expect_true(as.numeric(quantile(res2[2,], probs=c(.99), na.rm=T))<6)
 
     #THIRD RANGE
     #Should be determinsitically 0 or NaN
@@ -175,10 +171,8 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     expect_that(as.numeric(quantile(res2[2,], probs=c(.025), na.rm=T)),
                 equals(0))
 
-    expect_that(as.numeric(quantile(res[2,], probs=c(.7), na.rm=T))!=Inf,
-                expect_true())
-    expect_that(as.numeric(quantile(res2[2,], probs=c(.7), na.rm=T))!=Inf,
-                expect_true())
+    expect_true(as.numeric(quantile(res[2,], probs=c(.7), na.rm=T))!=Inf)
+    expect_true(as.numeric(quantile(res2[2,], probs=c(.7), na.rm=T))!=Inf)
 
 
 
