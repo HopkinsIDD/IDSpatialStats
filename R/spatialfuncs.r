@@ -906,8 +906,10 @@ get.tau <- function(posmat,
               ycol)
   
   if (data.frame == FALSE) {
+       class(rc) <- "tau"
        return(rc)
   } else if (data.frame == TRUE) {
+       class(rc) <- "tau"
        return(data.frame(r.low=r.low, r=r, tau=rc))
   }
 }
