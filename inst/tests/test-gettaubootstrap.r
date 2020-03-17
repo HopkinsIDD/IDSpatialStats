@@ -110,9 +110,9 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
                 equals(0))
 
     expect_that(as.numeric(quantile(res[2,], probs=c(.99), na.rm=T))<6,
-                is_true())
+                expect_true())
     expect_that(as.numeric(quantile(res2[2,], probs=c(.99), na.rm=T))<6,
-                is_true())
+                expect_true())
 
 
 
@@ -176,9 +176,9 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
                 equals(0))
 
     expect_that(as.numeric(quantile(res[2,], probs=c(.7), na.rm=T))!=Inf,
-                is_true())
+                expect_true())
     expect_that(as.numeric(quantile(res2[2,], probs=c(.7), na.rm=T))!=Inf,
-                is_true())
+                expect_true())
 
 
 
