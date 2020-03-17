@@ -892,7 +892,7 @@ get.tau <- function(posmat,
   } else if (comparison.type == "independent") {
     comp.type.int <- 1
   } else {
-    stop("unkown comparison type specified")
+    stop("unknown comparison.type specified")
   }
 
   rc <- .Call("get_tau",
@@ -909,8 +909,9 @@ get.tau <- function(posmat,
        class(rc) <- "tau"
        return(rc)
   } else if (data.frame == TRUE) {
+       rc = data.frame(r.low=r.low, r=r, tau.pt.est=rc)
        class(rc) <- "tau"
-       return(data.frame(r.low=r.low, r=r, tau=rc))
+       return(rc)
   }
 }
 
@@ -955,7 +956,7 @@ get.tau.typed <- function(posmat,
      } else if (comparison.type == "independent") {
           comp.type.int <- 1
      } else {
-          stop("unkown comparison type specified")
+          stop("unknown comparison.type specified")
      }
      
      rc <- .C("get_tau_typed",
