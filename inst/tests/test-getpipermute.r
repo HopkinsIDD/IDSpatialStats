@@ -1,4 +1,4 @@
-context("get.pi.permute")
+
 
 test_that("get.pi.permute returns appropriate values for test case 1 (equilateral triangle)" ,{
 
@@ -50,12 +50,10 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
 
     #without windows the distributions is asymmetric and 95% BCa CI is rather than [0.25,0.75] for 
     # percentile CIs
-    res <- get.pi.permute(x, test, 4,0, 500)
-    res2 <- get.pi.typed.permute(x, 1, 2, 4, 0, 500)
-    expect_that(coxed::bca(as.numeric(res[1,]), conf.level = 0.95),
-                equals(c(0.25,1)))
-    expect_that(coxed::bca(as.numeric(res2[1,]), conf.level = 0.95),
-                equals(c(1/3,1)))
+    res3 <- get.pi.permute(x, test, 4,0, 500)
+    res4 <- get.pi.typed.permute(x, 1, 2, 4, 0, 500)
+    expect_that(coxed::bca(as.numeric(res3[1,]), conf.level = 0.95), equals(c(1/3,1)))
+    expect_that(coxed::bca(as.numeric(res4[1,]), conf.level = 0.95), equals(c(1/3,1)))
 })
 
 
