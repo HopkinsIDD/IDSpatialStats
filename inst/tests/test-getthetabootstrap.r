@@ -59,7 +59,8 @@ test_that("performs correctly for test case 1 (equilateral triangle)", {
     res2 <- get.theta.typed.bootstrap(x, 1,2, 1.5, 0.1, 500)[,-(1:3)]
 
 
-    #should have 95% CI of 0,1 and mean/median of 0.5
+    #should have 95% CI of 0,1 and mean/median of 0.5. quantile() method used as coxed::bca() breaks
+    # down under Inf conditions
     expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
                 equals(c(0,Inf)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975), na.rm=T)),
@@ -82,7 +83,8 @@ test_that("performs correctly for test case 2 (points on a line)", {
         return(2)
     }
 
-    #the medians for the null distribution should be 1,0.5,0
+    #the medians for the null distribution should be 1,0.5,0. quantile() method used as 
+    #coxed::bca() breaks down under Inf conditions
     res <- get.theta.bootstrap(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:3)]
     res2 <- get.theta.typed.bootstrap(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 500)[,-(1:3)]
 

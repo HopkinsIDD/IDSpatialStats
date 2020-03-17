@@ -38,7 +38,8 @@ test_that("performs correctly for test case 1 (equilateral triangle)", {
     res <- get.tau.bootstrap(x, test, 1.5, 0.1, 500)[,-(1:2)]
     res2 <- get.tau.typed.bootstrap(x, 1,2, 1.5, 0.1, 500)[,-(1:2)]
 
-    #should have 95% CI of 1,1
+    #should have 95% CI of 1,1. quantile() method used as coxed::bca() breaks
+    # down under Inf conditions
     expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
                 equals(c(1,1)))
 
@@ -51,7 +52,8 @@ test_that("performs correctly for test case 1 (equilateral triangle)", {
     res2 <- get.tau.typed.bootstrap(x, 1,2, 1.5, 0.1, 500,
                                     comparison.type="independent")[,-(1:2)]
 
-    #should have 95% CI of 1,1
+    #should have 95% CI of 1,1. quantile() method used as coxed::bca() breaks
+    # down under Inf conditions
     expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
                 equals(c(1,1)))
 
@@ -79,6 +81,7 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
     res <- get.tau.bootstrap(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500)[,-(1:2)]
     res2 <- get.tau.typed.bootstrap(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500)[,-(1:2)]
 
+    
     expect_that(median(as.numeric(res[1,]), na.rm=T), equals(2))
     expect_that(median(as.numeric(res[2,]), na.rm=T), equals(1))
     expect_that(median(as.numeric(res[3,]), na.rm=T), equals(0))
@@ -88,7 +91,8 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
     expect_that(median(as.numeric(res2[3,]), na.rm=T), equals(0))
 
 
-
+    # quantile() used over coxed::bca() as latter breaks down under these toy conditions or cannot
+    # provide the interval required.
 
     #FIRST RANGE
     #max would be only 1 type 2 used and in range = 1/(1/6) = 6...should occur
@@ -153,7 +157,8 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     expect_that(median(as.numeric(res2[3,]), na.rm=T), equals(0))
 
 
-
+    # quantile() used over coxed::bca() as latter breaks down under these toy conditions or cannot
+    # provide the interval required.
 
     #FIRST RANGE
     #max would be Inf, occuring most of the time
@@ -253,48 +258,4 @@ test_that("fails nicely if x and y column names are not provided", {
     expect_that(get.tau.ci(x,test,seq(10,50,10), seq(0,40,10),100),
                 throws_error("unique x and y columns must be defined"))
 })
-
-
-##################DEPRECATED TESTS...TAKE TO LONG...NOW USING SMALLER CANONICAL
-##################TESTS THAT HAVE VALUES THAT CAN BE WORKED OUT BY HAND
-
-
-## test_that("CIs calculated from get.tau.bootstrap include the true value", {
-##     set.seed(777)
-
-##     x<-cbind(rep(c(1,2),250), x=runif(500,0,100), y=runif(500,0,100))
-
-##     colnames(x) <-c("type","x","y")
-
-##     test <- function(a,b) {
-##         if (a[1] != 1) return(3)
-##         if (b[1] == 1) return(1)
-##         return(2)
-##     }
-
-##     res <- get.tau.ci(x, test, seq(10,100,10), seq(0,90,10), 200)
-
-##     #print(res)
-
-##     expect_that(sum(!(res[1,]<res[2,])),equals(0))
-##     expect_that(sum(!(res[1,]<1)),equals(0))
-##     expect_that(sum(!(res[2,]>1)),equals(0))
-
-##     #repeat for typed data
-##     res <- get.tau.typed.bootstrap(x, typeA=1, typeB=1,
-##                                    seq(10,100,10), seq(0,90,10), 200)
-
-##     ci <- matrix(nrow=2, ncol=ncol(res))
-
-##     for (i in 1:ncol(ci)) {
-##         ci[,i] <- quantile(res[,i], probs=c(0.025, 0.975))
-##     }
-
-##     res <- ci
-
-##     expect_that(sum(!(res[1,]<res[2,])),equals(0))
-##     expect_that(sum(!(res[1,]<1)),equals(0))
-##     expect_that(sum(!(res[2,]>1)),equals(0))
-
-## })
 
