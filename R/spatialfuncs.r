@@ -915,10 +915,21 @@ get.tau <- function(posmat,
   }
 }
 
-print.tau <- function(x, ...)
+plot.tau <- function(x, r.mid = TRUE, log = "n", ...)
 {
-  cat("Call:\n")
-  print(x$call)
+  X = x
+  if(r.mid==TRUE){
+    x = 0.5*(X$r.low + X$r)
+  }
+  else{
+    x = X$r
+  }
+  logy = ifelse(log=="n","n",ifelse(log=="y", "y", "n"))
+  plot(x,X$tau.pt.est,ylim=c(min(X$tau.pt.est, na.rm = TRUE),max(X$tau.pt.est)),log=logy,
+       cex.axis=1.,col="blue",
+       xlab="Distance (m)",ylab="Tau",cex.main=1,lwd=2,type="l",las=1,cex.axis=1)
+  abline(h=1,lty=2)
+  legend("topright",legend=c("Tau point estimate", lwd=2, col="blue", lty=1,bty="n"))
 }
 
 ##' Optimized version of \code{get.tau} for typed data
