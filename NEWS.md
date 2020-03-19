@@ -8,7 +8,15 @@ Most of these changes concern the tau statistic functions:
   `quantile` method also updated to `coxed::bca` where possible in `inst/tests/`.
   At times the `coxed::bca()` method gives slightly different test results if it is applied to
   asymmetric distributions.
-* `get.tau()` returns a new S3 `tau` class
+* `get.tau()` returns a new S3 `tau` class with special methods for:
+  * `plot()` provides a tau-distance graph with an option for pointwise confidence intervals for 
+  a visual indication of spatiotemporal clustering. In this version we use error bars as default, to
+  remind the reader that this graph should not be used as a graphical hypothesis test for the whole 
+  distance range observed (CITE!). It is only suitable for the purpose of a graphical hypothesis
+  test if a specific distance band is decided before looking at the graph to see if it encloses
+  tau=1. 
+  
+that follow current best-practice mentioned in a recent review of the tau statistic.
 * CITATION file added
 * README.md formatting updated
 * `get.tau$tau` renamed to `get.tau$tau.pt.est`

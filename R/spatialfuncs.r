@@ -915,21 +915,47 @@ get.tau <- function(posmat,
   }
 }
 
-plot.tau <- function(x, r.mid = TRUE, log = "n", ...)
+plot.tau <- function(x, r.mid = TRUE, ...)
 {
-  X = x
   if(r.mid==TRUE){
-    x = 0.5*(X$r.low + X$r)
+    r.end = 0.5*(x$r.low + x$r)
+    midorend = "at distance band midpoint"
+    xlim = c(0,(max(r.end)*1.01))
   }
   else{
-    x = X$r
+    r.end = x$r
+    midorend = "at distance band endpoint"
+    xlim = c(0,(max(x$r)*1.01))
   }
-  logy = ifelse(log=="n","n",ifelse(log=="y", "y", "n"))
-  plot(x,X$tau.pt.est,ylim=c(min(X$tau.pt.est, na.rm = TRUE),max(X$tau.pt.est)),log=logy,
-       cex.axis=1.,col="blue",
-       xlab="Distance (m)",ylab="Tau",cex.main=1,lwd=2,type="l",las=1,cex.axis=1)
+  
+  # identify if the lower bound of each distance band contains zero or not, 
+  # and label graph appropriately, with correct units if provided
+  if(!is.null(attr(x$r.low, "units")) & !is.null(attr(x$r, "units")) & 
+     identical(attr(x$r.low, "units"), attr(x$r, "units"))){
+    unitslabel = attr(x$r.low, "units")
+  }
+  else{
+    unitslabel = ""
+  }
+  
+  if(all(x$r.low==0)){
+    xlab = bquote("Distance [0," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+  }
+  else{
+    xlab = bquote("Distance [" * d[l] * "," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+  }
+  
+  plot(x = r.end, y = x$tau.pt.est, 
+       xlim=xlim,
+       ylim=range(x$tau.pt.est, na.rm = TRUE)+diff(range(x$tau.pt.est, na.rm = TRUE))*c(-0.05,0.05),
+       cex.axis=1.,col="black", xlab=xlab, 
+       ylab="Tau", 
+       cex.main=1, lwd=2, type="p", las=1, cex.axis=1, xaxs = "i", yaxs = "i", pch = 16)
   abline(h=1,lty=2)
-  legend("topright",legend=c("Tau point estimate", lwd=2, col="blue", lty=1,bty="n"))
+  legend("topright",
+         legend=bquote("point estimate" ~ hat(tau) * "," ~ .(midorend)),
+         col="black", pch=16
+         )
 }
 
 ##' Optimized version of \code{get.tau} for typed data
