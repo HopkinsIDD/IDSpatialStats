@@ -9,7 +9,7 @@ test_that("get.tau returns 1 when labels are ignored", {
 
     #######FIRST WITH REPRESENTATIVE SAMPLE ASSUMED
     #with no lower limit
-    res <- get.tau(x,test,seq(10,100,10))$tau
+    res <- get.tau(x,test,seq(10,100,10))$tau.pt.est
     expect_that(res,equals(rep(1,10)))
 
     #with lower and upper limit
@@ -170,8 +170,8 @@ test_that ("selection of an invalid comparison type fails nicely", {
 
 
     expect_that( get.tau(x, test, c(1.5,2.5,Inf), c(0,1.5,2.5), comparison.type="foobar"),
-                throws_error("unkown comparison type specified"))
+                throws_error("unknown comparison.type specified"))
     expect_that( get.tau.typed(x, 1, 2, c(1.5,2.5,1000), c(0,1.5,2.5), comparison.type="foobar"),
-                throws_error("unkown comparison type specified"))
+                throws_error("unknown comparison.type specified"))
 })
 

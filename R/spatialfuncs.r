@@ -892,8 +892,8 @@ get.tau <- function(posmat,
   } else if (comparison.type == "independent") {
     comp.type.int <- 1
   } else {
-    stop("unkown comparison type specified")
-  }
+    stop("unknown comparison.type specified")
+  } 
 
   rc <- .Call("get_tau",
               posmat,
@@ -906,12 +906,66 @@ get.tau <- function(posmat,
               ycol)
   
   if (data.frame == FALSE) {
+       class(rc) <- "tau"
+       attr(rc, "comparison.type") = comparison.type
        return(rc)
   } else if (data.frame == TRUE) {
-       return(data.frame(r.low=r.low, r=r, tau=rc))
+       rc = data.frame(r.low=r.low, r=r, tau.pt.est=rc)
+       class(rc) <- "tau"
+       attr(rc, "comparison.type") = comparison.type
+       return(rc)
   }
 }
 
+plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, ...)
+{
+  if(!is.null(ptwise.CI)){
+    stopifnot(class(ptwise.CI)=="tauCI")
+  }
+  
+  if(r.mid==TRUE){
+    r.end = 0.5*(x$r.low + x$r)
+    midorend = "at distance band midpoint"
+    xlim = c(0,(max(r.end)*1.01))
+  }
+  else{
+    r.end = x$r
+    midorend = "at distance band endpoint"
+    xlim = c(0,(max(x$r)*1.01))
+  }
+  
+  # identify if the lower bound of each distance band contains zero or not, 
+  # and label graph appropriately, with correct units if provided
+  if(!is.null(attr(x$r.low, "units")) & !is.null(attr(x$r, "units")) & 
+     identical(attr(x$r.low, "units"), attr(x$r, "units"))){
+    unitslabel = attr(x$r.low, "units")
+  }
+  else{
+    unitslabel = ""
+  }
+  
+  if(all(x$r.low==0)){
+    xlab = bquote("Distance [0," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+  }
+  else{
+    xlab = bquote("Distance [" * d[l] * "," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+  }
+  
+  plot(x = r.end, y = x$tau.pt.est, 
+       xlim=xlim,
+       ylim=range(x$tau.pt.est, na.rm = TRUE)+diff(range(x$tau.pt.est, na.rm = TRUE))*c(-0.05,0.05),
+       cex.axis=1.,col="black", xlab=xlab, 
+       ylab="Tau", 
+       cex.main=1, lwd=2, type="p", las=1, cex.axis=1, xaxs = "i", yaxs = "i", pch = 16)
+  if(!is.null(ptwise.CI)){
+    arrows(r.end, ptwise.CI$ci.low, r.end, ptwise.CI$ci.high, length = 0.04, angle = 90, code = 3)
+  }
+  abline(h=1,lty=2)
+  legend("topright",
+         legend=bquote("point estimate" ~ hat(tau) * "," ~ .(midorend)),
+         col="black", pch=16
+         )
+}
 
 ##' Optimized version of \code{get.tau} for typed data
 ##'
@@ -953,7 +1007,7 @@ get.tau.typed <- function(posmat,
      } else if (comparison.type == "independent") {
           comp.type.int <- 1
      } else {
-          stop("unkown comparison type specified")
+          stop("unknown comparison.type specified")
      }
      
      rc <- .C("get_tau_typed",
@@ -1016,13 +1070,13 @@ get.tau.ci <- function(posmat,
      rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
      
      if (data.frame == FALSE) {
+          class(rc) <- "tauCI"
           return(rc)
      } else if (data.frame == TRUE) {
-          return(data.frame(r.low=r.low, 
-                            r=r, 
-                            pt.est=get.tau(posmat, fun, r, r.low)$tau, 
-                            ci.low=rc[1,], 
-                            ci.high=rc[2,]))
+          rc = data.frame(r.low=r.low, r=r, pt.est=get.tau(posmat, fun, r, r.low)$tau, 
+                  ci.low=rc[1,], ci.high=rc[2,])
+          class(rc) <- "tauCI"
+          return(rc)
      }
 }
 
@@ -1137,7 +1191,7 @@ get.tau.typed.bootstrap <- function(posmat,
   } else if (comparison.type == "independent") {
     comp.type.int <- 1
   } else {
-    stop("unkown comparison type specified")
+    stop("unknown comparison type specified")
   }
 
   rc <- matrix(nrow=boot.iter, ncol=length(r))

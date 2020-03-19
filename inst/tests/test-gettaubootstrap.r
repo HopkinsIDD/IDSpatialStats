@@ -203,15 +203,15 @@ test_that("get.tau.ci returns bootstrap cis when same seed", {
 
     set.seed(787)
     ci1 <- get.tau.ci(x, test, seq(15,45,15), seq(0,30,15), 20, comparison.type = "representative",
-                      ci.level = 0.95)[,-(1:3)]
+                      ci.level = 0.95, data.frame = FALSE)
 
-    expect_that(as.numeric(ci1[1,]), 
+    expect_that(as.numeric(t(ci1)[1,]), 
                 equals(coxed::bca(as.numeric(res[1,]),conf.level = 0.95)))
 
-    expect_that(as.numeric(ci1[2,]), 
+    expect_that(as.numeric(t(ci1)[2,]), 
                 equals(coxed::bca(as.numeric(res[2,]),conf.level = 0.95)))
 
-    expect_that(as.numeric(ci1[3,]), 
+    expect_that(as.numeric(t(ci1)[3,]), 
                 equals(coxed::bca(as.numeric(res[3,]),conf.level = 0.95)))
 
     ### INDEPENDENT
@@ -220,16 +220,16 @@ test_that("get.tau.ci returns bootstrap cis when same seed", {
                              comparison.type="independent")[,-(1:2)]
 
     set.seed(787)
-    ci1 <- get.tau.ci(x, test, seq(15,45,15), seq(0,30,15), 20,
-                      comparison.type="independent")[,-(1:3)]
+    ci1 <- get.tau.ci(x, test, seq(15,45,15), seq(0,30,15), 20, comparison.type="independent", 
+                      data.frame = FALSE)
 
-    expect_that(as.numeric(ci1[1,]), 
+    expect_that(as.numeric(t(ci1)[1,]), 
                 equals(coxed::bca(as.numeric(res[1,]),conf.level = 0.95)))
 
-    expect_that(as.numeric(ci1[2,]), 
+    expect_that(as.numeric(t(ci1)[2,]), 
                 equals(coxed::bca(as.numeric(res[2,]),conf.level = 0.95)))
 
-    expect_that(as.numeric(ci1[3,]), 
+    expect_that(as.numeric(t(ci1)[3,]), 
                 equals(coxed::bca(as.numeric(res[3,]),conf.level = 0.95)))
 
 })
