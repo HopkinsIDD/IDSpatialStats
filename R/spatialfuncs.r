@@ -907,16 +907,22 @@ get.tau <- function(posmat,
   
   if (data.frame == FALSE) {
        class(rc) <- "tau"
+       attr(rc, "comparison.type") = comparison.type
        return(rc)
   } else if (data.frame == TRUE) {
        rc = data.frame(r.low=r.low, r=r, tau.pt.est=rc)
        class(rc) <- "tau"
+       attr(rc, "comparison.type") = comparison.type
        return(rc)
   }
 }
 
-plot.tau <- function(x, r.mid = TRUE, ...)
+plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, ...)
 {
+  if(!is.null(ptwise.CI)){
+    stopifnot(class(ptwise.CI)=="tauCI")
+  }
+  
   if(r.mid==TRUE){
     r.end = 0.5*(x$r.low + x$r)
     midorend = "at distance band midpoint"
@@ -951,6 +957,9 @@ plot.tau <- function(x, r.mid = TRUE, ...)
        cex.axis=1.,col="black", xlab=xlab, 
        ylab="Tau", 
        cex.main=1, lwd=2, type="p", las=1, cex.axis=1, xaxs = "i", yaxs = "i", pch = 16)
+  if(!is.null(ptwise.CI)){
+    arrows(r.end, ptwise.CI$ci.low, r.end, ptwise.CI$ci.high, length = 0.04, angle = 90, code = 3)
+  }
   abline(h=1,lty=2)
   legend("topright",
          legend=bquote("point estimate" ~ hat(tau) * "," ~ .(midorend)),
@@ -1061,13 +1070,13 @@ get.tau.ci <- function(posmat,
      rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
      
      if (data.frame == FALSE) {
+          class(rc) <- "tauCI"
           return(rc)
      } else if (data.frame == TRUE) {
-          return(data.frame(r.low=r.low, 
-                            r=r, 
-                            pt.est=get.tau(posmat, fun, r, r.low)$tau, 
-                            ci.low=rc[1,], 
-                            ci.high=rc[2,]))
+          rc = data.frame(r.low=r.low, r=r, pt.est=get.tau(posmat, fun, r, r.low)$tau, 
+                  ci.low=rc[1,], ci.high=rc[2,])
+          class(rc) <- "tauCI"
+          return(rc)
      }
 }
 
@@ -1182,7 +1191,7 @@ get.tau.typed.bootstrap <- function(posmat,
   } else if (comparison.type == "independent") {
     comp.type.int <- 1
   } else {
-    stop("unkown comparison type specified")
+    stop("unknown comparison type specified")
   }
 
   rc <- matrix(nrow=boot.iter, ncol=length(r))
