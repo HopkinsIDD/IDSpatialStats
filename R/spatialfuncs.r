@@ -917,6 +917,51 @@ get.tau <- function(posmat,
   }
 }
 
+get.tau.GET <- function(posmat, fun, r, r.low, permutations = 10, comparison.type){
+  get.tau = IDSpatialStats::get.tau(posmat = posmat, fun = fun, r = r, r.low = r.low, comparison.type = comparison.type, data.frame = FALSE)
+  tau.permute = IDSpatialStats::get.tau.permute(posmat = posmat, fun = fun, r = r, r.low = r.low, permutations = permutations, comparison.type = comparison.type, data.frame = FALSE)
+  curveset = GET::create_curve_set(list(r = r, obs = as.numeric(get.tau), sim_m = t(tau.permute)))
+  GET.res = GET::global_envelope_test(curve_sets = curveset, type = "rank", alpha = 0.05,
+           alternative = c("two.sided"), ties = "erl", probs = c(0.025, 0.975), quantile.type = 7, 
+           central = "median")
+  if(all(r.low==0)){
+    xlab = bquote("Distance [0," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+  } else {
+    xlab = bquote("Distance [" * d[l] * "," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+  }
+  plot(NULL, xlim = c(0,max(r, na.rm = TRUE)), ylim = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i", 
+       ylab = "Tau", xlab = xlab, lwd = 4, cex.lab = 1.5)
+  
+  for (i in 1:permutations) {
+    lines(r, tau.permute[i,], col = scales::alpha("grey", alpha = 0.3), lwd = 1)
+  }
+  yaxis.range = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE))
+  yaxis.lab = c(seq(yaxis.range[1],yaxis.range[2],length.out = 5),1)
+  yaxis.lab = sort(yaxis.lab)
+  yaxis.lab = round(yaxis.lab,digits = 1)
+  yaxis.lab = unique(yaxis.lab) # prevents more than one 1.0 value
+  yaxis.lab[which(yaxis.lab==1)] = round(yaxis.lab[which(yaxis.lab==1)],digits = 0)
+  axis(2, las=1, at=yaxis.lab, labels = as.character(yaxis.lab), lwd = 1)
+  lines(GET.res$r, GET.res$lo, col = "slategrey", lwd = 3)
+  lines(GET.res$r, GET.res$hi, col = "slategrey", lwd = 3)
+  lines(GET.res$r, GET.res$central, col = "red", lwd = 3)
+  lines(GET.res$r, GET.res$obs, lwd = 4)
+  axis(1, lwd = 1)
+  abline(h=1, lty = 2, lwd = 4)
+  legend("topright", legend=c(as.expression(bquote(~ hat(tau) ~ "point estimate")), 
+                                   "95% global envelope",as.expression(bquote("simulations of " ~ H[0])), 
+                                   "median simulation", 
+                                   as.expression(bquote(~ tau == 1)) ), 
+         col=c("black", "slategrey", "grey", "red", "black"),
+         lty=c(1,1,1,1,2), cex=1.05, yjust = 0.5, lwd = 6)
+  par(xpd = TRUE)
+  pint.lo = round(attr(GET.res,"p_interval"), digits = 3)[1]
+  pint.hi = round(attr(GET.res,"p_interval"), digits = 3)[2]
+  pint.x = 0.5 * max(r, na.rm = TRUE)
+  pint.y = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE))[1] + 0.5*diff(c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE)))  
+  text(bquote("p-value in [" ~ .(pint.lo) * "," * .(pint.hi) * "]"), x = pint.x, y = pint.y)
+}
+
 plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, ...)
 {
   if(!is.null(ptwise.CI)){
