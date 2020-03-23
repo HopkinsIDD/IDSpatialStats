@@ -1,7 +1,8 @@
 # IDSpatialStats 1.0.0
 
 ## Changes (top of list are most important)
-These changes mostly concern the tau statistic functions. 
+These changes mostly concern the tau statistic functions. These are big changes and we may have 
+unwittingly introduced bugs. Please send us a reproducible example if you find one.
 
 Specific changes
 * `get.pi.ci()`, `get.theta.ci()`, `get.tau.ci()`: `quantile` method replaced with `coxed::bca` to 
