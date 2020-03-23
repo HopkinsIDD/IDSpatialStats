@@ -1,7 +1,10 @@
 # IDSpatialStats 1.0.0
 
 ## Changes (top of list are most important)
-Most of these changes concern the tau statistic functions:
+These changes mostly concern the tau statistic functions. These are big changes and we may have 
+unwittingly introduced bugs. Please send us a reproducible example if you find one.
+
+Specific changes
 * `get.pi.ci()`, `get.theta.ci()`, `get.tau.ci()`: `quantile` method replaced with `coxed::bca` to 
   compute BCa (bias-corrected and accelerated) confidence intervals (CIs) rather than percentile. 
   Note this will result in a change in your results versus previous versions if if computing CIs.
@@ -23,5 +26,10 @@ that follow current best-practice mentioned in a recent review of the tau statis
 * Deprecated tests that were previously commented out in `inst/tests/` as a warning of removal
   have not been removed.
 * NEWS.md file added, but as you're reading this you probably knew that already ;)
+
+Generic changes: 
+* ability to have distance units defined and automatically plotted on graph
+* documentation updated, with rationale for use with linked references to recent literature which has
+informed this change.
 
 ## Bug fixes (top of list are most important)

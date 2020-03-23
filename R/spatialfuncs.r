@@ -917,10 +917,123 @@ get.tau <- function(posmat,
   }
 }
 
-plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, ...)
+get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.type){
+  get.tau = IDSpatialStats::get.tau(posmat = posmat, fun = fun, r = r, r.low = r.low, comparison.type = comparison.type, data.frame = FALSE)
+  tau.permute = IDSpatialStats::get.tau.permute(posmat = posmat, fun = fun, r = r, r.low = r.low, permutations = permutations, comparison.type = comparison.type, data.frame = FALSE)
+  curveset = GET::create_curve_set(list(r = r, obs = as.numeric(get.tau), sim_m = t(tau.permute)))
+  GET.res = GET::global_envelope_test(curve_sets = curveset, type = "rank", alpha = 0.05,
+           alternative = c("two.sided"), ties = "erl", probs = c(0.025, 0.975), quantile.type = 7, 
+           central = "median")
+  GET.res$tau.permute = tau.permute
+  class(GET.res) <- "tauGET"
+  return(GET.res)
+}
+
+get.tau.D.param.est <- function(){
+  
+  # ciIntercept <- function(n.sim, mid.set, tau.sim) {
+  #   j.max = length(mid.set)
+  #   # now define d.envelope
+  #   alwaysabove1 = 0
+  #   d.envelope = NULL
+  #   for (i in 1:n.sim) {
+  #     j = 1
+  #     if(tau.sim[i,j] > 1){ # else ignore simulation as starting from below tau = 1
+  #       stillabove1 = T
+  #       while (stillabove1 & (j < j.max)) {
+  #         j = j + 1
+  #         if(tau.sim[i,j] <= 1){ # else it stays above tau = 1 until the next j is tested
+  #           stillabove1 = F
+  #           root.tau1 = ((1-tau.sim[i,(j-1)])*(mid.set[j]-mid.set[j-1])/
+  #                          (tau.sim[i,j]-tau.sim[i,(j-1)]))+mid.set[j-1]
+  #           d.envelope = c(d.envelope, root.tau1)
+  #         }
+  #       }
+  #       if(stillabove1 & j==j.max){
+  #         alwaysabove1 = alwaysabove1 + 1
+  #       }
+  #     }
+  #   }
+  #   # print warnings as if the value is much below 100% then a CI can't be constructed as
+  #   # it has not been drawn from a random sample.
+  #   print(paste0("sims cross tau = 1 from above = ",length(d.envelope)/n.sim*100,"%"))
+  #   print(paste0("alwaysabove1 = ",alwaysabove1/n.sim*100,"%"))
+  #   return(d.envelope)
+  # }
+  # 
+  
+  #tauCI2500lohv2 = summonTauBstraplohv2(X.region = as.matrix(hag.dat), r.min = r.min, 
+                                        #r.max = r.max, bootiters = 2500, T1 = 0, T2 = 14)
+  #d.envelope2500lohv2 = ciIntercept(2500, mid.set = r.mid, tau.sim = tauCI2500lohv2)
+  
+  # 
+  # quantile(d.envelope100, probs = c(0.025,0.975))
+  # 
+  # # compute where on d-axis the point estimate intercepts tau(d) = 1----
+  # firstbelow1 = which(tau.hagg < 1)[1] # when does the point estimate first fall below tau=1
+  # y1 = tau.hagg[firstbelow1-1]
+  # y2 = tau.hagg[firstbelow1]
+  # x1 = r.mid[firstbelow1-1]
+  # x2 = r.mid[firstbelow1]
+  # m = (y2-y1)/(x2-x1)
+  # dintercept.pointestimate = (1+m*x1-y1)/m
+  # rm(m,y1,y2,x1,x2) # removed to prevent confusions as used in later chunks
+  # 
+  # dintercept.pointestimate = ((1-tau.hagg[firstbelow1-1])*
+  #                               (r.mid[firstbelow1]-r.mid[firstbelow1-1])/
+  #                               (tau.hagg[firstbelow1]-tau.hagg[firstbelow1-1]))+r.mid[firstbelow1-1]
+  # dintercept.pointestimate
+  # save(dintercept.pointestimate, file = "dintercept.pointestimate.RData")
+  # 
+  # plot(NULL, xlim = c(0,100), log="y", ylim = c(min(tauCItmp2500noinfs),
+  #                                               max(tauCItmp2500noinfs)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i", 
+  #      ylab = "", xlab = "")
+  # mtext(latex2exp::TeX('$\\tau (d_l,d_m)$'), side=2, line=2, cex = 1.5)
+  # mtext(latex2exp::TeX(
+  #   'Distance band midpoint (1/2$(d_l + d_m)$) at 2m increments,'), side=1, line=3, cex = 1.5)
+  # mtext(latex2exp::TeX(
+  #   'from an average case (m)'), side=1, line=4, cex = 1.5)
+  # for (i in 1:2500) {
+  #   lines(r.mid, tauCItmp2500noinfs[i,], col = scales::alpha("grey", alpha = 0.2), lwd = 4)
+  # }
+  # for (i in 1:100) {
+  #   lines(r.mid, tauCItmp100noinfs[i,], col = scales::alpha("green", alpha = 0.2), lwd = 4)
+  # }
+  # axis(2, las=1, at=c(0.5,1,2,4,8,16,32,64,93), labels = c("0·5","1","2·0","4·0","8·0",
+  #                                                          "16·0","32·0","64·0","93·0"), lwd = 4)
+  # axis(1, lwd = 4)
+  # lines(x = c(0,100), y = c(1,1), lty = 2, lwd = 4) # as abline seems to overlap
+  # par(lend=1);
+  # lines(x = as.numeric(quantile(d.envelope2500, probs = c(0.025,0.975))), y=c(1.03,1.03),
+  #       type = "l", lwd = 20, col = "red")
+  # lines(x = as.numeric(quantile(d.envelope100, probs = c(0.025,0.975))), y=c(0.97,0.97), 
+  #       type = "l", lwd = 20, col = "blue")
+  # lines(x=c(dintercept.pointestimate,dintercept.pointestimate), y = c(0.9,1.1), lwd = 8)
+  # lines(r.mid, tau.hagg, lwd = 4)
+  # legend(x = 40, y = 32, 
+  #        legend=c(latex2exp::TeX('$\\hat{\\tau}$ point estimate & $\\hat{D}$'),
+  #                 latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=2500)'), 
+  #                 latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'), 
+  #                 latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=100)'), 
+  #                 latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'),
+  #                 latex2exp::TeX('$\\tau = 1$')), col=c("black", "grey", "red", "green", "blue", "black"),
+  #        lty=c(1,1,1,1,1,2), lwd = c(6,6,30,6,30,6), pch = c(124,256,256,256,256,256), cex=1.05, 
+  #        yjust = 0.5)
+  
+}
+
+plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, GET.res = NULL, ...)
 {
+  stopifnot(class(x)=="tau")
   if(!is.null(ptwise.CI)){
     stopifnot(class(ptwise.CI)=="tauCI")
+  }
+  if(!is.null(GET.res)){
+    stopifnot(class(GET.res)=="tauGET")
+  }
+  if(!is.null(ptwise.CI) & !is.null(GET.res)){
+    stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and global
+         envelopes to be plotted on the same graph")
   }
   
   if(r.mid==TRUE){
@@ -951,6 +1064,7 @@ plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, ...)
     xlab = bquote("Distance [" * d[l] * "," * d[m] * ") from an average case (" * .(unitslabel) * ")")
   }
   
+  if(!is.null(ptwise.CI)){
   plot(x = r.end, y = x$tau.pt.est, 
        xlim=xlim,
        ylim=range(x$tau.pt.est, na.rm = TRUE)+diff(range(x$tau.pt.est, na.rm = TRUE))*c(-0.05,0.05),
@@ -965,6 +1079,41 @@ plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, ...)
          legend=bquote("point estimate" ~ hat(tau) * "," ~ .(midorend)),
          col="black", pch=16
          )
+  }
+  
+  if(!is.null(GET.res)){
+  plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i",
+       ylab = "Tau", xlab = xlab, lwd = 4, cex.lab = 1.5)
+
+  for (i in 1:permutations) {
+    lines(x$r, GET.res$tau.permute[,i], col = scales::alpha("grey", alpha = 0.3), lwd = 1)
+  }
+  yaxis.range = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE))
+  yaxis.lab = c(seq(yaxis.range[1],yaxis.range[2],length.out = 5),1)
+  yaxis.lab = sort(yaxis.lab)
+  yaxis.lab = round(yaxis.lab,digits = 1)
+  yaxis.lab = unique(yaxis.lab) # prevents more than one 1.0 value
+  yaxis.lab[which(yaxis.lab==1)] = round(yaxis.lab[which(yaxis.lab==1)],digits = 0)
+  axis(2, las=1, at=yaxis.lab, labels = as.character(yaxis.lab), lwd = 1)
+  lines(GET.res$r, GET.res$lo, col = "slategrey", lwd = 3)
+  lines(GET.res$r, GET.res$hi, col = "slategrey", lwd = 3)
+  lines(GET.res$r, GET.res$central, col = "red", lwd = 3)
+  lines(GET.res$r, GET.res$obs, lwd = 4)
+  axis(1, lwd = 1)
+  abline(h=1, lty = 2, lwd = 4)
+  legend("topright", legend=c(as.expression(bquote(~ hat(tau) ~ "point estimate")),
+                              "95% global envelope",as.expression(bquote("simulations of " ~ H[0])),
+                              "median simulation",
+                              as.expression(bquote(~ tau == 1)) ),
+         col=c("black", "slategrey", "grey", "red", "black"),
+         lty=c(1,1,1,1,2), cex=1.05, yjust = 0.5, lwd = 6)
+  par(xpd = TRUE)
+  pint.lo = round(attr(GET.res,"p_interval"), digits = 3)[1]
+  pint.hi = round(attr(GET.res,"p_interval"), digits = 3)[2]
+  pint.x = 0.5 * max(x$r, na.rm = TRUE)
+  pint.y = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE))[1] + 0.5*diff(c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE)))
+  text(bquote("p-value in [" ~ .(pint.lo) * "," * .(pint.hi) * "]"), x = pint.x, y = pint.y)
+  }
 }
 
 ##' Optimized version of \code{get.tau} for typed data
