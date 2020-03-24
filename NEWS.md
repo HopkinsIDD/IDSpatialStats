@@ -33,3 +33,10 @@ Generic changes:
 informed this change.
 
 ## Bug fixes (top of list are most important)
+
+# Changes on the horizon
+Please note that the Modified Marked Point Spatial Bootstrap as described in !CITE has not yet been
+applied. In this reference !CITE it was applied to the tau odds estimator however for consistency 
+we have decided to delay its implementation so that we can apply it also to the tau prevalence
+estimator also, and thus sync the implementations across all tau estimators. Therefore please be 
+aware that values from `get.tau.bootstrap()` and `get.tau.D.param.est()` are still due to change.

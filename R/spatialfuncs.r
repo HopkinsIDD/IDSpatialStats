@@ -929,44 +929,54 @@ get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.t
   return(GET.res)
 }
 
-get.tau.D.param.est <- function(){
+get.tau.D.param.est <- function(posmat, fun, r, r.low, boot.iter, comparison.type, GETres = NULL, ...){
+  stopifnot(!is.null(GETres)) # makes sure the user has been principled and performed a global
+  # hypothesis test using get.tau() before estimating D
+  stopifnot(length(r)>1)
   
-  # ciIntercept <- function(n.sim, mid.set, tau.sim) {
-  #   j.max = length(mid.set)
-  #   # now define d.envelope
-  #   alwaysabove1 = 0
-  #   d.envelope = NULL
-  #   for (i in 1:n.sim) {
-  #     j = 1
-  #     if(tau.sim[i,j] > 1){ # else ignore simulation as starting from below tau = 1
-  #       stillabove1 = T
-  #       while (stillabove1 & (j < j.max)) {
-  #         j = j + 1
-  #         if(tau.sim[i,j] <= 1){ # else it stays above tau = 1 until the next j is tested
-  #           stillabove1 = F
-  #           root.tau1 = ((1-tau.sim[i,(j-1)])*(mid.set[j]-mid.set[j-1])/
-  #                          (tau.sim[i,j]-tau.sim[i,(j-1)]))+mid.set[j-1]
-  #           d.envelope = c(d.envelope, root.tau1)
-  #         }
-  #       }
-  #       if(stillabove1 & j==j.max){
-  #         alwaysabove1 = alwaysabove1 + 1
-  #       }
-  #     }
-  #   }
-  #   # print warnings as if the value is much below 100% then a CI can't be constructed as
-  #   # it has not been drawn from a random sample.
-  #   print(paste0("sims cross tau = 1 from above = ",length(d.envelope)/n.sim*100,"%"))
-  #   print(paste0("alwaysabove1 = ",alwaysabove1/n.sim*100,"%"))
-  #   return(d.envelope)
-  # }
-  # 
+  tausim = get.tau.bootstrap(posmat = posmat, fun = fun, r = r, r.low = r.low, boot.iter = boot.iter, comparison.type = comparison.type)[,-c(1,2)]
+  tausim = t(tausim)
+  
+  ciIntercept <- function(boot.iter, r, tausim) {
+    j.max = length(r)
+    # define d.envelope by finding for each bootstrap sample the (interpolated) d-intercept point
+    alwaysabove1 = 0
+    d.envelope = NULL
+    for (i in 1:boot.iter) {
+      j = 1 # first distance band
+      if(tausim[i,j] > 1){ # else ignore simulation as starting from below tau = 1
+        stillabove1 = TRUE
+          while (stillabove1 & (j < j.max)) {
+            j = j + 1
+            if(tausim[i,j] <= 1){ # else it stays above tau = 1 until the next j is tested
+              stillabove1 = FALSE
+              root.tau1 = ((1-tausim[i,(j-1)])*(r[j]-r[j-1])/(tausim[i,j]-tausim[i,(j-1)]))+r[j-1]
+              d.envelope = c(d.envelope, root.tau1)
+            }
+          }
+          if(stillabove1 & j==j.max){
+            alwaysabove1 = alwaysabove1 + 1
+          }
+      }
+    }
+    print("Note the following values below. If the % of bootstrap sims always above tau = 1 is more than 
+          a few percent then a reliable CI cannot be constructed as it will have not been drawn from
+          a random sample.")
+    print(paste0("% of sims crossing tau = 1 from above is ",length(d.envelope)/boot.iter*100,"%"))
+    print(paste0("% of bootstrap sims always above tau = 1 is ",alwaysabove1/boot.iter*100,"%"))
+    if(alwaysabove1>0){
+      warning("Note that there are some bootstrap sims that stay above tau = 1 for the entire 
+              distance band set. If more than a few percent of these are above tau = 1 then a 
+              reliable CI cannot be constructed as it will have not have come from a random sample.")
+    }
+    return(d.envelope)
+  }
+  d.envelope = as.data.frame(ciIntercept(boot.iter,r,tausim))
   
   #tauCI2500lohv2 = summonTauBstraplohv2(X.region = as.matrix(hag.dat), r.min = r.min, 
                                         #r.max = r.max, bootiters = 2500, T1 = 0, T2 = 14)
-  #d.envelope2500lohv2 = ciIntercept(2500, mid.set = r.mid, tau.sim = tauCI2500lohv2)
+  #d.envelope2500lohv2 = ciIntercept(2500, mid.set = r.mid, tausim = tauCI2500lohv2)
   
-  # 
   # quantile(d.envelope100, probs = c(0.025,0.975))
   # 
   # # compute where on d-axis the point estimate intercepts tau(d) = 1----
@@ -1019,9 +1029,10 @@ get.tau.D.param.est <- function(){
   #                 latex2exp::TeX('$\\tau = 1$')), col=c("black", "grey", "red", "green", "blue", "black"),
   #        lty=c(1,1,1,1,1,2), lwd = c(6,6,30,6,30,6), pch = c(124,256,256,256,256,256), cex=1.05, 
   #        yjust = 0.5)
-  
+  class(d.envelope) <- "tauparamest"
+  return(d.envelope)
 }
-
+  
 plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, GET.res = NULL, ...)
 {
   stopifnot(class(x)=="tau")
