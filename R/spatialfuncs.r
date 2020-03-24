@@ -933,7 +933,7 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
   stopifnot(!is.null(GETres)) # makes sure the user has been principled and performed a global
   # hypothesis test using get.tau() before estimating D
   stopifnot(length(r)>1)
-  
+  stopifnot(class(tausim)=="taubstrap")
   tausim = t(tausim[,-c(1,2)])
   
   ciIntercept <- function(boot.iter, r, tausim) {
@@ -975,7 +975,7 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
   return(d.envelope)
 }
   
-plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res = NULL, d.param.est = NULL ...)
+plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res = NULL, d.param.est = NULL, ...)
 {
   stopifnot(class(x)=="tau")
   if(!is.null(ptwise.CI)){
@@ -986,6 +986,9 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   }
   if(!is.null(d.param.est)){
     stopifnot(class(d.param.est)=="tauparamest")
+  }
+  if(!is.null(tausim)){
+    stopifnot(class(tausim)=="taubstrap")
   }
   if(!is.null(ptwise.CI) & !is.null(GET.res)){
     stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and global
@@ -1080,18 +1083,12 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   }
 
   if(is.null(d.param.est)){
-    plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(x$tau.pt.est, ),
-    max(tauCItmp2500noinfs)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i", ylab = "", xlab = "")
-    mtext(latex2exp::TeX('$\\tau (d_l,d_m)$'), side=2, line=2, cex = 1.5)
-    mtext(latex2exp::TeX(
-      'Distance band midpoint (1/2$(d_l + d_m)$) at 2m increments,'), side=1, line=3, cex = 1.5)
-    mtext(latex2exp::TeX(
-      'from an average case (m)'), side=1, line=4, cex = 1.5)
-    for (i in 1:2500) {
-      lines(r.mid, tauCItmp2500noinfs[i,], col = scales::alpha("grey", alpha = 0.2), lwd = 4)
-    }
-    for (i in 1:100) {
-      lines(r.mid, tauCItmp100noinfs[i,], col = scales::alpha("green", alpha = 0.2), lwd = 4)
+    plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(x$tau.pt.est, tausim, na.rm = TRUE),
+    max(x$tau.pt.est, tausim, na.rm = TRUE)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i", ylab = "", xlab = "")
+    mtext("Tau", side=2, line=2, cex = 1.5)
+    mtext(xlab, side=1, line=3, cex = 1.5)
+    for (i in 1:dim(tausims)[1]) {
+      lines(x$r, tausims[i,], col = scales::alpha("grey", alpha = 0.2), lwd = 4)
     }
     axis(2, las=1, at=c(0.5,1,2,4,8,16,32,64,93), labels = c("0·5","1","2·0","4·0","8·0",
                                                              "16·0","32·0","64·0","93·0"), lwd = 4)
@@ -1100,17 +1097,13 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
     par(lend=1);
     lines(x = as.numeric(quantile(d.envelope2500, probs = c(0.025,0.975))), y=c(1.03,1.03),
           type = "l", lwd = 20, col = "red")
-    lines(x = as.numeric(quantile(d.envelope100, probs = c(0.025,0.975))), y=c(0.97,0.97),
-          type = "l", lwd = 20, col = "blue")
     lines(x=c(dintercept.pointestimate,dintercept.pointestimate), y = c(0.9,1.1), lwd = 8)
-    lines(r.mid, tau.hagg, lwd = 4)
+    lines(x$r, x$tau.pt.est, lwd = 4)
     legend(x = 40, y = 32,
-           legend=c(latex2exp::TeX('$\\hat{\\tau}$ point estimate & $\\hat{D}$'),
-                    latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=2500)'),
-                    latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'),
-                    latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=100)'),
-                    latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'),
-                    latex2exp::TeX('$\\tau = 1$')), col=c("black", "grey", "red", "green", "blue", "black"),
+           legend=c(as.expression(bquote(hat(tau) ~ "point estimate & " ~ hat(D))),
+                    as.expression(bquote(underline(tau)^["*"] ~ "bootstrap estimate (N=" ~ .(dim(tausim)[1]) ~ ")")),
+                    as.expression(bquote("95% BCa CI of " ~ underline(D))),
+                    as.expression(bquote(tau = 1))), col=c("black", "grey", "red", "green", "blue", "black"),
            lty=c(1,1,1,1,1,2), lwd = c(6,6,30,6,30,6), pch = c(124,256,256,256,256,256), cex=1.05,
            yjust = 0.5)
   }
@@ -1262,8 +1255,7 @@ get.tau.bootstrap <- function(posmat,
                               comparison.type = "representative",
                               data.frame=TRUE) {
 
-
-  xcol <-  which(colnames(posmat)=="x")
+  xcol <- which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
 
   #check that both columns exist
@@ -1294,9 +1286,12 @@ get.tau.bootstrap <- function(posmat,
   }
   
   if (data.frame == FALSE) {
+       class(rc) <- "taubstrap"
        return(rc)
   } else if (data.frame == TRUE) {
-       return(data.frame(r.low=r.low, r=r, t(rc)))
+       rc = data.frame(r.low=r.low, r=r, t(rc))
+       class(rc) <- "taubstrap"
+       return(rc)
   }
 }
 
