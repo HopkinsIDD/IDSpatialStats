@@ -929,13 +929,12 @@ get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.t
   return(GET.res)
 }
 
-get.tau.D.param.est <- function(posmat, fun, r, r.low, boot.iter, comparison.type, GETres = NULL, ...){
+get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
   stopifnot(!is.null(GETres)) # makes sure the user has been principled and performed a global
   # hypothesis test using get.tau() before estimating D
   stopifnot(length(r)>1)
   
-  tausim = get.tau.bootstrap(posmat = posmat, fun = fun, r = r, r.low = r.low, boot.iter = boot.iter, comparison.type = comparison.type)[,-c(1,2)]
-  tausim = t(tausim)
+  tausim = t(tausim[,-c(1,2)])
   
   ciIntercept <- function(boot.iter, r, tausim) {
     j.max = length(r)
@@ -976,7 +975,7 @@ get.tau.D.param.est <- function(posmat, fun, r, r.low, boot.iter, comparison.typ
   return(d.envelope)
 }
   
-plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, GET.res = NULL, ...)
+plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res = NULL, d.param.est = NULL ...)
 {
   stopifnot(class(x)=="tau")
   if(!is.null(ptwise.CI)){
@@ -985,9 +984,20 @@ plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, GET.res = NULL, ...)
   if(!is.null(GET.res)){
     stopifnot(class(GET.res)=="tauGET")
   }
+  if(!is.null(d.param.est)){
+    stopifnot(class(d.param.est)=="tauparamest")
+  }
   if(!is.null(ptwise.CI) & !is.null(GET.res)){
     stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and global
          envelopes to be plotted on the same graph")
+  }
+  if(!is.null(ptwise.CI) & !is.null(d.param.est)){
+    stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and clustering 
+        range estimates to be plotted on the same graph")
+  }
+  if(!is.null(GET.res) & !is.null(d.param.est)){
+    stop("To avoid misinterpretation of visual results we do not allow global envelopes and 
+         clustering range estimates to be plotted on the same graph")
   }
   
   if(r.mid==TRUE){
@@ -1069,44 +1079,41 @@ plot.tau <- function(x, r.mid = TRUE, ptwise.CI = NULL, GET.res = NULL, ...)
   text(bquote("p-value in [" ~ .(pint.lo) * "," * .(pint.hi) * "]"), x = pint.x, y = pint.y)
   }
 
-
-  # plot(NULL, xlim = c(0,100), log="y", ylim = c(min(tauCItmp2500noinfs),
-  #                                               max(tauCItmp2500noinfs)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i", 
-  #      ylab = "", xlab = "")
-  # mtext(latex2exp::TeX('$\\tau (d_l,d_m)$'), side=2, line=2, cex = 1.5)
-  # mtext(latex2exp::TeX(
-  #   'Distance band midpoint (1/2$(d_l + d_m)$) at 2m increments,'), side=1, line=3, cex = 1.5)
-  # mtext(latex2exp::TeX(
-  #   'from an average case (m)'), side=1, line=4, cex = 1.5)
-  # for (i in 1:2500) {
-  #   lines(r.mid, tauCItmp2500noinfs[i,], col = scales::alpha("grey", alpha = 0.2), lwd = 4)
-  # }
-  # for (i in 1:100) {
-  #   lines(r.mid, tauCItmp100noinfs[i,], col = scales::alpha("green", alpha = 0.2), lwd = 4)
-  # }
-  # axis(2, las=1, at=c(0.5,1,2,4,8,16,32,64,93), labels = c("0·5","1","2·0","4·0","8·0",
-  #                                                          "16·0","32·0","64·0","93·0"), lwd = 4)
-  # axis(1, lwd = 4)
-  # lines(x = c(0,100), y = c(1,1), lty = 2, lwd = 4) # as abline seems to overlap
-  # par(lend=1);
-  # lines(x = as.numeric(quantile(d.envelope2500, probs = c(0.025,0.975))), y=c(1.03,1.03),
-  #       type = "l", lwd = 20, col = "red")
-  # lines(x = as.numeric(quantile(d.envelope100, probs = c(0.025,0.975))), y=c(0.97,0.97), 
-  #       type = "l", lwd = 20, col = "blue")
-  # lines(x=c(dintercept.pointestimate,dintercept.pointestimate), y = c(0.9,1.1), lwd = 8)
-  # lines(r.mid, tau.hagg, lwd = 4)
-  # legend(x = 40, y = 32, 
-  #        legend=c(latex2exp::TeX('$\\hat{\\tau}$ point estimate & $\\hat{D}$'),
-  #                 latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=2500)'), 
-  #                 latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'), 
-  #                 latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=100)'), 
-  #                 latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'),
-  #                 latex2exp::TeX('$\\tau = 1$')), col=c("black", "grey", "red", "green", "blue", "black"),
-  #        lty=c(1,1,1,1,1,2), lwd = c(6,6,30,6,30,6), pch = c(124,256,256,256,256,256), cex=1.05, 
-  #        yjust = 0.5)
-  
-  
-  
+  if(is.null(d.param.est)){
+    plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(x$tau.pt.est, ),
+    max(tauCItmp2500noinfs)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i", ylab = "", xlab = "")
+    mtext(latex2exp::TeX('$\\tau (d_l,d_m)$'), side=2, line=2, cex = 1.5)
+    mtext(latex2exp::TeX(
+      'Distance band midpoint (1/2$(d_l + d_m)$) at 2m increments,'), side=1, line=3, cex = 1.5)
+    mtext(latex2exp::TeX(
+      'from an average case (m)'), side=1, line=4, cex = 1.5)
+    for (i in 1:2500) {
+      lines(r.mid, tauCItmp2500noinfs[i,], col = scales::alpha("grey", alpha = 0.2), lwd = 4)
+    }
+    for (i in 1:100) {
+      lines(r.mid, tauCItmp100noinfs[i,], col = scales::alpha("green", alpha = 0.2), lwd = 4)
+    }
+    axis(2, las=1, at=c(0.5,1,2,4,8,16,32,64,93), labels = c("0·5","1","2·0","4·0","8·0",
+                                                             "16·0","32·0","64·0","93·0"), lwd = 4)
+    axis(1, lwd = 4)
+    lines(x = c(0,100), y = c(1,1), lty = 2, lwd = 4) # as abline seems to overlap
+    par(lend=1);
+    lines(x = as.numeric(quantile(d.envelope2500, probs = c(0.025,0.975))), y=c(1.03,1.03),
+          type = "l", lwd = 20, col = "red")
+    lines(x = as.numeric(quantile(d.envelope100, probs = c(0.025,0.975))), y=c(0.97,0.97),
+          type = "l", lwd = 20, col = "blue")
+    lines(x=c(dintercept.pointestimate,dintercept.pointestimate), y = c(0.9,1.1), lwd = 8)
+    lines(r.mid, tau.hagg, lwd = 4)
+    legend(x = 40, y = 32,
+           legend=c(latex2exp::TeX('$\\hat{\\tau}$ point estimate & $\\hat{D}$'),
+                    latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=2500)'),
+                    latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'),
+                    latex2exp::TeX('$\\hat{\\underline{\\tau}}^*$ bootstrap estimate (N=100)'),
+                    latex2exp::TeX('    $\\bullet$  95% percentile CI of $\\underline{D}$'),
+                    latex2exp::TeX('$\\tau = 1$')), col=c("black", "grey", "red", "green", "blue", "black"),
+           lty=c(1,1,1,1,1,2), lwd = c(6,6,30,6,30,6), pch = c(124,256,256,256,256,256), cex=1.05,
+           yjust = 0.5)
+  }
 }
 
 ##' Optimized version of \code{get.tau} for typed data
