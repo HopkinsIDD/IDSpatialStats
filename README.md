@@ -10,15 +10,15 @@ This GitHub repository provides source code for the `IDSpatialStats` R package, 
 This package is maintained by John Giles (GitHub: @[gilesjohnr](https://github.com/gilesjohnR)) and Justin Lessler (GitHub: @[jlessler](https://github.com/jlessler)) as part of the Johns Hopkins Bloomberg School of Public Health Infectious Disease Dynamics team (GitHub: @[HopkinsIDD](https://github.com/HopkinsIDD)).
 
 ## Detailed description of the methods and relevant literature
-### Covering both transmission distance estimation and tau statistic
+### Transmission distance estimation and tau statistic
 [The IDSpatialStats R package: Quantifying spatial dependence of infectious disease spread (Giles et al. accepted)](https://journal.r-project.org/archive/2019/RJ-2019-043/index.html)
 
 [Measuring spatial dependence for infectious disease epidemiology (Lessler et al. 2016)](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249)
 
-### Transmission distance-specific
+### Transmission distance specific
 [Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
 
-### Tau statistic-specific
+### Tau statistic specific
 [Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic (Pollington et al. 2020 pre-proof)](https://doi.org/10.1016/j.spasta.2020.100438)
 
 [The spatiotemporal tau statistic: a review (Pollington et al. preprint)](https://arxiv.org/abs/1911.11476)
