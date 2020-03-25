@@ -9,26 +9,20 @@ Percentile confidence intervals (CIs) replaced with BCa (bias-corrected and acce
   
 * `quantile` method also updated to `coxed::bca` where possible in `inst/tests/`. At times the `coxed::bca()` method gives slightly different test results if it is applied to asymmetric distributions.
   
+* New function `get.tau.GET()` performs graphical hypothesis tests with the tau statistic using the `GET` package, while `get.tau.D.param.est()` estimates the range of spatiotemporal clustering.
+
+* `plot.tau()` is a new method that can produce three types of tau(y-axis)-distance(x-axis) plots [[1: see Graphical abstract](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")]:
+  * Diagnostic to indicate the structure or magnitude of spatiotemporal clustering. Requires `tau` object; `tauCI` object optional to draw pointwise CIs. In this version we use piecewise error bars rather than continuous envelope lines. This reminds the user that this graph should not be used as a graphical hypothesis test for the whole distance range observed. It is only suitable for the purpose of a graphical hypothesis test for a specific distance band if that band is decided prior to graph creation.
+  * Graphical hypothesis tests to assess the evidence against the Null hypothesis (no spatiotemporal clustering nor inhibition). Requires `tau` and `tauGET` objects.
+  * Estimation of the clustering range (the distribution of the places on the horizontal tau=1 line, where decreasing bootstrap simulations first intercept). Requires `tau` and `tauparamest` objects; prior to this `get.tau.D.param.est()` requires a `taubstrap` object.
+
 * New S3 classes have been added to the return objects from the following functions. The purpose of the new classes is to encourage the use of functions in an ordered and principled way, in keeping with good practices of statistical inference [[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")]. It also means that the objects inputted as function arguments are of a known format:
+  * `get.tau()` returns a `tau` class
+  * `get.tau.ci()` returns a `tauCI` class
+  * `get.tau.GET()` returns a `tauGET` class
+  * `get.tau.bootstrap()` returns a `taubstrap` class
+  * `get.tau.D.param.est()` returns a `tauparamest` class. Requires a `taubstrap` object
 
-
-
-
-  
-
-
-  
-* `get.tau()` returns a new S3 `tau` class
-
-* with special methods for:
-  * `plot()` provides a tau-distance graph with an option for pointwise confidence intervals for 
-  a visual indication of spatiotemporal clustering. In this version we use error bars as default, to
-  remind the reader that this graph should not be used as a graphical hypothesis test for the whole 
-  distance range observed (CITE!). It is only suitable for the purpose of a graphical hypothesis
-  test if a specific distance band is decided before looking at the graph to see if it encloses
-  tau=1. 
-  
-that follow current best-practice mentioned in a recent review of the tau statistic.
 * CITATION file added
 * README.md formatting updated
 * `get.tau$tau` renamed to `get.tau$tau.pt.est`
@@ -42,6 +36,9 @@ that follow current best-practice mentioned in a recent review of the tau statis
 informed this change.
 
 ## Bug fixes (top of list are most important)
+
+# Release contributors
+Timothy M Pollington would also like to thank the co-authors of the paper that informed this update[[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] and particularly the *essential* contribution of Peter J. Diggle (Lancaster) who advised on this principled inferential approach, but respectfully declined co-authorship.
 
 # Changes on the horizon
 Please note that the Modified Marked Point Spatial Bootstrap as described in !CITE has not yet been

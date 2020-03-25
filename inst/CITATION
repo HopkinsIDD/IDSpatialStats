@@ -48,13 +48,14 @@ c(bibentry(
 )
 
 bibentry(
-   header = "For the method and rationale of graphical hypothesis testing for the tau statistic please also cite:",
-   key = "Pollington2019",
-   bibtype = "Unpublished",
-   title = "Measuring spatiotemporal disease clustering with the tau statistic",
+   header = "For the method and rationale of graphical hypothesis testing or clustering range estimation for the tau statistic please also cite:",
+   key = "Pollington2020",
+   bibtype = "Article",
+   title = "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic",
    author = c(as.person("Timothy M. Pollington"),as.person("Michael J. Tildesley"),as.person("T. Déirdre Hollingsworth"),as.person("Lloyd A. C. Chapman")),
-   year = 2019,
-   journal = "arXiv",
-   url = "https://arxiv.org/abs/1911.08022",
-   note = "Under review"
+   year = 2020,
+   journal = "Spatial Statistics",
+   url = "https://doi.org/10.1016/j.spasta.2020.100438",
+   doi = "10.1016/j.spasta.2020.100438"
+   note = "Pre-proof"
 )

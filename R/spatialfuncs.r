@@ -1032,14 +1032,14 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
     xlab = bquote("Distance [" * d[l] * "," * d[m] * ") from an average case (" * .(unitslabel) * ")")
   }
   
-  if(!is.null(ptwise.CI)){
-  plot(x = r.end, y = x$tau.pt.est, 
-       xlim=xlim,
+  if(is.null(GET.res) & is.null(d.param.est)){
+  plot(x = r.end, y = x$tau.pt.est, xlim=xlim,
        ylim=range(x$tau.pt.est, na.rm = TRUE)+diff(range(x$tau.pt.est, na.rm = TRUE))*c(-0.05,0.05),
-       cex.axis=1.,col="black", xlab=xlab, 
-       ylab="Tau", 
+       cex.axis=1.,col="black", xlab=xlab, ylab="Tau", 
        cex.main=1, lwd=2, type="p", las=1, cex.axis=1, xaxs = "i", yaxs = "i", pch = 16)
-    arrows(r.end, ptwise.CI$ci.low, r.end, ptwise.CI$ci.high, length = 0.04, angle = 90, code = 3)
+    if(!is.null(ptwise.CI)){
+      arrows(r.end, ptwise.CI$ci.low, r.end, ptwise.CI$ci.high, length = 0.04, angle = 90, code = 3)
+    }
   abline(h=1,lty=2)
   legend("topright",
          legend=bquote("point estimate" ~ hat(tau) * "," ~ .(midorend)),
