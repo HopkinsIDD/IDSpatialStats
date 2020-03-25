@@ -27,22 +27,19 @@ Percentile confidence intervals (CIs) replaced with BCa (bias-corrected and acce
 * README.md formatting updated
 * `get.tau$tau` renamed to `get.tau$tau.pt.est`
 * Deprecated tests that were previously commented out in `inst/tests/` as a warning of removal
-  have not been removed.
+  have now been removed.
 * NEWS.md file added, but as you're reading this you probably knew that already ;)
 
 # Generic changes
-* ability to have distance units defined and automatically plotted on graph
-* documentation updated, with rationale for use with linked references to recent literature which has
-informed this change.
+* distance units can be defined on `r` and `r.low` and will be automatically feature in the x-axis label of `plot.tau()`
+* documentation update
 
 ## Bug fixes (top of list are most important)
+None
 
 # Release contributors
-Timothy M Pollington would also like to thank the co-authors of the paper that informed this update[[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] and particularly the *essential* contribution of Peter J. Diggle (Lancaster) who advised on this principled inferential approach, but respectfully declined co-authorship.
+Timothy M Pollington would like to thank the co-authors of the paper that informed this update[[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] and the *essential* contribution of Peter J. Diggle (Lancaster) who advised on this principled inferential approach.
 
-# Changes on the horizon
-Please note that the Modified Marked Point Spatial Bootstrap as described in !CITE has not yet been
-applied. In this reference !CITE it was applied to the tau odds estimator however for consistency 
-we have decided to delay its implementation so that we can apply it also to the tau prevalence
-estimator also, and thus sync the implementations across all tau estimators. Therefore please be 
-aware that values from `get.tau.bootstrap()` and `get.tau.D.param.est()` are still due to change.
+# Next changes
+Please note that the Modified Marked Point Spatial Bootstrap [[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] has not yet been
+applied. In [[2](https://doi.org/10.5281/zenodo.2552850 "t-pollington/tau-statistic-speedup: First release of tau statistic speedup")] it was applied to the tau odds estimator however for consistency we have decided to delay its implementation so that we can apply it also to the tau prevalence estimator. So please note that `get.tau.bootstrap()` and `get.tau.D.param.est()` values are still likely to change.
