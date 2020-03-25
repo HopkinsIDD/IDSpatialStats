@@ -21,14 +21,13 @@ Percentile confidence intervals (CIs) replaced with BCa (bias-corrected and acce
   * `get.tau.ci()` returns a `tauCI` class
   * `get.tau.GET()` returns a `tauGET` class
   * `get.tau.bootstrap()` returns a `taubstrap` class
-  * `get.tau.D.param.est()` returns a `tauparamest` class. Requires a `taubstrap` object
+  * `get.tau.D.param.est()` returns a `tauparamest` class. Requires a `taubstrap` object.
 
 * CITATION file added
 * README.md formatting updated
 * `get.tau$tau` renamed to `get.tau$tau.pt.est`
-* Deprecated tests that were previously commented out in `inst/tests/` as a warning of removal
-  have now been removed.
-* NEWS.md file added, but as you're reading this you probably knew that already ;)
+* Previously deprecated tests (already commented out in `inst/tests/`) have now been removed.
+* NEWS.md file added, but as you're reading this you probably knew that already :wink:
 
 # Generic changes
 * distance units can be defined on `r` and `r.low` and will be automatically feature in the x-axis label of `plot.tau()`

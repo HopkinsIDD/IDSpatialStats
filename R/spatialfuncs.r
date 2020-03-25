@@ -1019,17 +1019,17 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   # and label graph appropriately, with correct units if provided
   if(!is.null(attr(x$r.low, "units")) & !is.null(attr(x$r, "units")) & 
      identical(attr(x$r.low, "units"), attr(x$r, "units"))){
-    unitslabel = attr(x$r.low, "units")
+    unitslabel = c("(", attr(x$r.low, "units"), ")")
   }
   else{
     unitslabel = ""
   }
   
   if(all(x$r.low==0)){
-    xlab = bquote("Distance [0," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+    xlab = bquote("Distance [0," * d[m] * ") from an average case " * .(unitslabel))
   }
   else{
-    xlab = bquote("Distance [" * d[l] * "," * d[m] * ") from an average case (" * .(unitslabel) * ")")
+    xlab = bquote("Distance [" * d[l] * "," * d[m] * ") from an average case " * .(unitslabel))
   }
   
   if(is.null(GET.res) & is.null(d.param.est)){
