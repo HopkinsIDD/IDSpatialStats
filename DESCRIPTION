@@ -1,6 +1,6 @@
 Package: IDSpatialStats
 Version: 1.0.0
-Date: 2020-02-06
+Date: 2020-03-25
 Title: Estimate Global Clustering in Infectious Disease
 Authors@R: c(person(given = "Justin Lessler", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9741-8109", "Co-creator & maintainer"),
                      email = "justin@jhu.edu"),
