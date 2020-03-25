@@ -19,7 +19,8 @@ This package is maintained by John Giles (GitHub: @[gilesjohnr](https://github.c
 
 [Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic (Pollington et al. 2020 pre-proof)](https://doi.org/10.1016/j.spasta.2020.100438)
 
-<img src="https://ars.els-cdn.com/content/image/1-s2.0-S2211675320300324-fx1_lrg.jpg" width="48" alt="Illustration of three types of plots of the tau statistic used for diagnostic, graphical hypothesis tests and clustering range parameter estimation.">
+Illustration of three types of plots of the tau statistic used for diagnostic, graphical hypothesis tests and clustering range parameter estimation [(image source under a CC-BY licence)](https://doi.org/10.1016/j.spasta.2020.100438).
+<img src="https://ars.els-cdn.com/content/image/1-s2.0-S2211675320300324-fx1_lrg.jpg" width="360" alt="Illustration of three types of plots of the tau statistic used for diagnostic, graphical hypothesis tests and clustering range parameter estimation. From doi.org/10.1016/j.spasta.2020.100438 under a CC-BY licence.">
 
 [The spatiotemporal tau statistic: a review (Pollington et al. preprint)](https://arxiv.org/abs/1911.11476)
 
