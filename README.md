@@ -1,13 +1,11 @@
 # IDSpatialStats
 
-**Previous users: please read [News on the latest release](../blob/master/NEWS.md "News on the latest release") to update you on changes to the tau statistic functions.**
+**Previous users: please read [News on the latest release](../master/NEWS.md "News on the latest release") to update you on changes to the tau statistic functions.**
 
-This GitHub repository provides source code for the `IDSpatialStats` R package, which is designed to help epidemiologists assess the scale of spatial and temporal dependence in epidemic case occurrence data. 
-
-The current implementation of the package includes a function which simulates infectious disease spread as a spatial branching process, along with two novel spatial statistics that estimate: 
+This GitHub repository provides source code for the `IDSpatialStats` R package, which is designed to help epidemiologists assess the scale of spatial and temporal dependence in epidemic case occurrence data. This package can simulate infectious disease spread as a spatial branching process, along with two novel spatial statistics that estimate: 
 
 1. the mean of the spatial transmission kernel, which is a measure of fine-scale spatial dependence between two cases, and 
-2. the tau statistic $\tau$, a measure of global clustering based on pathogen subtype and/or, serotype and/or case onset time.
+2. the tau statistic &tau;, a measure of global clustering based on pathogen subtype and/or, serotype and/or case onset time.
 
 This package is maintained by John Giles (GitHub: @[gilesjohnr](https://github.com/gilesjohnR)) and Justin Lessler (GitHub: @[jlessler](https://github.com/jlessler)) as part of the Johns Hopkins Bloomberg School of Public Health Infectious Disease Dynamics team (GitHub: @[HopkinsIDD](https://github.com/HopkinsIDD)).
 
