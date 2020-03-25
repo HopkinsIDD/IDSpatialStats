@@ -934,8 +934,9 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
   # hypothesis test using get.tau() before estimating D
   stopifnot(length(r)>1)
   stopifnot(class(tausim)=="taubstrap")
-  tausim = t(tausim[,-c(1,2)])
-  
+  if(!is.null(names(tausim))){ # ie if tausim is like a 'data.frame despite having a taubstrap class
+    tausim = t(tausim[,-c(1,2)])
+  }
   ciIntercept <- function(boot.iter, r, tausim) {
     j.max = length(r)
     # define d.envelope by finding for each bootstrap sample the (interpolated) d-intercept point
@@ -1038,9 +1039,7 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
        cex.axis=1.,col="black", xlab=xlab, 
        ylab="Tau", 
        cex.main=1, lwd=2, type="p", las=1, cex.axis=1, xaxs = "i", yaxs = "i", pch = 16)
-  if(!is.null(ptwise.CI)){
     arrows(r.end, ptwise.CI$ci.low, r.end, ptwise.CI$ci.high, length = 0.04, angle = 90, code = 3)
-  }
   abline(h=1,lty=2)
   legend("topright",
          legend=bquote("point estimate" ~ hat(tau) * "," ~ .(midorend)),
@@ -1051,7 +1050,6 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   if(!is.null(GET.res)){
   plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i",
        ylab = "Tau", xlab = xlab, lwd = 4, cex.lab = 1.5)
-
   for (i in 1:permutations) {
     lines(x$r, GET.res$tau.permute[,i], col = scales::alpha("grey", alpha = 0.3), lwd = 1)
   }
@@ -1082,30 +1080,37 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   text(bquote("p-value in [" ~ .(pint.lo) * "," * .(pint.hi) * "]"), x = pint.x, y = pint.y)
   }
 
-  if(is.null(d.param.est)){
-    plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(x$tau.pt.est, tausim, na.rm = TRUE),
-    max(x$tau.pt.est, tausim, na.rm = TRUE)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i", ylab = "", xlab = "")
-    mtext("Tau", side=2, line=2, cex = 1.5)
+  if(!is.null(d.param.est)){
+    xlim = c(0,min(2*median(gettaueg$envelope),max(x$r)))
+    yaxis.range = c(min(x$tau.pt.est, tausim, na.rm = TRUE),max(x$tau.pt.est, tausim, 
+    na.rm = TRUE))
+    yaxis.lab = c(seq(yaxis.range[1],yaxis.range[2],length.out = 5),1)
+    yaxis.lab = sort(yaxis.lab)
+    yaxis.lab = round(yaxis.lab,digits = 1)
+    yaxis.lab = unique(yaxis.lab) # prevents more than one 1.0 value
+    yaxis.lab[which(yaxis.lab==1)] = round(yaxis.lab[which(yaxis.lab==1)],digits = 0)
+    plot(NULL, xlim = xlim, ylim = yaxis.range, xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i",
+    ylab = "", xlab = "")
+    mtext("Tau", side=2, line=3, cex = 1.5)
     mtext(xlab, side=1, line=3, cex = 1.5)
-    for (i in 1:dim(tausims)[1]) {
-      lines(x$r, tausims[i,], col = scales::alpha("grey", alpha = 0.2), lwd = 4)
+    for (i in 1:dim(tausim)[1]) {
+      lines(x$r, tausim[i,], col = scales::alpha("grey", alpha = 0.2), lwd = 4)
     }
-    axis(2, las=1, at=c(0.5,1,2,4,8,16,32,64,93), labels = c("0·5","1","2·0","4·0","8·0",
-                                                             "16·0","32·0","64·0","93·0"), lwd = 4)
-    axis(1, lwd = 4)
-    lines(x = c(0,100), y = c(1,1), lty = 2, lwd = 4) # as abline seems to overlap
+    axis(2, las=1, at=yaxis.lab, labels = as.character(yaxis.lab), lwd = 1)
+    axis(1, lwd = 1)
+    lines(x = c(0,max(x$r, na.rm = TRUE)), y = c(1,1), lty = 2, lwd = 1) # as abline seems to overlap
     par(lend=1);
-    lines(x = as.numeric(quantile(d.envelope2500, probs = c(0.025,0.975))), y=c(1.03,1.03),
+    lines(x = attr(gettaueg,"BCaCI"), y=c(1.03,1.03),
           type = "l", lwd = 20, col = "red")
-    lines(x=c(dintercept.pointestimate,dintercept.pointestimate), y = c(0.9,1.1), lwd = 8)
-    lines(x$r, x$tau.pt.est, lwd = 4)
-    legend(x = 40, y = 32,
-           legend=c(as.expression(bquote(hat(tau) ~ "point estimate & " ~ hat(D))),
-                    as.expression(bquote(underline(tau)^["*"] ~ "bootstrap estimate (N=" ~ .(dim(tausim)[1]) ~ ")")),
-                    as.expression(bquote("95% BCa CI of " ~ underline(D))),
-                    as.expression(bquote(tau = 1))), col=c("black", "grey", "red", "green", "blue", "black"),
-           lty=c(1,1,1,1,1,2), lwd = c(6,6,30,6,30,6), pch = c(124,256,256,256,256,256), cex=1.05,
-           yjust = 0.5)
+    dintercept.ptest = median(d.param.est$envelope)
+    lines(x=c(dintercept.ptest,dintercept.ptest), y = c(0.9,1.1), lwd = 4)
+    lines(x$r, x$tau.pt.est, lwd = 4, col = "black")
+    legend("topright",
+           legend=c(as.expression(bquote(hat(tau) ~ "point estimate & " ~ hat(D) ~ "estimate")),
+                    as.expression(bquote(underline(tau)^"*" ~ "bootstrap estimate (N=" ~ .(dim(tausim)[1]) * ")")),
+                    as.expression(bquote("95% BCa CI of " ~ underline(D))),"tau = 1"), 
+           col=c("black", "grey", "red", "black"),
+           lty=c(1,1,1,2), lwd = c(2,2,10,1), pch = c(124,NA,NA,NA), cex=1.05, xjust = 1, yjust = 0.5)
   }
 }
 
