@@ -1,5 +1,4 @@
 # News on IDSpatialStats 1.0.0 release
-======
 
 ## Changes (top of list are most important)
 These changes mostly concern the tau statistic functions and have resulted in a major change revision from 0.3.9 to 1.0.0: these are big changes and we may have introduced bugs so please send us a `reprex()` example. We also note where function outputs are likely to have changed. 
