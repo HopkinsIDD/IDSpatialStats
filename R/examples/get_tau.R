@@ -74,7 +74,7 @@ legend("topright",
 Dengue.tau = get.tau(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, "representative", data.frame = TRUE)
 
 # get 95% BCa CI
-CIs = get.tau.ci(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 100, "representative", ci.level = 0.95, data.frame = TRUE)
+CIs = get.tau.ci(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 50, "representative", ci.level = 0.95, data.frame = TRUE)
 
 #plot point estimate with CI
 plot.tau(x = Dengue.tau, r.mid = TRUE, ptwise.CI = CIs)
