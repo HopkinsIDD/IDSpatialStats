@@ -37,7 +37,7 @@ get.pi <- function(posmat,
                    r.low=rep(0,length(r)),
                    data.frame=TRUE) {
 
-  xcol <-  which(colnames(posmat) == "x")
+  xcol <- which(colnames(posmat) == "x")
   ycol <- which(colnames(posmat) == "y")
 
   #check that both columns exist
@@ -277,7 +277,7 @@ get.pi.ci <- function(posmat,
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
   boots = boots[,-(1:2)]
   
-  rc <- apply(boots, 2, applyBCa, ci.level = 0.95)
+  rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
   
   if (data.frame == FALSE) {
        return(rc)
@@ -326,7 +326,7 @@ get.theta.ci <- function(posmat,
      
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
   boots = boots[,-(1:2)]
-  rc <- apply(boots, 2, applyBCa, ci.level = 0.95)
+  rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
   
   if (data.frame == FALSE) {
        return(rc)
@@ -1361,7 +1361,7 @@ get.tau.bootstrap <- function(posmat,
   } else if (comparison.type == "independent") {
     comp.type.int <- 1
   } else {
-    stop("unkown comparison type specified")
+    stop("unknown comparison type specified")
   }
 
   rc <- matrix(nrow=boot.iter, ncol=length(r))
@@ -1579,7 +1579,7 @@ get.tau.typed.permute <- function(posmat,
   } else if (comparison.type == "independent") {
     comp.type.int <- 1
   } else {
-    stop("unkown comparison type specified")
+    stop("unknown comparison type specified")
   }
 
   rc <- matrix(nrow=permutations, ncol=length(r))
