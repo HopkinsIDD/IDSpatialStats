@@ -31,7 +31,8 @@ Percentile confidence intervals (CIs) replaced with BCa (bias-corrected and acce
 
 # Generic changes
 * distance units can be defined on `r` and `r.low` and will be automatically feature in the x-axis label of `plot.tau()`
-* documentation update
+* help files added/updated for `get.tau()`, `get.tau.ci()`, `get.tau.bootstrap()`, `get.tau.GET()`, `get.tau.d.param.est()` & `plot.tau()`
+* example files added/updated for `get_tau.R`, `get_tau_bootstrap.R`, `get_tau_ci.R`, `get_tau_GET.R`, `get_D_param_est.R` and `plot_tau.R`.
 
 ## Bug fixes (top of list are most important)
 `get_tau.R`: using `geno.tau.R02$tau.pt.est` now allows the object to be accessed and the example run.
