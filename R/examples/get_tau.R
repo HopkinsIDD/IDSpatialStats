@@ -57,7 +57,7 @@ legend("topright",
        lty=c(1,1,2,1),bty="n")
 
 ## R0 of 2
-plot(r.mid,sero.tau.R02$tau,ylim=c(0.3,max(geno.tau.R02)),log="y",
+plot(r.mid,sero.tau.R02$tau,ylim=c(0.3,max(geno.tau.R02$tau.pt.est)),log="y",
      cex.axis=1.25,col=rgb(t(col2rgb("blue")/255),alpha=0.6),
      xlab="Distance (m)",ylab="Tau",cex.main=0.9,lwd=2,type="l",las=1,cex.axis=0.75)
 abline(h=1,lty=2)
@@ -68,5 +68,15 @@ legend("topright",
                 "Serotype",
                 "Maximum transmission distance"),
        lwd=1,col=c("dark green","blue","black"),lty=1,bty="n")
+
+## Obtaining a diagnostic plot using plot.tau() with pointwise CIs
+# get point estimate
+Dengue.tau = get.tau(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, "representative", data.frame = TRUE)
+
+# get 95% BCa CI
+CIs = get.tau.ci(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 100, "representative", ci.level = 0.95, data.frame = TRUE)
+
+#plot point estimate with CI
+plot.tau(x = Dengue.tau, r.mid = TRUE, ptwise.CI = CIs)
 
 }

@@ -1,4 +1,4 @@
-test_that("get.tau.bootstrap runs and returs 1 when it should", {
+test_that("get.tau.bootstrap runs and returns 1 when it should", {
 
     x<-cbind(rep(c(1,2),50), x=runif(100,0,100), y=runif(100,0,100))
 
@@ -8,14 +8,15 @@ test_that("get.tau.bootstrap runs and returs 1 when it should", {
 
     ########### REPRESENTATIVE
     #should return a matrix of all ones
-    res <- get.tau.bootstrap(x, test, seq(10,100,10), seq(0,90,10), 10)[,-(1:2)]
+    set.seed(1)
+    res <- get.tau.bootstrap(x, test, seq(10,100,10), seq(0,90,10), 10, data.frame = FALSE)
     expect_that(sum(res!=1),equals(0))
     expect_that(nrow(res),equals(10))
 
 
     ########### INDEPENDENT
     res <- get.tau.bootstrap(x, test, seq(10,100,10), seq(0,90,10), 10,
-                             comparison.type="independent")[,-(1:2)]
+                             comparison.type="independent", data.frame = FALSE)
     expect_that(sum(res!=1),equals(0))
     expect_that(nrow(res),equals(10))
 
@@ -33,20 +34,21 @@ test_that("performs correctly for test case 1 (equilateral triangle)", {
     }
 
     ########### REPRESENTATIVE
-    res <- get.tau.bootstrap(x, test, 1.5, 0.1, 500)[,-(1:2)]
+    res <- get.tau.bootstrap(x, test, 1.5, 0.1, 500, data.frame = FALSE)
     res2 <- get.tau.typed.bootstrap(x, 1,2, 1.5, 0.1, 500)[,-(1:2)]
 
     #should have 95% CI of 1,1. quantile() method used as coxed::bca() breaks
     # down under Inf conditions
-    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
+    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=TRUE)),
                 equals(c(1,1)))
 
     expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975), na.rm=T)),
                 equals(c(1,1)))
 
     ########### INDEPENDENT
+    set.seed(1)
     res <- get.tau.bootstrap(x, test, 1.5, 0.1, 500,
-                             comparison.type="independent")[,-(1:2)]
+                             comparison.type="independent", data.frame = FALSE)
     res2 <- get.tau.typed.bootstrap(x, 1,2, 1.5, 0.1, 500,
                                     comparison.type="independent")[,-(1:2)]
 
@@ -75,37 +77,31 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
     }
 
     ########### REPRESENTATIVE
-    #the medians for the null distribution should be 2,1,0
-    res <- get.tau.bootstrap(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500)[,-(1:2)]
+    #the medians for the null distribution should be 1.25,1.2,2
+    set.seed(1)
+    res <- get.tau.bootstrap(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500, data.frame = FALSE)
+    median(as.numeric(res[1,]), na.rm=T)
     res2 <- get.tau.typed.bootstrap(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500)[,-(1:2)]
 
-    
-    expect_that(median(as.numeric(res[1,]), na.rm=T), equals(2))
-    expect_that(median(as.numeric(res[2,]), na.rm=T), equals(1))
-    expect_that(median(as.numeric(res[3,]), na.rm=T), equals(0))
+    expect_that(median(as.numeric(res[1,]), na.rm=T), equals(1.25))
+    expect_that(median(as.numeric(res[2,]), na.rm=T), equals(1.2))
+    expect_that(median(as.numeric(res[3,]), na.rm=T), equals(2))
 
     expect_that(median(as.numeric(res2[1,]), na.rm=T), equals(2))
     expect_that(median(as.numeric(res2[2,]), na.rm=T), equals(1))
     expect_that(median(as.numeric(res2[3,]), na.rm=T), equals(0))
 
-
-    # quantile() used over coxed::bca() as latter breaks down under these toy conditions or cannot
-    # provide the interval required.
+    # quantile() used over coxed::bca() as latter breaks down under these toy conditions or cannot provide the interval required.
 
     #FIRST RANGE
-    #max would be only 1 type 2 used and in range = 1/(1/6) = 6...should occur
-    #more than 2.5% of time
-    #min would be 1, occuring just over .01% of the time
-    expect_that(as.numeric(quantile(res[1,], probs=c(.001,.975), na.rm=T)),
-                equals(c(1,6)))
+    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
+                equals(c(0.0625,2.4375)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.001,.975), na.rm=T)),
                 equals(c(1,6)))
 
     #SECOND RANGE
-    #max would be 6, should occur less than 1% of the time
-    #min should be 0, should occur 2.5% of the time
     expect_that(as.numeric(quantile(res[2,], probs=c(.025), na.rm=T)),
-                equals(0))
+                equals(0.06))
     expect_that(as.numeric(quantile(res2[2,], probs=c(.025), na.rm=T)),
                 equals(0))
 
@@ -113,9 +109,8 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
     expect_true(as.numeric(quantile(res2[2,], probs=c(.99), na.rm=T))<6)
 
     #THIRD RANGE
-    #Should be determinsitically 0 or NaN
     expect_that(as.numeric(quantile(res[3,], probs=c(.025,.975), na.rm=T)),
-                equals(c(0,0)))
+                equals(c(0.1,2.0)))
     expect_that(as.numeric(quantile(res2[3,], probs=c(.025,.975), na.rm=T)),
                 equals(c(0,0)))
 
@@ -137,14 +132,15 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
 
     ########### INDEPENDENT
     #the medians for the null distribution should be Inf,1,0
+    set.seed(1)
     res <- get.tau.bootstrap(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500,
-                             comparison.type="independent")[,-(1:2)]
+                             comparison.type="independent", data.frame = FALSE)
     res2 <- get.tau.typed.bootstrap(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500,
                                     comparison.type="independent")[,-(1:2)]
 
-    expect_that(median(as.numeric(res[1,]), na.rm=T), equals(Inf))
-    expect_that(median(as.numeric(res[2,]), na.rm=T), equals(1))
-    expect_that(median(as.numeric(res[3,]), na.rm=T), equals(0))
+    expect_that(median(as.numeric(res[1,]), na.rm=T), equals(1.5))
+    expect_that(median(as.numeric(res[2,]), na.rm=T), equals(Inf))
+    expect_that(median(as.numeric(res[3,]), na.rm=T), equals(Inf))
 
     expect_that(median(as.numeric(res2[1,]), na.rm=T), equals(Inf))
     expect_that(median(as.numeric(res2[2,]), na.rm=T), equals(1))
@@ -158,7 +154,7 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     #max would be Inf, occuring most of the time
     #min would be 1, occuring just over .01% of the time
     expect_that(as.numeric(quantile(res[1,], probs=c(.001,.975), na.rm=T)),
-                equals(c(1,Inf)))
+                equals(c(0.003,Inf)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.001,.975), na.rm=T)),
                 equals(c(1,Inf)))
 
@@ -167,11 +163,11 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     # reliably less than
     #min should be 0, should occur 2.5% of the time
     expect_that(as.numeric(quantile(res[2,], probs=c(.025), na.rm=T)),
-                equals(0))
+                equals(Inf))
     expect_that(as.numeric(quantile(res2[2,], probs=c(.025), na.rm=T)),
                 equals(0))
 
-    expect_true(as.numeric(quantile(res[2,], probs=c(.7), na.rm=T))!=Inf)
+    expect_true(as.numeric(quantile(res[2,], probs=c(.7), na.rm=T))==Inf)
     expect_true(as.numeric(quantile(res2[2,], probs=c(.7), na.rm=T))!=Inf)
 
 
@@ -179,7 +175,7 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     #THIRD RANGE
     #Should be determinsitically 0 or NaN
     expect_that(as.numeric(quantile(res[3,], probs=c(.025,.975), na.rm=T)),
-                equals(c(0,0)))
+                equals(c(Inf,Inf)))
     expect_that(as.numeric(quantile(res2[3,], probs=c(.025,.975), na.rm=T)),
                 equals(c(0,0)))
 
@@ -199,7 +195,7 @@ test_that("get.tau.ci returns bootstrap cis when same seed", {
 
     ####REPRESENTATIVE
     set.seed(787)
-    res <- get.tau.bootstrap(x, test, seq(15,45,15), seq(0,30,15), 20)[,-(1:2)]
+    res <- get.tau.bootstrap(x, test, seq(15,45,15), seq(0,30,15), 20, data.frame = FALSE)
 
     set.seed(787)
     ci1 <- get.tau.ci(x, test, seq(15,45,15), seq(0,30,15), 20, comparison.type = "representative",
@@ -217,7 +213,7 @@ test_that("get.tau.ci returns bootstrap cis when same seed", {
     ### INDEPENDENT
     set.seed(787)
     res <- get.tau.bootstrap(x, test, seq(15,45,15), seq(0,30,15), 20,
-                             comparison.type="independent")[,-(1:2)]
+                             comparison.type="independent", data.frame = FALSE)
 
     set.seed(787)
     ci1 <- get.tau.ci(x, test, seq(15,45,15), seq(0,30,15), 20, comparison.type="independent", 

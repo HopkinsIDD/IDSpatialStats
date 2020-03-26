@@ -277,7 +277,7 @@ get.pi.ci <- function(posmat,
   boots <- get.pi.bootstrap(posmat, fun, r, r.low, boot.iter)
   boots = boots[,-(1:2)]
   
-  rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
+  rc <- apply(boots, 2, applyBCa, ci.level = 0.95)
   
   if (data.frame == FALSE) {
        return(rc)
@@ -326,7 +326,7 @@ get.theta.ci <- function(posmat,
      
   boots <- get.theta.bootstrap(posmat, fun, r, r.low, boot.iter)
   boots = boots[,-(1:2)]
-  rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
+  rc <- apply(boots, 2, applyBCa, ci.level = 0.95)
   
   if (data.frame == FALSE) {
        return(rc)
@@ -1051,7 +1051,7 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
 ##' @param x \code{tau} object. Required for all plots.
 ##' @param r.mid If \code{TRUE}(default) then for each point the x-coordinate of the midpoint of a distance band is plotted and if \code{FALSE} the endpoint of the distance band is plotted.
 ##' @param tausim the set of spatially-bootstrapped simulations of \code{taubstrap} class; use \code{get.tau.bootstrap()} to obtain this. Required for Estimation of the clustering range plot.
-##' @param ptwise.CI the set of pointwise CIs. Optional for the diagnostic plot but should not be supplied for the other plots.
+##' @param ptwise.CI the set of pointwise CIs of \code{tauCI} class. Optional for the diagnostic plot but should not be supplied for the other plots.
 ##' @param GET.res is a required object for the graphical hypothesis test plot but should not be supplied for the other plots. It is obtained from \code{get.tau.GET}. It ensures that the user has performed a graphical hypothesis test first and has considered there is evidence against H_0, before deciding to estimate the clustering range.
 ##' @param d.param.est a required object for Estimating the clustering range plot but should not be supplied for the other plots. A \code{taubstrap} object will also be necessary.
 ##' @author Timothy M Pollington
@@ -1292,9 +1292,8 @@ get.tau.ci <- function(posmat,
                        ci.level = 0.95,
                        data.frame=TRUE) {
      
-     boots <- get.tau.bootstrap(posmat, fun, r, r.low, boot.iter, comparison.type)
-     boots = boots[,-(1:2)]
-     rc <- apply(boots, 1, applyBCa, ci.level = 0.95)
+     boots <- get.tau.bootstrap(posmat, fun, r, r.low, boot.iter, comparison.type, data.frame = FALSE)
+     rc <- apply(boots, 2, applyBCa, ci.level = 0.95)
      
      if (data.frame == FALSE) {
           class(rc) <- "tauCI"

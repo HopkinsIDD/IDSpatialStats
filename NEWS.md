@@ -34,7 +34,7 @@ Percentile confidence intervals (CIs) replaced with BCa (bias-corrected and acce
 * documentation update
 
 ## Bug fixes (top of list are most important)
-None
+`get_tau.R`: using `geno.tau.R02$tau.pt.est` now allows the object to be accessed and the example run.
 
 # Release contributors
 Timothy M Pollington would like to thank the co-authors of the paper that informed this update[[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] and the *essential* contribution of Peter J. Diggle (Lancaster) who advised on this principled inferential approach.
