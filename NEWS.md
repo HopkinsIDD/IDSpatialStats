@@ -21,7 +21,7 @@ Percentile confidence intervals (CIs) replaced with BCa (bias-corrected and acce
   * `get.tau.ci()` returns a `tauCI` class
   * `get.tau.GET()` returns a `tauGET` class
   * `get.tau.bootstrap()` returns a `taubstrap` class
-  * `get.tau.D.param.est()` returns a `tauparamest` class. Requires a `taubstrap` object.
+  * `get.tau.D.param.est()` returns a `tauparamest` class. Requires a `taubstrap` object. Also requires a `tauGET` class to ensure the user has performed a graphical hypothesis test first, before considering parameter estimation.
 
 * CITATION file added
 * README.md formatting updated
@@ -40,5 +40,6 @@ None
 Timothy M Pollington would like to thank the co-authors of the paper that informed this update[[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] and the *essential* contribution of Peter J. Diggle (Lancaster) who advised on this principled inferential approach.
 
 # Next changes
-Please note that the Modified Marked Point Spatial Bootstrap [[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] has not yet been
+* The *Modified Marked Point Spatial Bootstrap* [[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] has not yet been
 applied. In [[2](https://doi.org/10.5281/zenodo.2552850 "t-pollington/tau-statistic-speedup: First release of tau statistic speedup")] it was applied to the tau odds estimator however for consistency we have decided to delay its implementation so that we can apply it also to the tau prevalence estimator. So please note that `get.tau.bootstrap()` and `get.tau.D.param.est()` values are still likely to change.
+* Changes to the un-typed tau functions also applied to the typed tau functions.

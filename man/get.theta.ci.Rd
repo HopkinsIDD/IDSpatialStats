@@ -10,8 +10,7 @@ get.theta.ci(
   r = 1,
   r.low = rep(0, length(r)),
   boot.iter = 1000,
-  ci.low = 0.025,
-  ci.high = 0.975,
+  ci.level = 0.95,
   data.frame = TRUE
 )
 }
@@ -26,11 +25,11 @@ get.theta.ci(
 
 \item{boot.iter}{the number of bootstrap iterations}
 
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
+
 \item{ci.low}{the low end of the ci...0.025 by default}
 
 \item{ci.high}{the high end of the ci...0.975 by default}
-
-\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 a matrix with a row for the high and low values and

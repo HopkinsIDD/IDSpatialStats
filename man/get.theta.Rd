@@ -19,7 +19,7 @@ Note that names from \code{posmat} are not preserved in calls to \code{fun}, so 
 referenced numerically
 so this is not available to the fun}
 
-\item{r}{the series of spatial distances (or there maximums) we are
+\item{r}{the series of spatial distances (or their maximums) we are
 interested in}
 
 \item{r.low}{the low end of each range, 0 by default}
@@ -65,7 +65,10 @@ Other get.theta:
 
 Other spatialtau: 
 \code{\link{get.pi}()},
-\code{\link{get.tau}()}
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
+\code{\link{get.tau}()},
+\code{\link{plot.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

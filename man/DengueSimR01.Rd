@@ -4,7 +4,9 @@
 \name{DengueSimR01}
 \alias{DengueSimR01}
 \title{Simulated dataset of dengue transmission with basic reproductive number of 1}
-\format{Matrix with five columns representing the X and Y coordinates of infected individuals, the time of infection, the genotype of the infecting pathogen and the serotype of the infecting pathogen.}
+\format{
+Matrix with five columns representing the X and Y coordinates of infected individuals, the time of infection, the genotype of the infecting pathogen and the serotype of the infecting pathogen.
+}
 \usage{
 DengueSimulationR01
 }

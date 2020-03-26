@@ -11,8 +11,7 @@ get.tau.ci(
   r.low = rep(0, length(r)),
   boot.iter = 1000,
   comparison.type = "representative",
-  ci.low = 0.025,
-  ci.high = 0.975,
+  ci.level = 0.95,
   data.frame = TRUE
 )
 }
@@ -29,11 +28,11 @@ get.tau.ci(
 
 \item{comparison.type}{the comparison type to pass to get.tau}
 
+\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
+
 \item{ci.low}{the low end of the ci...0.025 by default}
 
 \item{ci.high}{the high end of the ci...0.975 by default}
-
-\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
 a data frame with the point estimate of tau and its low and high confidence interval at each distance
@@ -72,12 +71,15 @@ lines(c(0,100),c(1,1), lty=3, col="grey")
 }
 \seealso{
 Other get.tau: 
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
 \code{\link{get.tau.bootstrap}()},
 \code{\link{get.tau.permute}()},
 \code{\link{get.tau.typed.bootstrap}()},
 \code{\link{get.tau.typed.permute}()},
 \code{\link{get.tau.typed}()},
-\code{\link{get.tau}()}
+\code{\link{get.tau}()},
+\code{\link{plot.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

@@ -78,12 +78,15 @@ lines(r.mid, ci[2,] , lty=2)
 }
 \seealso{
 Other get.tau: 
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
 \code{\link{get.tau.bootstrap}()},
 \code{\link{get.tau.ci}()},
 \code{\link{get.tau.permute}()},
 \code{\link{get.tau.typed.permute}()},
 \code{\link{get.tau.typed}()},
-\code{\link{get.tau}()}
+\code{\link{get.tau}()},
+\code{\link{plot.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

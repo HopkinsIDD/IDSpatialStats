@@ -26,7 +26,7 @@ Note that names from \code{posmat} are not preserved in calls to
 \code{fun}, so the columns of the matrix should be referenced numerically
 so this is not available to fun}
 
-\item{r}{the series of spatial distances (or there maximums) we are
+\item{r}{the series of spatial distances (or their maximums) we are
 interested in}
 
 \item{r.low}{the low end of each range, 0 by default}
@@ -37,10 +37,10 @@ interested in}
   \item "independent" if comparison set is cases/events coming from an indepedent process
 }}
 
-\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
+\item{data.frame}{logical indicating whether to return results 'like' a data frame format (default = TRUE)}
 }
 \value{
-The tau value for each distance we look at. If \code{comparison.type} is "representative", this is:
+The tau value for each distance we look at as a tau class with a matrix or data frame style. If \code{comparison.type} is "representative", this is:
 
 \code{tau = get.pi(posmat, fun, r, r.low)/get.pi(posmat,fun,infinity,0)}
 
@@ -129,19 +129,25 @@ legend("topright",
 }
 \seealso{
 Other get.tau: 
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
 \code{\link{get.tau.bootstrap}()},
 \code{\link{get.tau.ci}()},
 \code{\link{get.tau.permute}()},
 \code{\link{get.tau.typed.bootstrap}()},
 \code{\link{get.tau.typed.permute}()},
-\code{\link{get.tau.typed}()}
+\code{\link{get.tau.typed}()},
+\code{\link{plot.tau}()}
 
 Other spatialtau: 
 \code{\link{get.pi}()},
-\code{\link{get.theta}()}
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
+\code{\link{get.theta}()},
+\code{\link{plot.tau}()}
 }
 \author{
-Justin Lessler and Henrik Salje
+Justin Lessler, Timothy M Pollington and Henrik Salje
 }
 \concept{get.tau}
 \concept{spatialtau}

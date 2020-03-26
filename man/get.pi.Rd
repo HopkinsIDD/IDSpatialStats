@@ -19,7 +19,7 @@ Note that names from \code{posmat} are not preserved in calls to \code{fun}, so 
 referenced numerically
 so this is not available to the \code{fun}}
 
-\item{r}{the series of spatial distances (or there maximums) we are
+\item{r}{the series of spatial distances (or their maximums) we are
 interested in}
 
 \item{r.low}{the low end of each range, 0 by default}
@@ -56,16 +56,19 @@ sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 \seealso{
 Other get.pi: 
+\code{\link{applyBCa}()},
 \code{\link{get.pi.bootstrap}()},
-\code{\link{get.pi.ci}()},
 \code{\link{get.pi.permute}()},
 \code{\link{get.pi.typed.bootstrap}()},
 \code{\link{get.pi.typed.permute}()},
 \code{\link{get.pi.typed}()}
 
 Other spatialtau: 
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
 \code{\link{get.tau}()},
-\code{\link{get.theta}()}
+\code{\link{get.theta}()},
+\code{\link{plot.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

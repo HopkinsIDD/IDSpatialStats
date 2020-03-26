@@ -14,7 +14,7 @@
 ##' Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
 ##' referenced numerically
 ##' so this is not available to the \code{fun}
-##' @param r the series of spatial distances (or there maximums) we are
+##' @param r the series of spatial distances (or their maximums) we are
 ##'          interested in
 ##' @param r.low the low end of each range, 0 by default
 ##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
@@ -80,7 +80,7 @@ get.pi <- function(posmat,
 ##' Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
 ##' referenced numerically
 ##' so this is not available to the fun
-##' @param r the series of spatial distances (or there maximums) we are
+##' @param r the series of spatial distances (or their maximums) we are
 ##'          interested in
 ##' @param r.low the low end of each range, 0 by default
 ##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
@@ -846,7 +846,7 @@ get.theta.typed.permute <- function(posmat,
 ##' Note that names from \code{posmat} are not preserved in calls to
 ##' \code{fun}, so the columns of the matrix should be referenced numerically
 ##' so this is not available to fun
-##' @param r the series of spatial distances (or there maximums) we are
+##' @param r the series of spatial distances (or their maximums) we are
 ##'          interested in
 ##' @param r.low the low end of each range, 0 by default
 ##' @param comparison.type what type of points are included in the comparison set.
@@ -854,9 +854,9 @@ get.theta.typed.permute <- function(posmat,
 ##'   \item "representative" if comparison set is representative of the underlying population
 ##'   \item "independent" if comparison set is cases/events coming from an indepedent process
 ##' }
-##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
+##' @param data.frame logical indicating whether to return results 'like' a data frame format (default = TRUE)
 ##'
-##' @return The tau value for each distance we look at. If \code{comparison.type} is "representative", this is:
+##' @return The tau value for each distance we look at as a tau class with a matrix or data frame style. If \code{comparison.type} is "representative", this is:
 ##'
 ##' \code{tau = get.pi(posmat, fun, r, r.low)/get.pi(posmat,fun,infinity,0)}
 ##'
@@ -864,7 +864,7 @@ get.theta.typed.permute <- function(posmat,
 ##'
 ##' \code{tau = get.theta(posmat, fun, r, r.low)/get.theta(posmat,fun,infinity,0)}
 ##'
-##' @author Justin Lessler and Henrik Salje
+##' @author Justin Lessler, Timothy M Pollington and Henrik Salje
 ##'
 ##' @family get.tau
 ##' @family spatialtau
@@ -879,7 +879,7 @@ get.tau <- function(posmat,
                     comparison.type = "representative",
                     data.frame=TRUE) {
 
-  xcol <-  which(colnames(posmat)=="x")
+  xcol <- which(colnames(posmat)=="x")
   ycol <- which(colnames(posmat)=="y")
 
   #check that both columns exist
@@ -917,6 +917,48 @@ get.tau <- function(posmat,
   }
 }
 
+##' Global hypothesis testing for the tau statistic
+##'
+##' Performs a graphical hypothesis test to assess the evidence against the null hypothesis (H_0: tau = 1 i.e. no spatiotemporal clustering nor inhibition). A global envelope test from the \code{GET} package is used to see if any part of the point estimate connected line is outside the lower or upper bounds of the global envelope. The global envelope is formed on the tau estimator acting on time-permuted data to simulate H_0. The global envelope test is of 'extreme rank type' i.e. minimum of pointwise ranks with 95\% significance level. 
+##'
+##' @param posmat a matrix with columns x, y and any other named
+##'    columns needed by \code{fun}
+##' @param fun a function that takes in two rows of posmat and returns:
+##' \enumerate{
+##'      \item for pairs included in the numerator (and the denominator for independent data)
+##'      \item for pairs that should only be included in the denominator
+##'      \item for pairs that should be ignored all together}
+##' Note that names from \code{posmat} are not preserved in calls to
+##' \code{fun}, so the columns of the matrix should be referenced numerically
+##' so this is not available to fun
+##' @param r the series of spatial distances (or their maximums) we are
+##'          interested in
+##' @param r.low the low end of each range, 0 by default
+##' @param permutations number of simulations of H_0 
+##' @param comparison.type what type of points are included in the comparison set.
+##' \itemize{
+##'   \item "representative" if comparison set is representative of the underlying population
+##'   \item "independent" if comparison set is cases/events coming from an indepedent process
+##' }
+##' @return An object of class \code{tauGET} which can then be plotted using \code{plot.tau()} and an additional \code{tau} class object. The object consists of:
+##' \itemize{
+##'   \item r that inputted earlier
+##'   \item obs the tau point estimate computed internally using \code{get.tau()}
+##'   \item central the median estimate of all simulation curves that represent the null hypothesis. Comparing this to the tau=1 line indicates if it is reasonable to assume that H_0 was adequately simulated.
+##'   \item lo the lower bound of the global envelope
+##'   \item hi the upper bound of the global envelope
+##'   \item tau.permute the entire record of simulations of H_0, to plot with the global envelope using \code{plot.tau()}.
+##' }
+##' @section Attributes:
+##' \itemize{
+##'   \item p_interval represents a range rather than a single p-value to assess the evidence against H_0. Accessed using \code{attr(x,"p_interval")}.
+##' }
+##' @author Timothy M Pollington
+##'
+##' @family get.tau
+##' @family spatialtau
+##'
+
 get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.type){
   get.tau = IDSpatialStats::get.tau(posmat = posmat, fun = fun, r = r, r.low = r.low, comparison.type = comparison.type, data.frame = FALSE)
   tau.permute = IDSpatialStats::get.tau.permute(posmat = posmat, fun = fun, r = r, r.low = r.low, permutations = permutations, comparison.type = comparison.type, data.frame = FALSE)
@@ -928,6 +970,29 @@ get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.t
   class(GET.res) <- "tauGET"
   return(GET.res)
 }
+
+##' Cluster range estimation using \code{get.tau.D.param.est}
+##'
+##' Estimates the range of spatiotemporal clustering. It records the place on the horizontal tau=1 line where each spatially bootstrapped simulation touches. This distribution then represents an empirical distribution for the clustering range and a confidence interval can be computed.  
+##'
+##' @param r the series of spatial distances (or their maximums) we are
+##'          interested in
+##' @param boot.iter number of spatial bootstraps
+##' @param tausim the set of spatially-bootstrapped simulations. Has to be \code{taubstrap} class; use \code{get.tau.bootstrap()} to obtain this. 
+##' @param GETres is a required object and is obtained from a previous global hypothesis test using \code{get.tau.GET}. It ensures that the user has performed a graphical hypothesis test first and has considered there is evidence against H_0, before deciding to estimate the clustering range.
+##' @return An object of class \code{tauparamest} which can then be plotted using \code{plot.tau()}. The object consists of:
+##' \itemize{
+##'   \item envelope the distribution of clustering range estimates
+##' }
+##' @section Attributes:
+##' \itemize{
+##'   \item BCaCI the BCa CI for the distribution of clustering range estimates
+##' }
+##' @author Timothy M Pollington
+##'
+##' @family get.tau
+##' @family spatialtau
+##'
 
 get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
   stopifnot(!is.null(GETres)) # makes sure the user has been principled and performed a global
@@ -962,9 +1027,7 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
     print(paste0("% of boostrap sims crossing tau = 1 from above is ",length(d.envelope)/boot.iter*100,"%"))
     print(paste0("% of bootstrap sims always above tau = 1 is ",alwaysabove1/boot.iter*100,"%"))
     if(alwaysabove1>0){
-      warning("Note that there are some bootstrap sims that stay above tau = 1 for the entire 
-              distance band set. If more than a few percent of these are above tau = 1 then a 
-              reliable CI cannot be constructed as it will have not have come from a random sample.")
+      warning("Note that there are some bootstrap sims that stay above tau = 1 for the entire distance band set. If more than a few percent of these are above tau = 1 then a reliable CI cannot be constructed as it will have not have come from a random sample.")
     }
     return(d.envelope)
   }
@@ -976,6 +1039,27 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
   return(d.envelope)
 }
   
+##' Plotting the results from tau functions
+##'
+##' Three types of plots:
+##' \enumerate{
+##' \item Diagnostic plot to indicate the structure or magnitude of spatiotemporal clustering. Requires \code{tau} object; \code{tauCI} object optional to draw pointwise CIs. This plot is only suitable for the purpose of a graphical hypothesis test in the situation that a specific distance band is selected prior to graph creation.
+##' \item Graphical hypothesis test to assess the evidence against the null hypothesis (no spatiotemporal clustering nor inhibition). Requires \code{tau} and \code{tauGET} objects.
+##' \item Estimation of the clustering range (the distribution of the places on the horizontal tau=1 line, where decreasing bootstrap simulations first intercept). Requires \code{tau} and \code{tauparamest} objects.
+##' }
+##'
+##' @param x \code{tau} object. Required for all plots.
+##' @param r.mid If \code{TRUE}(default) then for each point the x-coordinate of the midpoint of a distance band is plotted and if \code{FALSE} the endpoint of the distance band is plotted.
+##' @param tausim the set of spatially-bootstrapped simulations of \code{taubstrap} class; use \code{get.tau.bootstrap()} to obtain this. Required for Estimation of the clustering range plot.
+##' @param ptwise.CI the set of pointwise CIs. Optional for the diagnostic plot but should not be supplied for the other plots.
+##' @param GET.res is a required object for the graphical hypothesis test plot but should not be supplied for the other plots. It is obtained from \code{get.tau.GET}. It ensures that the user has performed a graphical hypothesis test first and has considered there is evidence against H_0, before deciding to estimate the clustering range.
+##' @param d.param.est a required object for Estimating the clustering range plot but should not be supplied for the other plots. A \code{taubstrap} object will also be necessary.
+##' @author Timothy M Pollington
+##'
+##' @family get.tau
+##' @family spatialtau
+##'
+
 plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res = NULL, d.param.est = NULL, ...)
 {
   stopifnot(class(x)=="tau")
@@ -992,18 +1076,14 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
     stopifnot(class(tausim)=="taubstrap")
   }
   if(!is.null(ptwise.CI) & !is.null(GET.res)){
-    stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and global
-         envelopes to be plotted on the same graph")
+    stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and global envelopes to be plotted on the same graph")
   }
   if(!is.null(ptwise.CI) & !is.null(d.param.est)){
-    stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and clustering 
-        range estimates to be plotted on the same graph")
+    stop("To avoid misinterpretation of visual results we do not allow pointwise CIs and clustering range estimates to be plotted on the same graph")
   }
   if(!is.null(GET.res) & !is.null(d.param.est)){
-    stop("To avoid misinterpretation of visual results we do not allow global envelopes and 
-         clustering range estimates to be plotted on the same graph")
+    stop("To avoid misinterpretation of visual results we do not allow global envelopes and clustering range estimates to be plotted on the same graph")
   }
-  
   if(r.mid==TRUE){
     r.end = 0.5*(x$r.low + x$r)
     midorend = "at distance band midpoint"
@@ -1080,8 +1160,8 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   text(bquote("p-value in [" ~ .(pint.lo) * "," * .(pint.hi) * "]"), x = pint.x, y = pint.y)
   }
 
-  if(!is.null(d.param.est)){
-    xlim = c(0,min(2*median(gettaueg$envelope),max(x$r)))
+  if(!is.null(d.param.est) & !is.null(tausim)){
+    xlim = c(0,min(2*median(d.param.est$envelope),max(x$r)))
     yaxis.range = c(min(x$tau.pt.est, tausim, na.rm = TRUE),max(x$tau.pt.est, tausim, 
     na.rm = TRUE))
     yaxis.lab = c(seq(yaxis.range[1],yaxis.range[2],length.out = 5),1)
@@ -1100,7 +1180,7 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
     axis(1, lwd = 1)
     lines(x = c(0,max(x$r, na.rm = TRUE)), y = c(1,1), lty = 2, lwd = 1) # as abline seems to overlap
     par(lend=1);
-    lines(x = attr(gettaueg,"BCaCI"), y=c(1.03,1.03),
+    lines(x = attr(d.param.est,"BCaCI"), y=c(1.03,1.03),
           type = "l", lwd = 20, col = "red")
     dintercept.ptest = median(d.param.est$envelope)
     lines(x=c(dintercept.ptest,dintercept.ptest), y = c(0.9,1.1), lwd = 4)
