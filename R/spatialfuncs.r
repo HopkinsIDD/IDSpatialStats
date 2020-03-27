@@ -1048,12 +1048,12 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
 ##' \item Estimation of the clustering range (the distribution of the places on the horizontal tau=1 line, where decreasing bootstrap simulations first intercept). Requires \code{tau} and \code{tauparamest} objects.
 ##' }
 ##'
-##' @param x \code{tau} object. Required for all plots.
+##' @param x \code{tau} object; create using \code{get.tau(..., data.frame = TRUE)}. Required for all plots.
 ##' @param r.mid If \code{TRUE}(default) then for each point the x-coordinate of the midpoint of a distance band is plotted and if \code{FALSE} the endpoint of the distance band is plotted.
 ##' @param tausim the set of spatially-bootstrapped simulations of \code{taubstrap} class; use \code{get.tau.bootstrap()} to obtain this. Required for Estimation of the clustering range plot.
-##' @param ptwise.CI the set of pointwise CIs of \code{tauCI} class. Optional for the diagnostic plot but should not be supplied for the other plots.
-##' @param GET.res is a required object for the graphical hypothesis test plot but should not be supplied for the other plots. It is obtained from \code{get.tau.GET}. It ensures that the user has performed a graphical hypothesis test first and has considered there is evidence against H_0, before deciding to estimate the clustering range.
-##' @param d.param.est a required object for Estimating the clustering range plot but should not be supplied for the other plots. A \code{taubstrap} object will also be necessary.
+##' @param ptwise.CI the set of pointwise CIs of \code{tauCI} class; create using \code{get.tau(..., data.frame = TRUE)}. Optional for the diagnostic plot but should not be supplied for the other plots.
+##' @param GET.res is a required object for the graphical hypothesis test plot but should not be supplied for the other plots. It is obtained from \code{get.tau.GET(..., data.frame = TRUE)}. It ensures that the user has performed a graphical hypothesis test first and has considered there is evidence against H_0, before deciding to estimate the clustering range.
+##' @param d.param.est a required object for Estimating the clustering range plot from \code{get.tau.D.param(..., data.frame = TRUE)}, but should not be supplied for the other plots. A \code{taubstrap} object will also be necessary.
 ##' @author Timothy M Pollington
 ##'
 ##' @family get.tau
@@ -1125,7 +1125,7 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
     }   
     if(!is.null(ptwise.CI)){
       ylimrange = range(c(x$tau.pt.est,ptwise.CI$ci.low,ptwise.CI$ci.high), na.rm = TRUE)
-      plot(x = r.end, y = x$tau.pt.est, xlim=xlim,
+      plot(x = r.end, y = x$tau.pt.est, xlim=xlim, 
            ylim=ylimrange+diff(ylimrange)*c(-0.05,0.05),
            cex.axis=1,col="black", xlab=xlab, ylab="Tau", 
            cex.main=1, lwd=2, type="p", las=1, cex.axis=1, xaxs = "i", yaxs = "i", pch = 16)
