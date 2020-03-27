@@ -43,5 +43,6 @@ Timothy M Pollington would like to thank the co-authors of the paper that inform
 # Next changes
 * The *Modified Marked Point Spatial Bootstrap* [[1](https://doi.org/10.1016/j.spasta.2020.100438 "Developments in statistical inference when assessing spatiotemporal disease clustering with the tau statistic")] has not yet been
 applied. In [[2](https://doi.org/10.5281/zenodo.2552850 "t-pollington/tau-statistic-speedup: First release of tau statistic speedup")] it was applied to the tau odds estimator however for consistency we have decided to delay its implementation so that we can apply it also to the tau prevalence estimator. So please note that `get.tau.bootstrap()` and `get.tau.D.param.est()` values are still likely to change.
+* `tau.GET()` examples increased to 2,500 permutations once speedups introduced.
 * Enable `plot.tau()` to accept `tauCI` objects alone, without need for `tau()` object.
 * Changes to the un-typed tau functions also applied to the typed tau functions.

@@ -25,15 +25,12 @@ get.theta.ci(
 
 \item{boot.iter}{the number of bootstrap iterations}
 
+\item{ci.level}{significance level of the 95% BCa CI, default = 0.95}
+
 \item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
-
-\item{ci.low}{the low end of the ci...0.025 by default}
-
-\item{ci.high}{the high end of the ci...0.975 by default}
 }
 \value{
-a matrix with a row for the high and low values and
-    a column per distance
+a matrix with a row for the high and low values and a column per distance
 }
 \description{
 Wrapper to \code{get.theta.bootstrap} that takes care of calculating the

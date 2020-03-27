@@ -15,7 +15,8 @@ columns needed by \code{fun}}
      \item for pairs included in the numerator and denominator
      \item for pairs that should only be included in the denominator
      \item for pairs that should be ignored all together}
-Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
+Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of 
+the matrix should be
 referenced numerically
 so this is not available to the \code{fun}}
 
@@ -33,7 +34,8 @@ pi value for each distance range that we look at. Where:
 }
 \description{
 Generalized version of the \code{get.pi} function that takes in an arbitrary function and
-returns the probability that a point within a particular range of a point of interest shares the relationship
+returns the probability that a point within a particular range of a point of interest shares 
+the relationship
 specified by the passed in function with that point.
 }
 \examples{
@@ -56,8 +58,8 @@ sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 \seealso{
 Other get.pi: 
-\code{\link{applyBCa}()},
 \code{\link{get.pi.bootstrap}()},
+\code{\link{get.pi.ci}()},
 \code{\link{get.pi.permute}()},
 \code{\link{get.pi.typed.bootstrap}()},
 \code{\link{get.pi.typed.permute}()},

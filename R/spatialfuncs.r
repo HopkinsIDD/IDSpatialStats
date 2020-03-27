@@ -1,7 +1,14 @@
+applyBCa <- function(boots, ci.level){
+  boots = boots[!is.na(boots)]
+  CI = coxed::bca(boots, conf.level = ci.level)
+  return(CI)
+}
+
 ##' Generalized version of \code{get.pi}
 ##'
 ##' Generalized version of the \code{get.pi} function that takes in an arbitrary function and
-##' returns the probability that a point within a particular range of a point of interest shares the relationship
+##' returns the probability that a point within a particular range of a point of interest shares 
+##' the relationship
 ##' specified by the passed in function with that point.
 ##'
 ##' @param posmat a matrix with columns x, y and any other named
@@ -11,7 +18,8 @@
 ##'      \item for pairs included in the numerator and denominator
 ##'      \item for pairs that should only be included in the denominator
 ##'      \item for pairs that should be ignored all together}
-##' Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
+##' Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of 
+##' the matrix should be
 ##' referenced numerically
 ##' so this is not available to the \code{fun}
 ##' @param r the series of spatial distances (or their maximums) we are
@@ -260,12 +268,6 @@ get.theta.typed <- function(posmat,
 ##' @example R/examples/get_pi_ci.R
 ##' @md
 
-applyBCa <- function(boots, ci.level){
-  boots = boots[!is.na(boots)]
-  CI = coxed::bca(boots, conf.level = ci.level)
-  return(CI)
-}
-
 get.pi.ci <- function(posmat,
                       fun,
                       r = 1,
@@ -296,25 +298,18 @@ get.pi.ci <- function(posmat,
 ##' Wrapper to \code{get.theta.bootstrap} that takes care of calculating the
 ##' confidence intervals based on the bootstrapped values.
 ##'
-##'
 ##' @param posmat a matrix with columns type, x and y
 ##' @param fun the function to decide relationships
 ##' @param r the series of spatial distances we are interested in
 ##' @param r.low the low end of each range. 0 by default
 ##' @param boot.iter the number of bootstrap iterations
-##' @param ci.low the low end of the ci...0.025 by default
-##' @param ci.high the high end of the ci...0.975 by default
+##' @param ci.level significance level of the 95% BCa CI, default = 0.95
 ##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
-##' @return a matrix with a row for the high and low values and
-##'     a column per distance
-##'
+##' @return a matrix with a row for the high and low values and a column per distance
 ##' @author Justin Lessler
-##'
 ##' @family get.theta
-##'
 ##' @example R/examples/get_theta_ci.R
-##'
 
 get.theta.ci <- function(posmat,
                          fun,
@@ -934,7 +929,7 @@ get.tau <- function(posmat,
 ##' @param r the series of spatial distances (or their maximums) we are
 ##'          interested in
 ##' @param r.low the low end of each range, 0 by default
-##' @param permutations number of simulations of H_0 
+##' @param permutations number of simulations of H_0. 2,500 is an optimal number according to Myllymäki et al. (2017).
 ##' @param comparison.type what type of points are included in the comparison set.
 ##' \itemize{
 ##'   \item "representative" if comparison set is representative of the underlying population
@@ -978,8 +973,7 @@ get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.t
 ##'
 ##' @param r the series of spatial distances (or their maximums) we are
 ##'          interested in
-##' @param boot.iter number of spatial bootstraps
-##' @param tausim the set of spatially-bootstrapped simulations. Has to be \code{taubstrap} class; use \code{get.tau.bootstrap()} to obtain this. 
+##' @param tausim the set of spatially-bootstrapped simulations. Has to be \code{taubstrap} class; use \code{get.tau.bootstrap(..., data.frame = FALSE)} to obtain this. 
 ##' @param GETres is a required object and is obtained from a previous global hypothesis test using \code{get.tau.GET}. It ensures that the user has performed a graphical hypothesis test first and has considered there is evidence against H_0, before deciding to estimate the clustering range.
 ##' @return An object of class \code{tauparamest} which can then be plotted using \code{plot.tau()}. The object consists of:
 ##' \itemize{
@@ -993,9 +987,9 @@ get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.t
 ##'
 ##' @family get.tau
 ##' @family spatialtau
-##'
+##' @example R/examples/get_tau_D_param_est.R
 
-get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
+get.tau.D.param.est <- function(r, tausim, GETres = NULL){
   stopifnot(!is.null(GETres)) # makes sure the user has been principled and performed a global
   # hypothesis test using get.tau() before estimating D
   stopifnot(length(r)>1)
@@ -1003,6 +997,7 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
   if(!is.null(names(tausim))){ # ie if tausim is like a 'data.frame despite having a taubstrap class
     tausim = t(tausim[,-c(1,2)])
   }
+  boot.iter = dim(tausim)[1]
   ciIntercept <- function(boot.iter, r, tausim) {
     j.max = length(r)
     # define d.envelope by finding for each bootstrap sample the (interpolated) d-intercept point
@@ -1025,8 +1020,8 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
           }
       }
     }
-    print(paste0("% of boostrap sims crossing tau = 1 from above is ",length(d.envelope)/boot.iter*100,"%"))
-    print(paste0("% of bootstrap sims always above tau = 1 is ",alwaysabove1/boot.iter*100,"%"))
+    print(paste0(length(d.envelope)/boot.iter*100, "% of boostrap sims crossing tau = 1 from above"))
+    print(paste0(alwaysabove1/boot.iter*100, "% of bootstrap sims always above tau = 1"))
     if(alwaysabove1>0){
       warning("Note that there are some bootstrap sims that stay above tau = 1 for the entire distance band set. If more than a few percent of these are above tau = 1 then a reliable CI cannot be constructed as it will have not have come from a random sample.")
     }
@@ -1046,7 +1041,7 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
 ##' \enumerate{
 ##' \item Diagnostic plot to indicate the structure or magnitude of spatiotemporal clustering. Requires \code{tau} object; \code{tauCI} object optional to draw pointwise CIs. This plot is only suitable for the purpose of a graphical hypothesis test in the situation that a specific distance band is selected prior to graph creation.
 ##' \item Graphical hypothesis test to assess the evidence against the null hypothesis (no spatiotemporal clustering nor inhibition). Requires \code{tau} and \code{tauGET} objects.
-##' \item Estimation of the clustering range (the distribution of the places on the horizontal tau=1 line, where decreasing bootstrap simulations first intercept). Requires \code{tau} and \code{tauparamest} objects.
+##' \item Estimation of the clustering range (the distribution of the places on the horizontal tau=1 line, where decreasing bootstrap simulations first intercept). Requires \code{tau}, \code{tauparamest} and \code{taubstrap} objects.
 ##' }
 ##'
 ##' @param x \code{tau} object; create using \code{get.tau(..., data.frame = TRUE)}. Required for all plots.
@@ -1055,6 +1050,7 @@ get.tau.D.param.est <- function(r, boot.iter, tausim, GETres = NULL, ...){
 ##' @param ptwise.CI the set of pointwise CIs of \code{tauCI} class; create using \code{get.tau(..., data.frame = TRUE)}. Optional for the diagnostic plot but should not be supplied for the other plots.
 ##' @param GET.res is a required object for the graphical hypothesis test plot but should not be supplied for the other plots. It is obtained from \code{get.tau.GET(..., data.frame = TRUE)}. It ensures that the user has performed a graphical hypothesis test first and has considered there is evidence against H_0, before deciding to estimate the clustering range.
 ##' @param d.param.est a required object for Estimating the clustering range plot from \code{get.tau.D.param(..., data.frame = TRUE)}, but should not be supplied for the other plots. A \code{taubstrap} object will also be necessary.
+##' @param ... other arguments which are standard for \code{plot()} for plot customisation
 ##' @author Timothy M Pollington
 ##'
 ##' @family get.tau
@@ -1084,6 +1080,9 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   }
   if(!is.null(GET.res) & !is.null(d.param.est)){
     stop("To avoid misinterpretation of visual results we do not allow global envelopes and clustering range estimates to be plotted on the same graph")
+  }
+  if(is.null(tausim) & !is.null(d.param.est)){
+    stop("Need tausim and d.param.est class objects to plot clustering range estimates")
   }
   if(r.mid==TRUE){
     r.end = 0.5*(x$r.low + x$r)
@@ -1171,7 +1170,6 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   }
 
   if(!is.null(d.param.est) & !is.null(tausim)){
-    xlim = c(0,min(2*median(d.param.est$envelope),max(x$r)))
     yaxis.range = c(min(x$tau.pt.est, tausim, na.rm = TRUE),max(x$tau.pt.est, tausim, 
     na.rm = TRUE))
     yaxis.lab = c(seq(yaxis.range[1],yaxis.range[2],length.out = 5),1)
@@ -1280,8 +1278,7 @@ get.tau.typed <- function(posmat,
 ##' @param r.low the low end of each range....0  by default
 ##' @param boot.iter the number of bootstrap iterations
 ##' @param comparison.type the comparison type to pass to get.tau
-##' @param ci.low the low end of the ci...0.025 by default
-##' @param ci.high the high end of the ci...0.975 by default
+##' @param ci.level significance level of the BCa CI, default = 0.95
 ##' @param data.frame logical indicating whether to return results as a data frame (default = TRUE)
 ##'
 ##' @return a data frame with the point estimate of tau and its low and high confidence interval at each distance
@@ -1302,8 +1299,9 @@ get.tau.ci <- function(posmat,
                        ci.level = 0.95,
                        data.frame=TRUE) {
      
-     boots <- get.tau.bootstrap(posmat, fun, r, r.low, boot.iter, comparison.type, data.frame = FALSE)
-     rc <- apply(boots, 2, applyBCa, ci.level = 0.95)
+     boots <- get.tau.bootstrap(posmat, fun, r, r.low, boot.iter, comparison.type, 
+                                data.frame = FALSE)
+     rc <- apply(boots, 2, applyBCa, ci.level)
      
      if (data.frame == FALSE) {
           class(rc) <- "tauCI"

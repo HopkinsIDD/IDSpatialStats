@@ -16,8 +16,10 @@ geno.type.func<-function(a,b,tlimit=20){
 
 ## R0 of 1        
 data(DengueSimulationR01)
-sero.tau.R01 <- get.tau(DengueSimR01, sero.type.func, r=r.max, r.low=r.min, comparison.type="independent")
-geno.tau.R01 <- get.tau(DengueSimR01, geno.type.func, r=r.max, r.low=r.min, comparison.type="independent")
+sero.tau.R01 <- get.tau(DengueSimR01, sero.type.func, r=r.max, r.low=r.min, 
+                        comparison.type="independent")
+geno.tau.R01 <- get.tau(DengueSimR01, geno.type.func, r=r.max, r.low=r.min, 
+                        comparison.type="independent")
 
 plot(r.mid,sero.tau.R01$tau,ylim=c(0.3,max(geno.tau.R01$tau)),log="y",
      cex.axis=1.25,col=rgb(t(col2rgb("blue")/255),alpha=0.6),
@@ -37,8 +39,10 @@ legend("topright",
         
 ## R0 of 2
 data(DengueSimulationR02)
-sero.tau.R02 <- get.tau(DengueSimR02, sero.type.func, r=r.max, r.low=r.min, comparison.type="independent")
-geno.tau.R02 <- get.tau(DengueSimR02, geno.type.func, r=r.max, r.low=r.min, comparison.type="independent") 
+sero.tau.R02 <- get.tau(DengueSimR02, sero.type.func, r=r.max, r.low=r.min, 
+                        comparison.type="independent")
+geno.tau.R02 <- get.tau(DengueSimR02, geno.type.func, r=r.max, r.low=r.min, 
+                        comparison.type="independent") 
 
 plot(r.mid,sero.tau.R02$tau,ylim=c(0.3,max(geno.tau.R02$tau.pt.est)),log="y",
      cex.axis=1.25,col=rgb(t(col2rgb("blue")/255),alpha=0.6),
@@ -61,10 +65,12 @@ sero.type.rep.func<-function(a,b,tlimit=20){
 }
 
 # get point estimate
-Dengue.tau = get.tau(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, "representative", data.frame = TRUE)
+Dengue.tau = get.tau(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 
+                     "representative", data.frame = TRUE)
 
 # get 95% BCa CI
-CIs = get.tau.ci(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 25, "representative", ci.level = 0.95, data.frame = TRUE)
+CIs = get.tau.ci(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 25, 
+                 "representative", ci.level = 0.95, data.frame = TRUE)
 
 #plot point estimate with CI
 plot.tau(x = Dengue.tau, r.mid = TRUE, ptwise.CI = CIs)

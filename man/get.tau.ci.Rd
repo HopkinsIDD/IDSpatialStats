@@ -28,11 +28,9 @@ get.tau.ci(
 
 \item{comparison.type}{the comparison type to pass to get.tau}
 
+\item{ci.level}{significance level of the BCa CI, default = 0.95}
+
 \item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
-
-\item{ci.low}{the low end of the ci...0.025 by default}
-
-\item{ci.high}{the high end of the ci...0.975 by default}
 }
 \value{
 a data frame with the point estimate of tau and its low and high confidence interval at each distance
@@ -59,14 +57,19 @@ r.max<-seq(10,100,10)
 r.min<-seq(0,90,10)
 r.mid <- (r.max+r.min)/2
 
-tau <- get.tau.ci(x,fun,r=r.max,r.low=r.min,boot.iter=50)
+tau.CI <- get.tau.ci(x,fun,r=r.max,r.low=r.min,boot.iter=50, comparison.type = "representative")
 
-plot(r.mid, tau$pt.est, ylim=c(1/max(tau[,3:5]), max(tau[,3:5])), type="l", log="y",
-     xlab="Distance", ylab="Tau")
-lines(r.mid, tau$ci.low , lty=2)
-lines(r.mid, tau$ci.high, lty=2)
+## plot.tau() method
+tau = get.tau(x,fun,r=r.max,r.low=r.min, comparison.type = "representative")
+plot.tau(x = tau, ptwise.CI = tau.CI)
+
+## previous plot() method
+plot(r.mid, tau.CI$pt.est, ylim=c(min(tau.CI$pt.est,tau.CI$ci.low), 
+                                  max(tau.CI$pt.est,tau.CI$ci.high)), type="l", xlab="Distance", 
+     ylab="Tau")
+lines(r.mid, tau.CI$ci.low , lty=2)
+lines(r.mid, tau.CI$ci.high, lty=2)
 lines(c(0,100),c(1,1), lty=3, col="grey")
-
 }
 }
 \seealso{
