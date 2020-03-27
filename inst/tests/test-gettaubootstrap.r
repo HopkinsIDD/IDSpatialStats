@@ -39,7 +39,7 @@ test_that("performs correctly for test case 1 (equilateral triangle)", {
 
     #should have 95% CI of 1,1. quantile() method used as coxed::bca() breaks
     # down under Inf conditions
-    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=TRUE)),
+    expect_that(as.numeric(quantile(res[,1], probs=c(.025,.975), na.rm=TRUE)),
                 equals(c(1,1)))
 
     expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975), na.rm=T)),
@@ -54,7 +54,7 @@ test_that("performs correctly for test case 1 (equilateral triangle)", {
 
     #should have 95% CI of 1,1. quantile() method used as coxed::bca() breaks
     # down under Inf conditions
-    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
+    expect_that(as.numeric(quantile(res[,1], probs=c(.025,.975), na.rm=T)),
                 equals(c(1,1)))
 
     expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975), na.rm=T)),
@@ -77,15 +77,14 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
     }
 
     ########### REPRESENTATIVE
-    #the medians for the null distribution should be 1.25,1.2,2
+    #the medians for the null distribution should be 2,1,0
     set.seed(1)
     res <- get.tau.bootstrap(x, test, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500, data.frame = FALSE)
-    median(as.numeric(res[1,]), na.rm=T)
     res2 <- get.tau.typed.bootstrap(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500)[,-(1:2)]
 
-    expect_that(median(as.numeric(res[1,]), na.rm=T), equals(1.25))
-    expect_that(median(as.numeric(res[2,]), na.rm=T), equals(1.2))
-    expect_that(median(as.numeric(res[3,]), na.rm=T), equals(2))
+    expect_that(median(as.numeric(res[,1]), na.rm=T), equals(2))
+    expect_that(median(as.numeric(res[,2]), na.rm=T), equals(1))
+    expect_that(median(as.numeric(res[,3]), na.rm=T), equals(0))
 
     expect_that(median(as.numeric(res2[1,]), na.rm=T), equals(2))
     expect_that(median(as.numeric(res2[2,]), na.rm=T), equals(1))
@@ -94,23 +93,29 @@ test_that("performs correctly for test case 2 (points on a line) - representativ
     # quantile() used over coxed::bca() as latter breaks down under these toy conditions or cannot provide the interval required.
 
     #FIRST RANGE
-    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975), na.rm=T)),
-                equals(c(0.0625,2.4375)))
+    #max would be only 1 type 2 used and in range = 1/(1/6) = 6...should occur
+    #more than 2.5% of time
+    #min would be 1, occuring just over .01% of the time
+    expect_that(as.numeric(quantile(res[,1], probs=c(.025,.975), na.rm=T)),
+                equals(c(1,6)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.001,.975), na.rm=T)),
                 equals(c(1,6)))
 
     #SECOND RANGE
-    expect_that(as.numeric(quantile(res[2,], probs=c(.025), na.rm=T)),
-                equals(0.06))
+    #max would be 6, should occur less than 1% of the time
+    #min should be 0, should occur 2.5% of the time
+    expect_that(as.numeric(quantile(res[,2], probs=c(.025), na.rm=T)),
+                equals(0))
     expect_that(as.numeric(quantile(res2[2,], probs=c(.025), na.rm=T)),
                 equals(0))
 
-    expect_true(as.numeric(quantile(res[2,], probs=c(.99), na.rm=T))<6)
+    expect_true(as.numeric(quantile(res[,2], probs=c(.99), na.rm=T))<6)
     expect_true(as.numeric(quantile(res2[2,], probs=c(.99), na.rm=T))<6)
 
     #THIRD RANGE
-    expect_that(as.numeric(quantile(res[3,], probs=c(.025,.975), na.rm=T)),
-                equals(c(0.1,2.0)))
+    #Should be determinsitically 0 or NaN
+    expect_that(as.numeric(quantile(res[,3], probs=c(.025,.975), na.rm=T)),
+                equals(c(0,0)))
     expect_that(as.numeric(quantile(res2[3,], probs=c(.025,.975), na.rm=T)),
                 equals(c(0,0)))
 
@@ -138,9 +143,9 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     res2 <- get.tau.typed.bootstrap(x, 1, 2, c(1.5,2.5,3.5), c(0,1.5,2.5), 1500,
                                     comparison.type="independent")[,-(1:2)]
 
-    expect_that(median(as.numeric(res[1,]), na.rm=T), equals(1.5))
-    expect_that(median(as.numeric(res[2,]), na.rm=T), equals(Inf))
-    expect_that(median(as.numeric(res[3,]), na.rm=T), equals(Inf))
+    expect_that(median(as.numeric(res[,1]), na.rm=T), equals(Inf))
+    expect_that(median(as.numeric(res[,2]), na.rm=T), equals(1))
+    expect_that(median(as.numeric(res[,3]), na.rm=T), equals(0))
 
     expect_that(median(as.numeric(res2[1,]), na.rm=T), equals(Inf))
     expect_that(median(as.numeric(res2[2,]), na.rm=T), equals(1))
@@ -151,10 +156,10 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     # provide the interval required.
 
     #FIRST RANGE
-    #max would be Inf, occuring most of the time
-    #min would be 1, occuring just over .01% of the time
-    expect_that(as.numeric(quantile(res[1,], probs=c(.001,.975), na.rm=T)),
-                equals(c(0.003,Inf)))
+    #max would be Inf, occurring most of the time
+    #min would be 1, occurring just over .01% of the time
+    expect_that(as.numeric(quantile(res[,1], probs=c(.001,.975), na.rm=T)),
+                equals(c(1,Inf)))
     expect_that(as.numeric(quantile(res2[1,], probs=c(.001,.975), na.rm=T)),
                 equals(c(1,Inf)))
 
@@ -162,8 +167,8 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
     #max would be Inf, should occur around 25% of the time. .7 should be
     # reliably less than
     #min should be 0, should occur 2.5% of the time
-    expect_that(as.numeric(quantile(res[2,], probs=c(.025), na.rm=T)),
-                equals(Inf))
+    expect_that(as.numeric(quantile(res[,2], probs=c(.025), na.rm=T)),
+                equals(0))
     expect_that(as.numeric(quantile(res2[2,], probs=c(.025), na.rm=T)),
                 equals(0))
 
@@ -174,8 +179,8 @@ test_that("performs correctly for test case 2 (points on a line) - independent c
 
     #THIRD RANGE
     #Should be determinsitically 0 or NaN
-    expect_that(as.numeric(quantile(res[3,], probs=c(.025,.975), na.rm=T)),
-                equals(c(Inf,Inf)))
+    expect_that(as.numeric(quantile(res[,3], probs=c(.025,.975), na.rm=T)),
+                equals(c(0,0)))
     expect_that(as.numeric(quantile(res2[3,], probs=c(.025,.975), na.rm=T)),
                 equals(c(0,0)))
 
