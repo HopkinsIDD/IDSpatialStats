@@ -957,6 +957,7 @@ get.tau <- function(posmat,
 ##'
 ##' @family get.tau
 ##' @family spatialtau
+##' @example R/examples/get_tau_GET.R
 ##'
 
 get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.type){
@@ -966,7 +967,7 @@ get.tau.GET <- function(posmat, fun, r, r.low, permutations = 2500, comparison.t
   GET.res = GET::global_envelope_test(curve_sets = curveset, type = "rank", alpha = 0.05,
            alternative = c("two.sided"), ties = "erl", probs = c(0.025, 0.975), quantile.type = 7, 
            central = "median")
-  GET.res$tau.permute = tau.permute
+  GET.res = list(GET.res, tau.permute)
   class(GET.res) <- "tauGET"
   return(GET.res)
 }
@@ -1113,7 +1114,6 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   }
   
   if(is.null(GET.res) | is.null(d.param.est)){
-  
     if(is.null(ptwise.CI)){
     plot(x = r.end, y = x$tau.pt.est, xlim=xlim,
        ylim=range(x$tau.pt.est, na.rm = TRUE)+diff(range(x$tau.pt.est, na.rm = TRUE))*c(-0.05,0.05),
@@ -1137,24 +1137,25 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
   }
   
   if(!is.null(GET.res)){
-  plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i",
+  permutations = dim(GET.res[[2]])[1]
+  plot(NULL, xlim = c(0,max(x$r, na.rm = TRUE)), ylim = c(min(GET.res[[1]]$lo, GET.res[[1]]$obs, na.rm = TRUE),max(GET.res[[1]]$hi, GET.res[[1]]$obs, na.rm = TRUE)), xaxt = "n", yaxt = "n", xaxs = "i", yaxs = "i",
        ylab = "Tau", xlab = xlab, lwd = 4, cex.lab = 1.5)
   for (i in 1:permutations) {
-    lines(x$r, GET.res$tau.permute[,i], col = scales::alpha("grey", alpha = 0.3), lwd = 1)
+    lines(x$r, GET.res[[2]][i,], col = scales::alpha("grey", alpha = 0.3), lwd = 1)
   }
-  yaxis.range = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE))
+  yaxis.range = c(min(GET.res[[1]]$lo, GET.res[[1]]$obs, na.rm = TRUE),max(GET.res[[1]]$hi, GET.res[[1]]$obs, na.rm = TRUE))
   yaxis.lab = c(seq(yaxis.range[1],yaxis.range[2],length.out = 5),1)
   yaxis.lab = sort(yaxis.lab)
   yaxis.lab = round(yaxis.lab,digits = 1)
   yaxis.lab = unique(yaxis.lab) # prevents more than one 1.0 value
   yaxis.lab[which(yaxis.lab==1)] = round(yaxis.lab[which(yaxis.lab==1)],digits = 0)
   axis(2, las=1, at=yaxis.lab, labels = as.character(yaxis.lab), lwd = 1)
-  lines(GET.res$r, GET.res$lo, col = "slategrey", lwd = 3)
-  lines(GET.res$r, GET.res$hi, col = "slategrey", lwd = 3)
-  lines(GET.res$r, GET.res$central, col = "red", lwd = 3)
-  lines(GET.res$r, GET.res$obs, lwd = 4)
+  lines(GET.res[[1]]$r, GET.res[[1]]$lo, col = "slategrey", lwd = 3)
+  lines(GET.res[[1]]$r, GET.res[[1]]$hi, col = "slategrey", lwd = 3)
+  lines(GET.res[[1]]$r, GET.res[[1]]$central, col = "red", lwd = 3)
+  lines(GET.res[[1]]$r, GET.res[[1]]$obs, lwd = 3)
   axis(1, lwd = 1)
-  abline(h=1, lty = 2, lwd = 4)
+  abline(h=1, lty = 2, lwd = 3)
   legend("topright", legend=c(as.expression(bquote(~ hat(tau) ~ "point estimate")),
                               "95% global envelope",as.expression(bquote("simulations of " ~ H[0])),
                               "median simulation",
@@ -1162,10 +1163,10 @@ plot.tau <- function(x, r.mid = TRUE, tausim = NULL, ptwise.CI = NULL, GET.res =
          col=c("black", "slategrey", "grey", "red", "black"),
          lty=c(1,1,1,1,2), cex=1.05, yjust = 0.5, lwd = 6)
   par(xpd = TRUE)
-  pint.lo = round(attr(GET.res,"p_interval"), digits = 3)[1]
-  pint.hi = round(attr(GET.res,"p_interval"), digits = 3)[2]
+  pint.lo = round(attr(GET.res[[1]],"p_interval"), digits = 3)[1]
+  pint.hi = round(attr(GET.res[[1]],"p_interval"), digits = 3)[2]
   pint.x = 0.5 * max(x$r, na.rm = TRUE)
-  pint.y = c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE))[1] + 0.5*diff(c(min(GET.res$lo, GET.res$obs, na.rm = TRUE),max(GET.res$hi, GET.res$obs, na.rm = TRUE)))
+  pint.y = c(min(GET.res[[1]]$lo, GET.res[[1]]$obs, na.rm = TRUE),max(GET.res[[1]]$hi, GET.res[[1]]$obs, na.rm = TRUE))[1] + 0.5*diff(c(min(GET.res[[1]]$lo, GET.res[[1]]$obs, na.rm = TRUE),max(GET.res[[1]]$hi, GET.res[[1]]$obs, na.rm = TRUE)))
   text(bquote("p-value in [" ~ .(pint.lo) * "," * .(pint.hi) * "]"), x = pint.x, y = pint.y)
   }
 
