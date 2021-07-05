@@ -19,7 +19,7 @@ columns needed by \code{fun}}
 
 \item{fun}{a function that takes in two rows of posmat and returns:
 \enumerate{
-     \item for pairs included in the numerator (and the denominator for independent data)
+     \item for pairs included in the numerator (and the denominator for representative data)
      \item for pairs that should only be included in the denominator
      \item for pairs that should be ignored all together}
 Note that names from \code{posmat} are not preserved in calls to
