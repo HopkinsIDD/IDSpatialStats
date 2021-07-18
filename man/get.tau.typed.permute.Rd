@@ -4,9 +4,16 @@
 \alias{get.tau.typed.permute}
 \title{get the null distribution for the \code{get.tau.typed} function}
 \usage{
-get.tau.typed.permute(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), permutations,
-  comparison.type = "representative", data.frame = TRUE)
+get.tau.typed.permute(
+  posmat,
+  typeA = -1,
+  typeB = -1,
+  r = 1,
+  r.low = rep(0, length(r)),
+  permutations,
+  comparison.type = "representative",
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -66,10 +73,13 @@ lines(r.mid, null.ci[2,] , lty=2)
 }
 }
 \seealso{
-Other get.tau: \code{\link{get.tau.bootstrap}},
-  \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
-  \code{\link{get.tau.typed.bootstrap}},
-  \code{\link{get.tau.typed}}, \code{\link{get.tau}}
+Other get.tau: 
+\code{\link{get.tau.bootstrap}()},
+\code{\link{get.tau.ci}()},
+\code{\link{get.tau.permute}()},
+\code{\link{get.tau.typed.bootstrap}()},
+\code{\link{get.tau.typed}()},
+\code{\link{get.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

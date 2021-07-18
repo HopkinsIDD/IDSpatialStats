@@ -4,9 +4,16 @@
 \alias{get.pi.ci}
 \title{Calculate bootstrapped confidence intervals for \code{get.pi} values.}
 \usage{
-get.pi.ci(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  boot.iter = 1000, ci.low = 0.025, ci.high = 0.975,
-  data.frame = TRUE)
+get.pi.ci(
+  posmat,
+  fun,
+  r = 1,
+  r.low = rep(0, length(r)),
+  boot.iter = 1000,
+  ci.low = 0.025,
+  ci.high = 0.975,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -62,11 +69,13 @@ lines(r.mid, pi.ci[,3] , lty=2)
 }
 }
 \seealso{
-Other get.pi: \code{\link{get.pi.bootstrap}},
-  \code{\link{get.pi.permute}},
-  \code{\link{get.pi.typed.bootstrap}},
-  \code{\link{get.pi.typed.permute}},
-  \code{\link{get.pi.typed}}, \code{\link{get.pi}}
+Other get.pi: 
+\code{\link{get.pi.bootstrap}()},
+\code{\link{get.pi.permute}()},
+\code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.permute}()},
+\code{\link{get.pi.typed}()},
+\code{\link{get.pi}()}
 }
 \author{
 Justin Lessler

@@ -4,10 +4,22 @@
 \alias{est.transdist.temporal.bootstrap.ci}
 \title{Bootstrapped confidence intervals for the change in mean transmission distance over time}
 \usage{
-est.transdist.temporal.bootstrap.ci(epi.data, gen.t.mean, gen.t.sd, t1,
-  max.sep, max.dist, n.transtree.reps = 100, mean.equals.sd = FALSE,
-  theta.weights = NULL, boot.iter, ci.low = 0.025, ci.high = 0.975,
-  parallel = FALSE, n.cores = NULL)
+est.transdist.temporal.bootstrap.ci(
+  epi.data,
+  gen.t.mean,
+  gen.t.sd,
+  t1,
+  max.sep,
+  max.dist,
+  n.transtree.reps = 100,
+  mean.equals.sd = FALSE,
+  theta.weights = NULL,
+  boot.iter,
+  ci.low = 0.025,
+  ci.high = 0.975,
+  parallel = FALSE,
+  n.cores = NULL
+)
 }
 \arguments{
 \item{epi.data}{a three-column matrix giving the coordinates (\code{x} and \code{y}) and time of infection (\code{t} for all cases in an epidemic (columns must be in \code{x}, \code{y}, \code{t} order)}
@@ -61,11 +73,9 @@ a <- sim.epidemic(R=2,
                   min.cases=30,
                   trans.kern.func=dist.func)
 
-a <- a[sample(1:nrow(a), 100),] # subsample a to 100 observations
+a <- a[sample(1:nrow(a), 70),] # subsample a to 70 observations
 
 # Estimate change in mean transmission kernel over time with confidence intervals
-nc <- 4 # Run in parallel
-
 b <- est.transdist.temporal.bootstrap.ci(epi.data=a,
                                          gen.t.mean=7,
                                          gen.t.sd=2,
@@ -74,11 +84,9 @@ b <- est.transdist.temporal.bootstrap.ci(epi.data=a,
                                          max.dist=1e10,
                                          n.transtree.reps=10,
                                          mean.equals.sd=TRUE,
-                                         boot.iter=10,
+                                         boot.iter=5,
                                          ci.low=0.025,
-                                         ci.high=0.975,
-                                         parallel=TRUE,
-                                         n.cores=nc)
+                                         ci.high=0.975)
 
 plot(b[,2], pch=19, col='grey', ylim=c(min(b[,1:3], na.rm=TRUE), max(b[,1:3], na.rm=TRUE)), 
      xlab='Time step', ylab='Estimated mean of transmission kernel')
@@ -101,11 +109,12 @@ for(i in 3:4) {
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }
 \seealso{
-Other transdist: \code{\link{est.transdist.bootstrap.ci}},
-  \code{\link{est.transdist.temporal}},
-  \code{\link{est.transdist.theta.weights}},
-  \code{\link{est.transdist}},
-  \code{\link{get.transdist.theta}}
+Other transdist: 
+\code{\link{est.transdist.bootstrap.ci}()},
+\code{\link{est.transdist.temporal}()},
+\code{\link{est.transdist.theta.weights}()},
+\code{\link{est.transdist}()},
+\code{\link{get.transdist.theta}()}
 }
 \author{
 John Giles, Justin Lessler, and Henrik Salje

@@ -4,8 +4,15 @@
 \alias{get.pi.typed.bootstrap}
 \title{runs bootstrapping on \code{get.pi.typed}}
 \usage{
-get.pi.typed.bootstrap(posmat, typeA = -1, typeB = -1, r = 1,
-  r.low = rep(0, length(r)), boot.iter, data.frame = TRUE)
+get.pi.typed.bootstrap(
+  posmat,
+  typeA = -1,
+  typeB = -1,
+  r = 1,
+  r.low = rep(0, length(r)),
+  boot.iter,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -32,7 +39,7 @@ another draw of itself are left out
 \examples{
 \donttest{
 
-data(DengueSimulationR02)
+data(DengueSimR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
@@ -46,9 +53,12 @@ typed.pi.bs<-get.pi.typed.bootstrap(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min,boot
 }
 }
 \seealso{
-Other get.pi: \code{\link{get.pi.bootstrap}},
-  \code{\link{get.pi.ci}}, \code{\link{get.pi.permute}},
-  \code{\link{get.pi.typed.permute}},
-  \code{\link{get.pi.typed}}, \code{\link{get.pi}}
+Other get.pi: 
+\code{\link{get.pi.bootstrap}()},
+\code{\link{get.pi.ci}()},
+\code{\link{get.pi.permute}()},
+\code{\link{get.pi.typed.permute}()},
+\code{\link{get.pi.typed}()},
+\code{\link{get.pi}()}
 }
 \concept{get.pi}

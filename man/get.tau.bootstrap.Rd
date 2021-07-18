@@ -4,8 +4,15 @@
 \alias{get.tau.bootstrap}
 \title{Bootstrap \code{get.tau} values.}
 \usage{
-get.tau.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  boot.iter, comparison.type = "representative", data.frame = TRUE)
+get.tau.bootstrap(
+  posmat,
+  fun,
+  r = 1,
+  r.low = rep(0, length(r)),
+  boot.iter,
+  comparison.type = "representative",
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -61,11 +68,13 @@ lines(r.mid, tau.ci[2,] , lty=2)
 }
 }
 \seealso{
-Other get.tau: \code{\link{get.tau.ci}},
-  \code{\link{get.tau.permute}},
-  \code{\link{get.tau.typed.bootstrap}},
-  \code{\link{get.tau.typed.permute}},
-  \code{\link{get.tau.typed}}, \code{\link{get.tau}}
+Other get.tau: 
+\code{\link{get.tau.ci}()},
+\code{\link{get.tau.permute}()},
+\code{\link{get.tau.typed.bootstrap}()},
+\code{\link{get.tau.typed.permute}()},
+\code{\link{get.tau.typed}()},
+\code{\link{get.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

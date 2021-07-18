@@ -35,8 +35,9 @@ Boelle P and Obadia T (2015). R0: Estimation of R0 and Real-Time Reproduction Nu
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }
 \seealso{
-Other est.wt: \code{\link{est.transdist}},
-  \code{\link{est.wt.matrix}}
+Other est.wt: 
+\code{\link{est.transdist}()},
+\code{\link{est.wt.matrix}()}
 }
 \author{
 John Giles, Justin Lessler, and Henrik Salje

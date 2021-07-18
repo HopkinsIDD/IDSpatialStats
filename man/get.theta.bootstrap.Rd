@@ -4,8 +4,14 @@
 \alias{get.theta.bootstrap}
 \title{Bootstrap \code{get.theta} values.}
 \usage{
-get.theta.bootstrap(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  boot.iter = 500, data.frame = TRUE)
+get.theta.bootstrap(
+  posmat,
+  fun,
+  r = 1,
+  r.low = rep(0, length(r)),
+  boot.iter = 500,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -64,11 +70,13 @@ lines(r.mid, theta.ci[2,] , lty=2)
 }
 }
 \seealso{
-Other get.theta: \code{\link{get.theta.ci}},
-  \code{\link{get.theta.permute}},
-  \code{\link{get.theta.typed.bootstrap}},
-  \code{\link{get.theta.typed.permute}},
-  \code{\link{get.theta.typed}}, \code{\link{get.theta}}
+Other get.theta: 
+\code{\link{get.theta.ci}()},
+\code{\link{get.theta.permute}()},
+\code{\link{get.theta.typed.bootstrap}()},
+\code{\link{get.theta.typed.permute}()},
+\code{\link{get.theta.typed}()},
+\code{\link{get.theta}()}
 }
 \author{
 Justin Lessler and Henrik Salje

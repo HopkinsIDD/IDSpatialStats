@@ -4,8 +4,15 @@
 \alias{sim.epidemic}
 \title{Simulation of an epidemic in space and time}
 \usage{
-sim.epidemic(R, gen.t.mean, gen.t.sd, trans.kern.func,
-  tot.generations = 10, min.cases = 0, max.try = 1000)
+sim.epidemic(
+  R,
+  gen.t.mean,
+  gen.t.sd,
+  trans.kern.func,
+  tot.generations = 10,
+  min.cases = 0,
+  max.try = 1000
+)
 }
 \arguments{
 \item{R}{a scalar or a vector of length \code{tot.generations} providing the reproductive number for the epidemic. 

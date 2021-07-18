@@ -4,8 +4,7 @@
 \alias{get.theta}
 \title{Generalized version of \code{get.theta}}
 \usage{
-get.theta(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  data.frame = TRUE)
+get.theta(posmat, fun, r = 1, r.low = rep(0, length(r)), data.frame = TRUE)
 }
 \arguments{
 \item{posmat}{a matrix with columns x, y and any other named columns
@@ -40,7 +39,7 @@ specified by the passed in function with that point.
 \examples{
 \donttest{
 
-data(DengueSimulationR02)
+data(DengueSimR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
@@ -56,15 +55,17 @@ sero.theta<-get.theta(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.theta: \code{\link{get.theta.bootstrap}},
-  \code{\link{get.theta.ci}},
-  \code{\link{get.theta.permute}},
-  \code{\link{get.theta.typed.bootstrap}},
-  \code{\link{get.theta.typed.permute}},
-  \code{\link{get.theta.typed}}
+Other get.theta: 
+\code{\link{get.theta.bootstrap}()},
+\code{\link{get.theta.ci}()},
+\code{\link{get.theta.permute}()},
+\code{\link{get.theta.typed.bootstrap}()},
+\code{\link{get.theta.typed.permute}()},
+\code{\link{get.theta.typed}()}
 
-Other spatialtau: \code{\link{get.pi}},
-  \code{\link{get.tau}}
+Other spatialtau: 
+\code{\link{get.pi}()},
+\code{\link{get.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

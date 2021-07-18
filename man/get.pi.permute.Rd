@@ -4,8 +4,14 @@
 \alias{get.pi.permute}
 \title{get the null distribution of the \code{get.pi} function}
 \usage{
-get.pi.permute(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  permutations, data.frame = TRUE)
+get.pi.permute(
+  posmat,
+  fun,
+  r = 1,
+  r.low = rep(0, length(r)),
+  permutations,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x and y}
@@ -58,10 +64,12 @@ lines(r.mid, null.ci[2,] , lty=2)
 }
 }
 \seealso{
-Other get.pi: \code{\link{get.pi.bootstrap}},
-  \code{\link{get.pi.ci}},
-  \code{\link{get.pi.typed.bootstrap}},
-  \code{\link{get.pi.typed.permute}},
-  \code{\link{get.pi.typed}}, \code{\link{get.pi}}
+Other get.pi: 
+\code{\link{get.pi.bootstrap}()},
+\code{\link{get.pi.ci}()},
+\code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.permute}()},
+\code{\link{get.pi.typed}()},
+\code{\link{get.pi}()}
 }
 \concept{get.pi}

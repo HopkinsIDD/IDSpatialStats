@@ -4,9 +4,17 @@
 \alias{get.tau.ci}
 \title{Bootstrap confidence interval for the \code{get.tau} values}
 \usage{
-get.tau.ci(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  boot.iter = 1000, comparison.type = "representative",
-  ci.low = 0.025, ci.high = 0.975, data.frame = TRUE)
+get.tau.ci(
+  posmat,
+  fun,
+  r = 1,
+  r.low = rep(0, length(r)),
+  boot.iter = 1000,
+  comparison.type = "representative",
+  ci.low = 0.025,
+  ci.high = 0.975,
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix appropriate for input to \code{get.tau}}
@@ -63,11 +71,13 @@ lines(c(0,100),c(1,1), lty=3, col="grey")
 }
 }
 \seealso{
-Other get.tau: \code{\link{get.tau.bootstrap}},
-  \code{\link{get.tau.permute}},
-  \code{\link{get.tau.typed.bootstrap}},
-  \code{\link{get.tau.typed.permute}},
-  \code{\link{get.tau.typed}}, \code{\link{get.tau}}
+Other get.tau: 
+\code{\link{get.tau.bootstrap}()},
+\code{\link{get.tau.permute}()},
+\code{\link{get.tau.typed.bootstrap}()},
+\code{\link{get.tau.typed.permute}()},
+\code{\link{get.tau.typed}()},
+\code{\link{get.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

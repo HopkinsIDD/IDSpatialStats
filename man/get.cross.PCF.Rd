@@ -4,8 +4,7 @@
 \alias{get.cross.PCF}
 \title{Cross type Pair Correlation Function using homotypic and heterotypic case types}
 \usage{
-get.cross.PCF(epi.data, type, hom, het = NULL, r = NULL,
-  correction = "border")
+get.cross.PCF(epi.data, type, hom, het = NULL, r = NULL, correction = "none")
 }
 \arguments{
 \item{epi.data}{a three-column numerical matrix that contains coordinates (\code{x} and \code{y}) for each case and information on case type (e.g. genotype or serotype). First two columns must be \code{x} and \code{y}}
@@ -18,18 +17,18 @@ get.cross.PCF(epi.data, type, hom, het = NULL, r = NULL,
 
 \item{r}{a numeric vector giving the spatial distances}
 
-\item{correction}{type of edge correction to be applied (default set to simple 'border' edge correction). See the \link[spatstat]{Kcross} function in the \pkg{spatstat} package for more details}
+\item{correction}{type of edge correction to be applied (default set to 'none'). See the \link[spatstat.core]{pcf} function in the \pkg{spatstat.core} package for more details}
 }
 \value{
 a data frame with two columns giving the radius \code{r}, the theoretical value of the Pair Correlation Function for a Poisson process (\code{theo}), and value of the Pair Correlation Function \code{pcf}
 }
 \description{
-A wrapper function of the \link[spatstat]{pcf} and \link[spatstat]{Kcross} functions from the \pkg{spatstat} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type Pair Correlation Function based on user defined case type homology
+A wrapper function of the \link[spatstat.core]{pcf} function from the \pkg{spatstat.core} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type Pair Correlation Function based on user defined case type homology
 }
 \examples{
-data(DengueSimulationR01)
+data(DengueSimR01)
 
-g <- get.cross.PCF(epi.data=DengueSimR01, type=5, hom=2, het=NULL, r=NULL, correction='border')
+g <- get.cross.PCF(epi.data=DengueSimR01, type=5, hom=2, het=NULL, r=NULL, correction='none')
 
 plot(g$pcf, type='l', xlab='r', ylab='cross PCF')
 abline(h=1, col='red', lty=2)

@@ -4,8 +4,13 @@
 \alias{get.transdist.theta}
 \title{Get weights of transmission distance theta}
 \usage{
-get.transdist.theta(wal.teun.mat, cases, gen.t.mean, max.sep,
-  ret.theta.mat = FALSE)
+get.transdist.theta(
+  wal.teun.mat,
+  cases,
+  gen.t.mean,
+  max.sep,
+  ret.theta.mat = FALSE
+)
 }
 \arguments{
 \item{wal.teun.mat}{a Wallinga-Teunis matrix produced by the \code{est.wt.matrix} function}
@@ -49,11 +54,12 @@ a <- get.transdist.theta(wal.teun.mat=wt,
 Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease transmission distances using the overall distribution of cases.” Epidemics, 17, pp. 10–18. ISSN 1755-4365, doi: \href{https://www.sciencedirect.com/science/article/pii/S1755436516300317}{10.1016/j.epidem.2016.10.001}.
 }
 \seealso{
-Other transdist: \code{\link{est.transdist.bootstrap.ci}},
-  \code{\link{est.transdist.temporal.bootstrap.ci}},
-  \code{\link{est.transdist.temporal}},
-  \code{\link{est.transdist.theta.weights}},
-  \code{\link{est.transdist}}
+Other transdist: 
+\code{\link{est.transdist.bootstrap.ci}()},
+\code{\link{est.transdist.temporal.bootstrap.ci}()},
+\code{\link{est.transdist.temporal}()},
+\code{\link{est.transdist.theta.weights}()},
+\code{\link{est.transdist}()}
 }
 \author{
 John Giles, Justin Lessler, and Henrik Salje

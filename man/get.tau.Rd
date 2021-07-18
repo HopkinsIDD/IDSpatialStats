@@ -4,8 +4,14 @@
 \alias{get.tau}
 \title{generalized version of \code{get.tau}}
 \usage{
-get.tau(posmat, fun, r = 1, r.low = rep(0, length(r)),
-  comparison.type = "representative", data.frame = TRUE)
+get.tau(
+  posmat,
+  fun,
+  r = 1,
+  r.low = rep(0, length(r)),
+  comparison.type = "representative",
+  data.frame = TRUE
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns x, y and any other named columns
@@ -50,8 +56,8 @@ the probability (or odds) any point shares that relationship with that point.
 \examples{
 \donttest{
 
-data(DengueSimulationR01)
-data(DengueSimulationR02)
+data(DengueSimR01)
+data(DengueSimR02)
 data(DengueSimRepresentative)
 
 r.max<-seq(20,1000,20)
@@ -122,14 +128,17 @@ legend("topright",
 }
 }
 \seealso{
-Other get.tau: \code{\link{get.tau.bootstrap}},
-  \code{\link{get.tau.ci}}, \code{\link{get.tau.permute}},
-  \code{\link{get.tau.typed.bootstrap}},
-  \code{\link{get.tau.typed.permute}},
-  \code{\link{get.tau.typed}}
+Other get.tau: 
+\code{\link{get.tau.bootstrap}()},
+\code{\link{get.tau.ci}()},
+\code{\link{get.tau.permute}()},
+\code{\link{get.tau.typed.bootstrap}()},
+\code{\link{get.tau.typed.permute}()},
+\code{\link{get.tau.typed}()}
 
-Other spatialtau: \code{\link{get.pi}},
-  \code{\link{get.theta}}
+Other spatialtau: 
+\code{\link{get.pi}()},
+\code{\link{get.theta}()}
 }
 \author{
 Justin Lessler and Henrik Salje
