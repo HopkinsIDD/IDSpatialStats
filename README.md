@@ -12,8 +12,6 @@ Detailed description of the methods can be found here:
 
 [Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
 
-This package is maintained by John Giles ([@gilesjohnr](https://github.com/gilesjohnr)) and Justin Lessler ([@jlessler](https://github.com/jlessler)) as part of the Johns Hopkins Bloomberg School of Public Health Infectious Disease Dynamics team ([@HopkinsIDD](https://github.com/HopkinsIDD)).
-
 ### Installation
 
 To install the offical release of the `IDSpatialStats` package, open `R` and type:
