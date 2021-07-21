@@ -15,7 +15,7 @@ columns needed by \code{fun}}
      \item for pairs included in the numerator and denominator
      \item for pairs that should only be included in the denominator
      \item for pairs that should be ignored all together}
-Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of 
+Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of
 the matrix should be
 referenced numerically
 so this is not available to the \code{fun}}
@@ -34,14 +34,14 @@ pi value for each distance range that we look at. Where:
 }
 \description{
 Generalized version of the \code{get.pi} function that takes in an arbitrary function and
-returns the probability that a point within a particular range of a point of interest shares 
+returns the probability that a point within a particular range of a point of interest shares
 the relationship
 specified by the passed in function with that point.
 }
 \examples{
 \donttest{
 
-data(DengueSimulationR02)
+data(DengueSimR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
@@ -57,7 +57,7 @@ sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.pi: 
+Other get.pi:
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.ci}()},
 \code{\link{get.pi.permute}()},
@@ -65,7 +65,7 @@ Other get.pi:
 \code{\link{get.pi.typed.permute}()},
 \code{\link{get.pi.typed}()}
 
-Other spatialtau: 
+Other spatialtau:
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},
 \code{\link{get.tau}()},

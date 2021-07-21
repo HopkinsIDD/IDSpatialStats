@@ -64,8 +64,8 @@ tau = get.tau(x,fun,r=r.max,r.low=r.min, comparison.type = "representative")
 plot.tau(x = tau, ptwise.CI = tau.CI)
 
 ## previous plot() method
-plot(r.mid, tau.CI$pt.est, ylim=c(min(tau.CI$pt.est,tau.CI$ci.low), 
-                                  max(tau.CI$pt.est,tau.CI$ci.high)), type="l", xlab="Distance", 
+plot(r.mid, tau.CI$pt.est, ylim=c(min(tau.CI$pt.est,tau.CI$ci.low),
+                                  max(tau.CI$pt.est,tau.CI$ci.high)), type="l", xlab="Distance",
      ylab="Tau")
 lines(r.mid, tau.CI$ci.low , lty=2)
 lines(r.mid, tau.CI$ci.high, lty=2)
@@ -73,7 +73,7 @@ lines(c(0,100),c(1,1), lty=3, col="grey")
 }
 }
 \seealso{
-Other get.tau: 
+Other get.tau:
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},
 \code{\link{get.tau.bootstrap}()},

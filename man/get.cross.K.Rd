@@ -4,7 +4,7 @@
 \alias{get.cross.K}
 \title{Cross type K function using homotypic and heterotypic case types}
 \usage{
-get.cross.K(epi.data, type, hom, het = NULL, r = NULL, correction = "border")
+get.cross.K(epi.data, type, hom, het = NULL, r = NULL, correction = "none")
 }
 \arguments{
 \item{epi.data}{a three-column numerical matrix that contains coordinates (\code{x} and \code{y}) for each case and information on case type (e.g. genotype or serotype). First two columns must be \code{x} and \code{y}}
@@ -17,16 +17,16 @@ get.cross.K(epi.data, type, hom, het = NULL, r = NULL, correction = "border")
 
 \item{r}{a numeric vector giving the spatial distances}
 
-\item{correction}{type of edge correction to be applied (default set to simple 'border' edge correction). See the \link[spatstat]{Kcross} function in the \pkg{spatstat} package for more details}
+\item{correction}{type of edge correction to be applied (default set to 'none'). See the \link[spatstat.core]{Kcross} function in the \pkg{spatstat.core} package for more details}
 }
 \value{
 a data frame with a minimum of three columns giving the radius (\code{r}), the theoretical value of the K function for a Poisson process (\code{theo}), and value of the K function evaluated at radius \code{r}. The column name gives the type of edge correction used
 }
 \description{
-A wrapper function of the \link[spatstat]{Kcross} function from the \pkg{spatstat} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type K-function based on user defined case type homology
+A wrapper function of the \link[spatstat.core]{Kcross} function from the \pkg{spatstat.core} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type K-function based on user defined case type homology
 }
 \examples{
-data(DengueSimulationR01)
+data(DengueSimR01)
 
 k <- get.cross.K(epi.data=DengueSimR01, type=5, hom=2, het=NULL, r=NULL, correction='border')
 

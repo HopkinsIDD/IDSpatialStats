@@ -51,16 +51,16 @@ r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
 r.mid<-(r.max+r.min)/2
 
-# Lets see if there's a difference in spatial dependence between those that occurred 
+# Lets see if there's a difference in spatial dependence between those that occurred
 # late versus early in the outbreak
 
 type <- 2 - (DengueSimR02[,"time"] < 120)
 tmp <- cbind(DengueSimR02, type=type)
 
-typed.tau <- get.tau.typed(tmp, typeA=1, typeB=2, r=r.max, r.low=r.min, 
+typed.tau <- get.tau.typed(tmp, typeA=1, typeB=2, r=r.max, r.low=r.min,
                            comparison.type = "independent")
 
-typed.tau.type.bs <- get.tau.typed.bootstrap(tmp, typeA=1, typeB=2, r=r.max, r.low=r.min, 
+typed.tau.type.bs <- get.tau.typed.bootstrap(tmp, typeA=1, typeB=2, r=r.max, r.low=r.min,
                                              boot.iter=100, comparison.type = "independent")
 
 ci <- apply(typed.tau.type.bs[,-(1:2)], 1, quantile, probs=c(0.025,0.975))
@@ -77,7 +77,7 @@ lines(r.mid, ci[2,] , lty=2)
 }
 }
 \seealso{
-Other get.tau: 
+Other get.tau:
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},
 \code{\link{get.tau.bootstrap}()},

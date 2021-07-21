@@ -61,8 +61,8 @@ tau.ci = get.tau.ci(x, fun, r.max, r.min, 50, "representative", 0.95, data.frame
 ## plot.tau() method
 plot.tau(tau, r.mid = TRUE, ptwise.CI = tau.ci)
 
-## previous plot() method using connected lines to join the top and bottoms of the pointwise CIs. 
-#This may lead the user to perform graphical hypothesis testing using this plot without considering 
+## previous plot() method using connected lines to join the top and bottoms of the pointwise CIs.
+#This may lead the user to perform graphical hypothesis testing using this plot without considering
 #the specific distance band of interest before plotting.
 plot(r.mid, tau$tau.pt.est ,ylim=c(min(tau.ci$ci.low),max(tau.ci$ci.high)), type="l", log="y")
 lines(c(0,100),c(1,1), lty=3, col="grey")
@@ -71,7 +71,7 @@ lines(r.mid, tau.ci$ci.high, lty=2)
 }
 }
 \seealso{
-Other get.tau: 
+Other get.tau:
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},
 \code{\link{get.tau.ci}()},

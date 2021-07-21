@@ -55,7 +55,11 @@ the probability (or odds) any point shares that relationship with that point.
 }
 \examples{
 \donttest{
-# Load for all
+
+data(DengueSimR01)
+data(DengueSimR02)
+data(DengueSimRepresentative)
+
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
 r.mid<-(r.max+r.min)/2
@@ -70,11 +74,11 @@ geno.type.func<-function(a,b,tlimit=20){
         return(rc)
 }
 
-## R0 of 1        
+## R0 of 1
 data(DengueSimulationR01)
-sero.tau.R01 <- get.tau(DengueSimR01, sero.type.func, r=r.max, r.low=r.min, 
+sero.tau.R01 <- get.tau(DengueSimR01, sero.type.func, r=r.max, r.low=r.min,
                         comparison.type="independent")
-geno.tau.R01 <- get.tau(DengueSimR01, geno.type.func, r=r.max, r.low=r.min, 
+geno.tau.R01 <- get.tau(DengueSimR01, geno.type.func, r=r.max, r.low=r.min,
                         comparison.type="independent")
 
 plot(r.mid,sero.tau.R01$tau,ylim=c(0.3,max(geno.tau.R01$tau)),log="y",
@@ -91,14 +95,14 @@ legend("topright",
                 "Serotype (representative population)",
                 "Maximum transmission distance"),
        lwd=1,col=c("dark green","blue","blue","black"),
-       lty=c(1,1,2,1),bty="n")        
-        
+       lty=c(1,1,2,1),bty="n")
+
 ## R0 of 2
 data(DengueSimulationR02)
-sero.tau.R02 <- get.tau(DengueSimR02, sero.type.func, r=r.max, r.low=r.min, 
+sero.tau.R02 <- get.tau(DengueSimR02, sero.type.func, r=r.max, r.low=r.min,
                         comparison.type="independent")
-geno.tau.R02 <- get.tau(DengueSimR02, geno.type.func, r=r.max, r.low=r.min, 
-                        comparison.type="independent") 
+geno.tau.R02 <- get.tau(DengueSimR02, geno.type.func, r=r.max, r.low=r.min,
+                        comparison.type="independent")
 
 plot(r.mid,sero.tau.R02$tau,ylim=c(0.3,max(geno.tau.R02$tau.pt.est)),log="y",
      cex.axis=1.25,col=rgb(t(col2rgb("blue")/255),alpha=0.6),
@@ -121,11 +125,11 @@ sero.type.rep.func<-function(a,b,tlimit=20){
 }
 
 # get point estimate
-Dengue.tau = get.tau(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 
+Dengue.tau = get.tau(DengueSimRepresentative, sero.type.rep.func, r.max, r.min,
                      "representative", data.frame = TRUE)
 
 # get 95\% BCa CI
-CIs = get.tau.ci(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 25, 
+CIs = get.tau.ci(DengueSimRepresentative, sero.type.rep.func, r.max, r.min, 25,
                  "representative", ci.level = 0.95, data.frame = TRUE)
 
 #plot point estimate with CI
@@ -133,7 +137,7 @@ plot.tau(x = Dengue.tau, r.mid = TRUE, ptwise.CI = CIs)
 }
 }
 \seealso{
-Other get.tau: 
+Other get.tau:
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},
 \code{\link{get.tau.bootstrap}()},
@@ -144,7 +148,7 @@ Other get.tau:
 \code{\link{get.tau.typed}()},
 \code{\link{plot.tau}()}
 
-Other spatialtau: 
+Other spatialtau:
 \code{\link{get.pi}()},
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},

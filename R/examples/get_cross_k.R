@@ -1,4 +1,4 @@
-data(DengueSimulationR01)
+data(DengueSimR01)
 
 k <- get.cross.K(epi.data=DengueSimR01, type=5, hom=2, het=NULL, r=NULL, correction='border')
 

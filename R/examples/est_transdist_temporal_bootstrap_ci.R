@@ -13,11 +13,9 @@ a <- sim.epidemic(R=2,
                   min.cases=30,
                   trans.kern.func=dist.func)
 
-a <- a[sample(1:nrow(a), 100),] # subsample a to 100 observations
+a <- a[sample(1:nrow(a), 70),] # subsample a to 70 observations
 
 # Estimate change in mean transmission kernel over time with confidence intervals
-nc <- 4 # Run in parallel
-
 b <- est.transdist.temporal.bootstrap.ci(epi.data=a,
                                          gen.t.mean=7,
                                          gen.t.sd=2,
@@ -26,11 +24,9 @@ b <- est.transdist.temporal.bootstrap.ci(epi.data=a,
                                          max.dist=1e10,
                                          n.transtree.reps=10,
                                          mean.equals.sd=TRUE,
-                                         boot.iter=10,
+                                         boot.iter=5,
                                          ci.low=0.025,
-                                         ci.high=0.975,
-                                         parallel=TRUE,
-                                         n.cores=nc)
+                                         ci.high=0.975)
 
 plot(b[,2], pch=19, col='grey', ylim=c(min(b[,1:3], na.rm=TRUE), max(b[,1:3], na.rm=TRUE)), 
      xlab='Time step', ylab='Estimated mean of transmission kernel')

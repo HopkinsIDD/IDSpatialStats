@@ -40,7 +40,7 @@ to each observation permutations times
 \examples{
 \donttest{
 
-data(DengueSimulationR01)
+data(DengueSimR01)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)

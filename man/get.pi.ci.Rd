@@ -42,7 +42,7 @@ coxed::bca()
 }
 
 \examples{
-\donttest{# Simulate cases (type = 2, Normally-distributed points) and 
+\donttest{# Simulate cases (type = 2, Normally-distributed points) and
 # simulated non-cases (type = 1, Uniformally-distributed)
 X <- cbind(1, runif(100,-100,100), runif(100,-100,100))
 X <- rbind(X, cbind(2,rnorm(100,0,20), rnorm(100,0,20)))
@@ -77,7 +77,7 @@ spatiotemporal disease clustering with the tau statistic.
 \emph{arXiv/stat.ME: 1911.08022v4}.
 }
 \seealso{
-Other get.pi: 
+Other get.pi:
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.permute}()},
 \code{\link{get.pi.typed.bootstrap}()},

@@ -39,7 +39,7 @@ specified by the passed in function with that point.
 \examples{
 \donttest{
 
-data(DengueSimulationR02)
+data(DengueSimR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
@@ -55,7 +55,7 @@ sero.theta<-get.theta(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.theta: 
+Other get.theta:
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.ci}()},
 \code{\link{get.theta.permute}()},
@@ -63,7 +63,7 @@ Other get.theta:
 \code{\link{get.theta.typed.permute}()},
 \code{\link{get.theta.typed}()}
 
-Other spatialtau: 
+Other spatialtau:
 \code{\link{get.pi}()},
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},

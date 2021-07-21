@@ -64,7 +64,7 @@ lines(r.mid, theta.ci[,3] , lty=2)
 }
 }
 \seealso{
-Other get.theta: 
+Other get.theta:
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.permute}()},
 \code{\link{get.theta.typed.bootstrap}()},

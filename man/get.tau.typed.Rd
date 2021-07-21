@@ -44,7 +44,7 @@ points of type A and points of type B
 \examples{
 \donttest{
 
-data(DengueSimulationR02)
+data(DengueSimR02)
 
 r.max<-seq(20,1000,20)
 r.min<-seq(0,980,20)
@@ -63,7 +63,7 @@ abline(h=1,lty=2)
 }
 }
 \seealso{
-Other get.tau: 
+Other get.tau:
 \code{\link{get.tau.D.param.est}()},
 \code{\link{get.tau.GET}()},
 \code{\link{get.tau.bootstrap}()},
