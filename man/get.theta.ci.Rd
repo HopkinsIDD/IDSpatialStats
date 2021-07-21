@@ -10,8 +10,7 @@ get.theta.ci(
   r = 1,
   r.low = rep(0, length(r)),
   boot.iter = 1000,
-  ci.low = 0.025,
-  ci.high = 0.975,
+  ci.level = 0.95,
   data.frame = TRUE
 )
 }
@@ -26,19 +25,16 @@ get.theta.ci(
 
 \item{boot.iter}{the number of bootstrap iterations}
 
-\item{ci.low}{the low end of the ci...0.025 by default}
-
-\item{ci.high}{the high end of the ci...0.975 by default}
+\item{ci.level}{significance level of the 95% BCa CI, default = 0.95}
 
 \item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
-a matrix with a row for the high and low values and
-    a column per distance
+a matrix with a row for the high and low values and a column per distance
 }
 \description{
 Wrapper to \code{get.theta.bootstrap} that takes care of calculating the
-confience intervals based on the bootstrapped values.
+confidence intervals based on the bootstrapped values.
 }
 \examples{
 \donttest{
@@ -68,7 +64,7 @@ lines(r.mid, theta.ci[,3] , lty=2)
 }
 }
 \seealso{
-Other get.theta: 
+Other get.theta:
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.permute}()},
 \code{\link{get.theta.typed.bootstrap}()},

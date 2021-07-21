@@ -20,9 +20,11 @@ tau.null<-get.tau.permute(x,fun,r=r.max,r.low=r.min,permutations=50,comparison.t
 
 null.ci<-apply(tau.null[,-(1:2)],1,quantile,probs=c(0.25,0.75))
 
+# note these plots are only for illustrative purposes to show how get.tau.permute() can generate 
+# the null distribution. These should not be used for graphical hypothesis testing nor parameter
+# estimation of the clustering endpoint.
 plot(r.mid, tau$tau, ylim=c(1/max(tau$tau),max(tau$tau)), type="l", log="y")
 lines(c(0,100),c(1,1), lty=3, col="grey")
 lines(r.mid, null.ci[1,] , lty=2)
 lines(r.mid, null.ci[2,] , lty=2)
-
 }

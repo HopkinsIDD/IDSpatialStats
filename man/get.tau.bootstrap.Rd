@@ -40,7 +40,7 @@ calculated
 \examples{
 \donttest{
 
-#compare normally distributed with uniform points
+# compare normally distributed with uniform points
 x<-cbind(1,runif(100,-100,100), runif(100,-100,100))
 x<-rbind(x, cbind(2,rnorm(100,0,20), rnorm(100,0,20)))
 colnames(x) <- c("type","x","y")
@@ -55,26 +55,32 @@ r.max<-seq(10,100,10)
 r.min<-seq(0,90,10)
 r.mid <- (r.max+r.min)/2
 
-tau<-get.tau(x,fun,r=r.max,r.low=r.min)
-tau.boot<-get.tau.bootstrap(x,fun,r=r.max,r.low=r.min,boot.iter=50)
+tau<-get.tau(x,fun,r=r.max,r.low=r.min,"representative", data.frame = TRUE)
+tau.ci = get.tau.ci(x, fun, r.max, r.min, 50, "representative", 0.95, data.frame = TRUE)
 
-tau.ci<-apply(tau.boot[,-(1:2)],1,quantile,probs=c(0.25,0.75))
+## plot.tau() method
+plot.tau(tau, r.mid = TRUE, ptwise.CI = tau.ci)
 
-plot(r.mid, tau$tau ,ylim=c(min(tau.ci),max(tau.ci)), type="l", log="y")
+## previous plot() method using connected lines to join the top and bottoms of the pointwise CIs.
+#This may lead the user to perform graphical hypothesis testing using this plot without considering
+#the specific distance band of interest before plotting.
+plot(r.mid, tau$tau.pt.est ,ylim=c(min(tau.ci$ci.low),max(tau.ci$ci.high)), type="l", log="y")
 lines(c(0,100),c(1,1), lty=3, col="grey")
-lines(r.mid, tau.ci[1,] , lty=2)
-lines(r.mid, tau.ci[2,] , lty=2)
-
+lines(r.mid, tau.ci$ci.low, lty=2)
+lines(r.mid, tau.ci$ci.high, lty=2)
 }
 }
 \seealso{
-Other get.tau: 
+Other get.tau:
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
 \code{\link{get.tau.ci}()},
 \code{\link{get.tau.permute}()},
 \code{\link{get.tau.typed.bootstrap}()},
 \code{\link{get.tau.typed.permute}()},
 \code{\link{get.tau.typed}()},
-\code{\link{get.tau}()}
+\code{\link{get.tau}()},
+\code{\link{plot.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

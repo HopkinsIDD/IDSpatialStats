@@ -1,17 +1,20 @@
+import("coxed")
 import("parallel")
 import("doParallel")
 import("foreach")
 import("stats")
 import("graphics")
-importFrom("igraph", "graph.data.frame") # for get.transdist.theta
-importFrom("igraph", "shortest.paths") # for get.transdist.theta
-importFrom("igraph", "E") # for get.transdist.theta
-importFrom("spatstat.geom", "bounding.box.xy") # for est.transdist
-importFrom("spatstat.geom", "as.ppp") # for est.transdist
-importFrom("spatstat.geom", "ppp") # for est.transdist
-importFrom("spatstat.geom", "crossdist") # for est.transdist
-importFrom("spatstat.core", "Kcross") # for get.cross.K
-importFrom("spatstat.core", "pcf") # for get.cross.PCF
+import("scales")
+import("GET")
+importFrom("igraph", "graph.data.frame") # for get.transdist.theta()
+importFrom("igraph", "shortest.paths") # for get.transdist.theta()
+importFrom("igraph", "E") # for get.transdist.theta()
+importFrom("spatstat.geom", "bounding.box.xy") # for est.transdist()
+importFrom("spatstat.geom", "as.ppp") # for est.transdist()
+importFrom("spatstat.geom", "ppp") # for est.transdist()
+importFrom("spatstat.geom", "crossdist") # for est.transdist()
+importFrom("spatstat.core", "Kcross") # for get.cross.K()
+importFrom("spatstat.core", "pcf") # for get.cross.PCF()
 export(get.pi)
 export(get.pi.ci)
 export(get.pi.bootstrap)
@@ -22,6 +25,8 @@ export(get.theta.bootstrap)
 export(get.theta.permute)
 export(get.tau)
 export(get.tau.bootstrap)
+export(get.tau.GET)
+export(get.tau.D.param.est)
 export(get.tau.permute)
 export(get.pi.typed)
 export(get.pi.typed.bootstrap)
@@ -33,6 +38,7 @@ export(get.tau.typed)
 export(get.tau.ci)
 export(get.tau.typed.bootstrap)
 export(get.tau.typed.permute)
+S3method(plot, tau)
 export(sim.epidemic)
 export(sim.plot)
 export(est.wt.matrix)

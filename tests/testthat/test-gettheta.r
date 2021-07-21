@@ -1,4 +1,3 @@
-context("get.theta")
 test_that("get.theta returns Inf when all relations are 1", { #Would throwing an error be better?
     #generate a set of 100 random points even labeled between the two
     x<-cbind(rep(c(1,2),50), x=runif(100,0,100), y=runif(100,0,100))

@@ -7,8 +7,8 @@
 get.theta(posmat, fun, r = 1, r.low = rep(0, length(r)), data.frame = TRUE)
 }
 \arguments{
-\item{posmat}{a matrix with columns x, y and any other named columns
-columns needed by fun}
+\item{posmat}{a matrix with columns x, y and any other named
+columns needed by \code{fun}}
 
 \item{fun}{a function that takes in two rows of posmat and returns:
 \enumerate{
@@ -19,7 +19,7 @@ Note that names from \code{posmat} are not preserved in calls to \code{fun}, so 
 referenced numerically
 so this is not available to the fun}
 
-\item{r}{the series of spatial distances (or there maximums) we are
+\item{r}{the series of spatial distances (or their maximums) we are
 interested in}
 
 \item{r.low}{the low end of each range, 0 by default}
@@ -55,7 +55,7 @@ sero.theta<-get.theta(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.theta: 
+Other get.theta:
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.ci}()},
 \code{\link{get.theta.permute}()},
@@ -63,9 +63,12 @@ Other get.theta:
 \code{\link{get.theta.typed.permute}()},
 \code{\link{get.theta.typed}()}
 
-Other spatialtau: 
+Other spatialtau:
 \code{\link{get.pi}()},
-\code{\link{get.tau}()}
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
+\code{\link{get.tau}()},
+\code{\link{plot.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

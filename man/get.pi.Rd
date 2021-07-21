@@ -7,7 +7,7 @@
 get.pi(posmat, fun, r = 1, r.low = rep(0, length(r)), data.frame = TRUE)
 }
 \arguments{
-\item{posmat}{a matrix with columns x, y and any other named columns
+\item{posmat}{a matrix with columns x, y and any other named
 columns needed by \code{fun}}
 
 \item{fun}{a function that takes in two rows of \code{posmat} and returns:
@@ -15,11 +15,12 @@ columns needed by \code{fun}}
      \item for pairs included in the numerator and denominator
      \item for pairs that should only be included in the denominator
      \item for pairs that should be ignored all together}
-Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of the matrix should be
+Note that names from \code{posmat} are not preserved in calls to \code{fun}, so the columns of
+the matrix should be
 referenced numerically
 so this is not available to the \code{fun}}
 
-\item{r}{the series of spatial distances (or there maximums) we are
+\item{r}{the series of spatial distances (or their maximums) we are
 interested in}
 
 \item{r.low}{the low end of each range, 0 by default}
@@ -33,7 +34,8 @@ pi value for each distance range that we look at. Where:
 }
 \description{
 Generalized version of the \code{get.pi} function that takes in an arbitrary function and
-returns the probability that a point within a particular range of a point of interest shares the relationship
+returns the probability that a point within a particular range of a point of interest shares
+the relationship
 specified by the passed in function with that point.
 }
 \examples{
@@ -55,7 +57,7 @@ sero.pi<-get.pi(DengueSimR02,sero.type.func,r=r.max,r.low=r.min)
 }
 }
 \seealso{
-Other get.pi: 
+Other get.pi:
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.ci}()},
 \code{\link{get.pi.permute}()},
@@ -63,9 +65,12 @@ Other get.pi:
 \code{\link{get.pi.typed.permute}()},
 \code{\link{get.pi.typed}()}
 
-Other spatialtau: 
+Other spatialtau:
+\code{\link{get.tau.D.param.est}()},
+\code{\link{get.tau.GET}()},
 \code{\link{get.tau}()},
-\code{\link{get.theta}()}
+\code{\link{get.theta}()},
+\code{\link{plot.tau}()}
 }
 \author{
 Justin Lessler and Henrik Salje

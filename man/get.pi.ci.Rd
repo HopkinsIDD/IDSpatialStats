@@ -2,7 +2,7 @@
 % Please edit documentation in R/spatialfuncs.r
 \name{get.pi.ci}
 \alias{get.pi.ci}
-\title{Calculate bootstrapped confidence intervals for \code{get.pi} values.}
+\title{Calculate bootstrapped BCa confidence intervals from \code{get.pi} values.}
 \usage{
 get.pi.ci(
   posmat,
@@ -10,66 +10,74 @@ get.pi.ci(
   r = 1,
   r.low = rep(0, length(r)),
   boot.iter = 1000,
-  ci.low = 0.025,
-  ci.high = 0.975,
+  ci.level = 0.95,
   data.frame = TRUE
 )
 }
 \arguments{
-\item{posmat}{a matrix with columns type, x and y}
+\item{posmat}{a matrix with named columns x and y for 2D individual location}
 
-\item{fun}{the function to decide relationships}
+\item{fun}{the function to decide transmission-related pairs}
 
-\item{r}{the series of spatial distances wer are interested in}
+\item{r}{the upper end of each distance band}
 
-\item{r.low}{the low end of each range. 0 by default}
+\item{r.low}{the low end of each distance band (default: a vector of zeroes)}
 
-\item{boot.iter}{the number of bootstrap iterations}
+\item{boot.iter}{the number of bootstrap iterations (default = 1000)}
 
-\item{ci.low}{the low end of the ci...0.025 by default}
+\item{ci.level}{the level of the desired BCa CI (default = 0.95)}
 
-\item{ci.high}{the high end of the ci...0.975 by default}
-
-\item{data.frame}{logical indicating whether to return results as a data frame (default = TRUE)}
+\item{data.frame}{logical: indicating whether to return results as a data frame (default = TRUE)}
 }
 \value{
-a matrix with a row for the high and low values and
-    a column per distance
+If \code{data.frame = TRUE} then a data frame of 5 variables \code{r.low}, \code{r}, \code{pt.est} (the point estimate from \code{get.pi}), the confidence envelope as \code{ci.low} and \code{ci.high}, with the observations representing ascending distance bands. Else a matrix with first row \code{ci.low} and second row \code{ci.high} with columns representing ascending distance bands.
 }
 \description{
-Wrapper to \code{get.pi.bootstrap} that takes care of calculating the
-confidence intervals based on the bootstrapped values..
+Wrapper using \pkg{coxed} package to calculate the
+BCa (bias-corrected and accelerated) confidence interval (CI) for \eqn{\pi}(\code{r.low}, \code{r}), based on bootstrapped values from \code{get.pi.bootstrap}.
 }
+\section{Depends on}{
+
+coxed::bca()
+}
+
 \examples{
-\donttest{
+\donttest{# Simulate cases (type = 2, Normally-distributed points) and
+# simulated non-cases (type = 1, Uniformally-distributed)
+X <- cbind(1, runif(100,-100,100), runif(100,-100,100))
+X <- rbind(X, cbind(2,rnorm(100,0,20), rnorm(100,0,20)))
+colnames(X) <- c("type","x","y")
 
-#compare normally distributed with uniform points
-x<-cbind(1,runif(100,-100,100), runif(100,-100,100))
-x<-rbind(x, cbind(2,rnorm(100,0,20), rnorm(100,0,20)))
-colnames(x) <- c("type","x","y")
-
-fun<-function(a,b) {
-    if(a[1]!=2) return(3)
-    if (b[1]==2) return(1)
-    return(2)
+fun <- function(a,b) {
+    # possible 'ab' pair types {'11'; '12'; '21'; '22'}
+    if(a[1]!=2) return(3) # it's {'11' or '12'} so ignore
+    if(b[1]==2) return(1) # it's '22' so count as a case-case pair in numerator and denominator
+    # else it's a '21' ie a case-non-case pair
+    return(2) # so count in denominator
 }
 
-r.max<-seq(10,100,10)
-r.min<-seq(0,90,10)
-r.mid <- (r.max+r.min)/2
+# define distance band set
+r.max <- seq(10,100,10)
+r.min <- seq(0,90,10)
+r.mid <- (r.max + r.min)/2
 
+# compute the pi point estimate and its 95\% BCa CI
+pi <- get.pi(X, fun, r=r.max, r.low = r.min)
+pi.ci <- get.pi.ci(X, fun, r = r.max, r.low = r.min, boot.iter = 100)
 
-pi<-get.pi(x,fun,r=r.max,r.low=r.min)
-pi.ci<-get.pi.ci(x,fun,r=r.max,r.low=r.min,boot.iter=100)
-
+# plot the pi point estimate with its CI, at the midpoints of each distance band
 plot(r.mid, pi$pi, type="l")
-lines(r.mid, pi.ci[,2] , lty=2)
-lines(r.mid, pi.ci[,3] , lty=2)
-
+lines(r.mid, pi.ci$ci.low, lty=2)
+lines(r.mid, pi.ci$ci.high, lty=2)}
 }
+\references{
+\href{https://arxiv.org/pdf/1911.08022v4.pdf#page=12}{Rationale for BCa rather than percentile CIs} is described in Pollington et al. (2020)
+Developments in statistical inference when assessing
+spatiotemporal disease clustering with the tau statistic.
+\emph{arXiv/stat.ME: 1911.08022v4}.
 }
 \seealso{
-Other get.pi: 
+Other get.pi:
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.permute}()},
 \code{\link{get.pi.typed.bootstrap}()},
@@ -78,6 +86,6 @@ Other get.pi:
 \code{\link{get.pi}()}
 }
 \author{
-Justin Lessler
+Justin Lessler and Timothy M Pollington
 }
 \concept{get.pi}
