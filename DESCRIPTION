@@ -1,6 +1,6 @@
 Package: IDSpatialStats
 Version: 0.3.11
-Date: 2019-11-13
+Date: 2021-07-31
 Title: Estimate Global Clustering in Infectious Disease
 Author: John Giles <jrgiles@uw.edu>, Henrik Salje <hs743@cam.ac.uk>, Justin Lessler <jlessler@unc.edu> 
 Maintainer: Justin Lessler <jlessler@unc.edu>
