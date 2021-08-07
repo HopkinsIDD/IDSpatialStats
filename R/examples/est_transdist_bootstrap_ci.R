@@ -25,7 +25,7 @@ b <- est.transdist.bootstrap.ci(epi.data=a,
                                 boot.iter=10,
                                 ci.low=0.025,
                                 ci.high=0.975,
-                                parallel=FALSE)
+                                n.cores=2)
 b
 
 }

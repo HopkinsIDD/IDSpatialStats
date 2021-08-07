@@ -1,8 +1,10 @@
 Package: IDSpatialStats
 Version: 0.3.11
-Date: 2021-07-31
+Date: 2021-08-07
 Title: Estimate Global Clustering in Infectious Disease
-Author: John Giles <jrgiles@uw.edu>, Henrik Salje <hs743@cam.ac.uk>, Justin Lessler <jlessler@unc.edu> 
+Authors@R: c(person("John", "Giles", role=c("aut", "ctb"), email="jrgiles@uw.edu"),
+             person("Henrik", "Salje", role=c("aut", "ctb"), email="hs743@cam.ac.uk"),
+             person("Justin", "Lessler", role=c("aut", "cre"), email="jlessler@unc.edu"))
 Maintainer: Justin Lessler <jlessler@unc.edu>
 License: GPL (>=2)
 Description: Implements various novel and standard
@@ -13,4 +15,7 @@ Encoding: UTF-8
 LazyData: true
 Imports: igraph, spatstat.core, spatstat.geom
 Depends: doParallel, foreach, parallel, R (>= 2.10)
-Suggests: knitr, testthat
+Suggests: 
+    knitr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

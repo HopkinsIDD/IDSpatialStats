@@ -24,7 +24,7 @@ b <- est.transdist.temporal(epi.data=a,
                             max.dist=1e10,
                             n.transtree.reps=5,
                             mean.equals.sd=TRUE,
-                            parallel=FALSE)
+                            n.cores=2)
 b
 
 plot(b[,2], pch=19, col='grey', ylim=c(min(b[,2], na.rm=TRUE), max(b[,2], na.rm=TRUE)), 

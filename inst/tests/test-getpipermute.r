@@ -22,6 +22,7 @@ test_that("get.pi.permute returns appropriate values for test case 1 (equilatera
 })
 
 test_that("get.pi.permute returns appropriate values for test case 2 (points on a line)" ,{
+    
     x<-rbind(c(1,0,0), c(2,1,0), c(2,-1,0), c(3,2,0),
              c(2,-2,0), c(3,3,0),c(3,-3,0))
 
@@ -61,6 +62,7 @@ test_that("get.pi.permute returns appropriate values for test case 2 (points on 
 
 
 test_that ("fails nicely if x and y column names are not provided", {
+    
     x<-cbind(rep(c(1,2),500), a=runif(1000,0,100), b=runif(1000,0,100))
 
     test <- function(a,b) {

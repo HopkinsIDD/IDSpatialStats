@@ -94,10 +94,12 @@ sim.epidemic <- function(
 ##' 
 
 sim.plot <- function(sim) {
-     par(mfrow=c(1,2))
-     plot(sim[,1], sim[,2], xlab="x", ylab="y")
-     points(sim[1,1], sim[1,2], col='red', pch=3, cex=2)
-     hist(sim[,3], breaks=max(sim[,3]), xlab="Time", ylab="Case count", col='lightblue', main="")
+        oldpar <- par(no.readonly = TRUE)
+        on.exit(par(oldpar))
+        par(mfrow=c(1,2))
+        plot(sim[,1], sim[,2], xlab="x", ylab="y")
+        points(sim[1,1], sim[1,2], col='red', pch=3, cex=2)
+        hist(sim[,3], breaks=max(sim[,3]), xlab="Time", ylab="Case count", col='lightblue', main="")
 }
 
 ##' Calculate the Infector-Infectee Wallinga-Teunis matrix

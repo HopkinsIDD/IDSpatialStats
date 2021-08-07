@@ -51,18 +51,6 @@ test_that("Data checks performed", {
 
 test_that("Gives correct output for data", {
      
-     msg <- 'No points have mark i = 0'
-     
-     n <- 4
-     test.data <- matrix(rnorm(n*3), ncol=3)
-     test.data[,3] <- c(rep(1, n))
-     
-     expect_that(get.cross.K(epi.data=test.data, type=3, hom=1, het=NULL, r=NULL),
-                 throws_error(msg))
-     
-     expect_that(get.cross.PCF(epi.data=test.data, type=3, hom=1, het=NULL, r=NULL),
-                 throws_error(msg))
-     
      n <- 4
      test.data <- matrix(rnorm(n*3), ncol=3)
      test.data[,3] <- c(rep(1, n/2), rep(2, n/2))

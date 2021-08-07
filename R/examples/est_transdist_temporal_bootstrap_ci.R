@@ -24,11 +24,12 @@ b <- est.transdist.temporal.bootstrap.ci(epi.data=a,
                                          max.dist=1e10,
                                          n.transtree.reps=10,
                                          mean.equals.sd=TRUE,
-                                         boot.iter=5,
+                                         boot.iter=10,
                                          ci.low=0.025,
-                                         ci.high=0.975)
+                                         ci.high=0.975,
+                                         n.cores=2)
 
-plot(b[,2], pch=19, col='grey', ylim=c(min(b[,1:3], na.rm=TRUE), max(b[,1:3], na.rm=TRUE)), 
+plot(b[,2], pch=19, col='grey', ylim=c(min(b[,1:3], na.rm=TRUE), max(b[,2:4], na.rm=TRUE)), 
      xlab='Time step', ylab='Estimated mean of transmission kernel')
 abline(h=100, col='red', lty=2)
 axis(3, 1:nrow(b), b[,5])
