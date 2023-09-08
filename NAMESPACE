@@ -10,8 +10,8 @@ importFrom("spatstat.geom", "bounding.box.xy") # for est.transdist
 importFrom("spatstat.geom", "as.ppp") # for est.transdist
 importFrom("spatstat.geom", "ppp") # for est.transdist
 importFrom("spatstat.geom", "crossdist") # for est.transdist
-importFrom("spatstat.core", "Kcross") # for get.cross.K
-importFrom("spatstat.core", "pcf") # for get.cross.PCF
+importFrom("spatstat.explore", "Kcross") # for get.cross.K
+importFrom("spatstat.explore", "pcf") # for get.cross.PCF
 export(get.pi)
 export(get.pi.ci)
 export(get.pi.bootstrap)
