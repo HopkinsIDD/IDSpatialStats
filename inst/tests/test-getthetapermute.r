@@ -44,18 +44,18 @@ test_that("get.theta.permute returns appropriate values for test case 2 (points 
     expect_that(apply(res2, 1, median, na.rm=T), equals(rep(1,3), tolerance=0.1))
 
     for (i in 1:3) {
-        expect_that(as.numeric(quantile(res[i,], probs=c(.025,.975))),
+        expect_that(as.numeric(quantile(as.numeric(res[i,]), probs=c(.025,.975))),
                     equals(c(0,Inf)))
-        expect_that(as.numeric(quantile(res2[i,], probs=c(.025,.975))),
+        expect_that(as.numeric(quantile(as.numeric(res2[i,]), probs=c(.025,.975))),
                     equals(c(0,Inf)))
     }
 
     #without windows the 95% CI should be 1/3 and 3
     res <- get.theta.permute(x, test, 4,0, 500)[,-(1:2)]
     res2 <- get.theta.typed.permute(x, 1, 2, 4,0, 500)[,-(1:2)]
-    expect_that(as.numeric(quantile(res[1,], probs=c(.025,.975))),
+    expect_that(as.numeric(quantile(as.numeric(res[1,]), probs=c(.025,.975))),
                 equals(c(1/3,3)))
-    expect_that(as.numeric(quantile(res2[1,], probs=c(.025,.975))),
+    expect_that(as.numeric(quantile(as.numeric(res2[1,]), probs=c(.025,.975))),
                 equals(c(1/3,3)))
 })
 
