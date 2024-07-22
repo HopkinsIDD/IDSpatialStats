@@ -15,7 +15,7 @@ est.wt.matrix.weights(case.times, gen.t.dist)
 a numerical matrix with the number of columns and rows equal to the number of time steps in the epidemic
 }
 \description{
-A function called by \code{est.wt.matrix}, which calculates the basic weights in the Wallinga-Teunis matrix given 
+A function called by \code{est.wt.matrix}, which calculates the basic weights in the Wallinga-Teunis matrix given
 the time of each case occurrence and the generation time distribution of the pathogen. Code adapted from the \pkg{R0} package.
 }
 \examples{

@@ -15,14 +15,14 @@ sim.epidemic(
 )
 }
 \arguments{
-\item{R}{a scalar or a vector of length \code{tot.generations} providing the reproductive number for the epidemic. 
+\item{R}{a scalar or a vector of length \code{tot.generations} providing the reproductive number for the epidemic.
 If scalar, the R value is constant. If a vector, the R value varies according to each generation in the vector.}
 
 \item{gen.t.mean}{mean of generation time}
 
 \item{gen.t.sd}{standard deviation of the generation time (assumed to be normally distributed)}
 
-\item{trans.kern.func}{a function for the transmission kernel that takes \code{n} as an arguement. 
+\item{trans.kern.func}{a function for the transmission kernel that takes \code{n} as an arguement.
 Function and associated parameters must be given in a list object.}
 
 \item{tot.generations}{the total number of generations in the epidemic, where the index case (x,y,t = [0,0,0]) is considered generation zero (default = 10)}
@@ -35,9 +35,9 @@ Function and associated parameters must be given in a list object.}
 a numerical matrix with three columns giving the coordinates \code{x} and \code{y}, and time \code{t} of simulated cases
 }
 \description{
-A function which simulates the spatial spread of infections through time given the reproductive number (\code{R}), 
-a function describing the spatial transmission kernel (\code{trans.kern.func}), and the mean and standard deviation 
-of the generation time distribution (\code{gen.t.mean} and \code{gen.t.sd}) for the infecting pathogen. The function returns 
+A function which simulates the spatial spread of infections through time given the reproductive number (\code{R}),
+a function describing the spatial transmission kernel (\code{trans.kern.func}), and the mean and standard deviation
+of the generation time distribution (\code{gen.t.mean} and \code{gen.t.sd}) for the infecting pathogen. The function returns
 the location (\code{x}, \code{y}) and time (\code{t}) for each case of infection in the simulation.
 }
 \examples{

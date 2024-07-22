@@ -8,9 +8,9 @@ Detailed description of the methods can be found here:
 
 [The IDSpatialStats R package: Quantifying spatial dependence of infectious disease spread (Giles et al. 2019)](https://journal.r-project.org/archive/2019/RJ-2019-043/index.html)
 
-[Measuring spatial dependence for infectious disease epidemiology (Lessler et al. 2016)](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249)
+[Measuring spatial dependence for infectious disease epidemiology (Lessler et al. 2016)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155249)
 
-[Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](http://www.sciencedirect.com/science/article/pii/S1755436516300317)
+[Estimating infectious disease transmission distances using the overall distribution of cases (Salje et al. 2016)](https://www.sciencedirect.com/science/article/pii/S1755436516300317)
 
 ### Installation
 

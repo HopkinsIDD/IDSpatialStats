@@ -42,11 +42,11 @@ est.transdist.temporal(
 \item{n.cores}{number of cores to use when \code{parallel} = TRUE (default = NULL, which uses half the available cores)}
 }
 \value{
-a numeric matrix containing the point estimate for mean transmission distance for each unique time step of the epidemic and the sample size $n$ used to make the estimate 
+a numeric matrix containing the point estimate for mean transmission distance for each unique time step of the epidemic and the sample size $n$ used to make the estimate
 NAs are returned for time steps which contain fewer than three cases
 }
 \description{
-Estimates the change in mean transmission distance over the duration of the epidemic by running \code{est.trandsdist} on all cases 
+Estimates the change in mean transmission distance over the duration of the epidemic by running \code{est.trandsdist} on all cases
 occuring up to each time point.
 }
 \examples{
