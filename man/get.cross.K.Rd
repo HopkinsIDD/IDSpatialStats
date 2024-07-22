@@ -17,13 +17,13 @@ get.cross.K(epi.data, type, hom, het = NULL, r = NULL, correction = "none")
 
 \item{r}{a numeric vector giving the spatial distances}
 
-\item{correction}{type of edge correction to be applied (default set to 'none'). See the \link[spatstat.core]{Kcross} function in the \pkg{spatstat.core} package for more details}
+\item{correction}{type of edge correction to be applied (default set to 'none'). See the \link[spatstat.explore]{Kcross} function in the \pkg{spatstat.explore} package for more details}
 }
 \value{
 a data frame with a minimum of three columns giving the radius (\code{r}), the theoretical value of the K function for a Poisson process (\code{theo}), and value of the K function evaluated at radius \code{r}. The column name gives the type of edge correction used
 }
 \description{
-A wrapper function of the \link[spatstat.core]{Kcross} function from the \pkg{spatstat.core} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type K-function based on user defined case type homology
+A wrapper function of the \link[spatstat.explore]{Kcross} function from the \pkg{spatstat.explore} package (Baddeley et al. 2016) that takes epidemiological data used by \pkg{IDSpatialStats} functions and calculates the cross type K-function based on user defined case type homology
 }
 \examples{
 data(DengueSimR01)

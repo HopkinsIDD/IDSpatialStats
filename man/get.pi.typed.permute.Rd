@@ -56,12 +56,12 @@ typed.pi.type.null<-get.pi.typed.permute(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min
 }
 \seealso{
 Other get.pi: 
+\code{\link{get.pi}()},
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.ci}()},
 \code{\link{get.pi.permute}()},
-\code{\link{get.pi.typed.bootstrap}()},
 \code{\link{get.pi.typed}()},
-\code{\link{get.pi}()}
+\code{\link{get.pi.typed.bootstrap}()}
 }
 \author{
 Justin Lessler and Henrik Salje

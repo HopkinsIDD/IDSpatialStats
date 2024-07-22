@@ -59,9 +59,9 @@ Other get.pi:
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.ci}()},
 \code{\link{get.pi.permute}()},
+\code{\link{get.pi.typed}()},
 \code{\link{get.pi.typed.bootstrap}()},
-\code{\link{get.pi.typed.permute}()},
-\code{\link{get.pi.typed}()}
+\code{\link{get.pi.typed.permute}()}
 
 Other spatialtau: 
 \code{\link{get.tau}()},

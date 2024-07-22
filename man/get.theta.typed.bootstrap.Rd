@@ -54,11 +54,11 @@ typed.theta.bs<-get.theta.typed.bootstrap(tmp,typeA=1,typeB=2,r=r.max,r.low=r.mi
 }
 \seealso{
 Other get.theta: 
+\code{\link{get.theta}()},
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.ci}()},
 \code{\link{get.theta.permute}()},
-\code{\link{get.theta.typed.permute}()},
 \code{\link{get.theta.typed}()},
-\code{\link{get.theta}()}
+\code{\link{get.theta.typed.permute}()}
 }
 \concept{get.theta}

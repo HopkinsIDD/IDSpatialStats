@@ -59,9 +59,9 @@ Other get.theta:
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.ci}()},
 \code{\link{get.theta.permute}()},
+\code{\link{get.theta.typed}()},
 \code{\link{get.theta.typed.bootstrap}()},
-\code{\link{get.theta.typed.permute}()},
-\code{\link{get.theta.typed}()}
+\code{\link{get.theta.typed.permute}()}
 
 Other spatialtau: 
 \code{\link{get.pi}()},

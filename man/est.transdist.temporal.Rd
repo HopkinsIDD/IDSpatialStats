@@ -95,10 +95,10 @@ Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease tra
 }
 \seealso{
 Other transdist: 
+\code{\link{est.transdist}()},
 \code{\link{est.transdist.bootstrap.ci}()},
 \code{\link{est.transdist.temporal.bootstrap.ci}()},
 \code{\link{est.transdist.theta.weights}()},
-\code{\link{est.transdist}()},
 \code{\link{get.transdist.theta}()}
 }
 \author{

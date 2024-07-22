@@ -70,12 +70,12 @@ lines(r.mid, pi.ci[,3] , lty=2)
 }
 \seealso{
 Other get.pi: 
+\code{\link{get.pi}()},
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.permute}()},
-\code{\link{get.pi.typed.bootstrap}()},
-\code{\link{get.pi.typed.permute}()},
 \code{\link{get.pi.typed}()},
-\code{\link{get.pi}()}
+\code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.permute}()}
 }
 \author{
 Justin Lessler
