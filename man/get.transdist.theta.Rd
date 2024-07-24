@@ -27,7 +27,7 @@ get.transdist.theta(
 a three-dimensional array containing normalized theta weights. Columns and rows represent unique case times. The third dimension is the number of transmission events between two cases.
 }
 \description{
-This function estimates the weights of each theta (number of transmission events separating cases at two time points). A randomized transmission tree is drawn and the number of transmission events 
+This function estimates the weights of each theta (number of transmission events separating cases at two time points). A randomized transmission tree is drawn and the number of transmission events
 separating cases at two time points is calculated based on probabilies found in the Wallinga-Teunis matrix.
 }
 \examples{
@@ -55,11 +55,11 @@ Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease tra
 }
 \seealso{
 Other transdist: 
+\code{\link{est.transdist}()},
 \code{\link{est.transdist.bootstrap.ci}()},
-\code{\link{est.transdist.temporal.bootstrap.ci}()},
 \code{\link{est.transdist.temporal}()},
-\code{\link{est.transdist.theta.weights}()},
-\code{\link{est.transdist}()}
+\code{\link{est.transdist.temporal.bootstrap.ci}()},
+\code{\link{est.transdist.theta.weights}()}
 }
 \author{
 John Giles, Justin Lessler, and Henrik Salje

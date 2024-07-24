@@ -13,7 +13,7 @@ sim.plot(sim)
 A two-panel plotted object
 }
 \description{
-A simple visualization function which plots the location of the index case and the spatial distribution of subsequent cases, 
+A simple visualization function which plots the location of the index case and the spatial distribution of subsequent cases,
 and the epidemic curve showing the case count over time.
 }
 \author{

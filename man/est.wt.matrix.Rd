@@ -11,15 +11,15 @@ est.wt.matrix(case.times, gen.t.dist, basic.wt.weights = NULL)
 
 \item{gen.t.dist}{a vector giving the generation time distribution for the infecting pathogen}
 
-\item{basic.wt.weights}{a matrix giving the basic normalized Wallinga-Teunis weights for each time step (output from the \code{est.wt.matrix.weights} function). 
+\item{basic.wt.weights}{a matrix giving the basic normalized Wallinga-Teunis weights for each time step (output from the \code{est.wt.matrix.weights} function).
 If this argument is \code{NULL} (the default), the basic Wallinga-Teunis matrix will be calculated automatically.}
 }
 \value{
 a numerical matrix with the number of columns and rows equal to the number of cases in the epidemic
 }
 \description{
-A function which takes the time of each case occurrence, the generation time distribution of the infecting pathogen, 
-and the matrix of basic Wallinga-Teunis weights and estimates the probability that an infectee occurring time step j (columns) 
+A function which takes the time of each case occurrence, the generation time distribution of the infecting pathogen,
+and the matrix of basic Wallinga-Teunis weights and estimates the probability that an infectee occurring time step j (columns)
 was infected by a case occurring at time i (rows).
 }
 \examples{

@@ -52,12 +52,12 @@ typed.theta.R01<-get.theta.typed(tmp,typeA=2,typeB=2,r=r.max,r.low=r.min)
 }
 \seealso{
 Other get.theta: 
+\code{\link{get.theta}()},
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.ci}()},
 \code{\link{get.theta.permute}()},
 \code{\link{get.theta.typed.bootstrap}()},
-\code{\link{get.theta.typed.permute}()},
-\code{\link{get.theta}()}
+\code{\link{get.theta.typed.permute}()}
 }
 \author{
 Justin Lessler and Henrik Salje

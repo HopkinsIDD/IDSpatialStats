@@ -72,12 +72,12 @@ lines(c(0,100),c(1,1), lty=3, col="grey")
 }
 \seealso{
 Other get.tau: 
+\code{\link{get.tau}()},
 \code{\link{get.tau.bootstrap}()},
 \code{\link{get.tau.permute}()},
-\code{\link{get.tau.typed.bootstrap}()},
-\code{\link{get.tau.typed.permute}()},
 \code{\link{get.tau.typed}()},
-\code{\link{get.tau}()}
+\code{\link{get.tau.typed.bootstrap}()},
+\code{\link{get.tau.typed.permute}()}
 }
 \author{
 Justin Lessler and Henrik Salje

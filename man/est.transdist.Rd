@@ -71,13 +71,13 @@ Salje H, Cummings DAT and Lessler J (2016). “Estimating infectious disease tra
 }
 \seealso{
 Other est.wt: 
-\code{\link{est.wt.matrix.weights}()},
-\code{\link{est.wt.matrix}()}
+\code{\link{est.wt.matrix}()},
+\code{\link{est.wt.matrix.weights}()}
 
 Other transdist: 
 \code{\link{est.transdist.bootstrap.ci}()},
-\code{\link{est.transdist.temporal.bootstrap.ci}()},
 \code{\link{est.transdist.temporal}()},
+\code{\link{est.transdist.temporal.bootstrap.ci}()},
 \code{\link{est.transdist.theta.weights}()},
 \code{\link{get.transdist.theta}()}
 }

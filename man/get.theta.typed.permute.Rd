@@ -57,12 +57,12 @@ typed.theta.type.null<-get.theta.typed.permute(tmp, typeA=1, typeB=2,
 }
 \seealso{
 Other get.theta: 
+\code{\link{get.theta}()},
 \code{\link{get.theta.bootstrap}()},
 \code{\link{get.theta.ci}()},
 \code{\link{get.theta.permute}()},
-\code{\link{get.theta.typed.bootstrap}()},
 \code{\link{get.theta.typed}()},
-\code{\link{get.theta}()}
+\code{\link{get.theta.typed.bootstrap}()}
 }
 \author{
 Justin Lessler and Henrik Salje

@@ -54,11 +54,11 @@ typed.pi.bs<-get.pi.typed.bootstrap(tmp,typeA=1,typeB=2,r=r.max,r.low=r.min,boot
 }
 \seealso{
 Other get.pi: 
+\code{\link{get.pi}()},
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.ci}()},
 \code{\link{get.pi.permute}()},
-\code{\link{get.pi.typed.permute}()},
 \code{\link{get.pi.typed}()},
-\code{\link{get.pi}()}
+\code{\link{get.pi.typed.permute}()}
 }
 \concept{get.pi}

@@ -5,19 +5,19 @@
 \alias{DengueSimRepresentative}
 \title{Simulated dataset of dengue cases with representative underlying population}
 \format{
-Matrix with five columns representing the X and Y coordinates of infected individuals, the time of infection, the genotype 
-of the infecting pathogen and the serotype of the infecting pathogen. Individuals representative from the underlying population 
+Matrix with five columns representing the X and Y coordinates of infected individuals, the time of infection, the genotype
+of the infecting pathogen and the serotype of the infecting pathogen. Individuals representative from the underlying population
 have '-999'for time, genotype and serotype.
 }
 \usage{
 DengueSimRepresentative
 }
 \description{
-Dataset simulated using an agent based model with a spatially heterogeneous population structure. Infectious agents were 
-introduced resulting in agent to agent transmission. The distance between successive cases in a transmission chain were 
-randomly drawn from a uniform distribution U(0,100). Each infectious agent resulted in transmissions to two other agents 
-after a delay of 15 days, reflecting the generation time of dengue. There are 11 transmission chains, each with a different 
-genotype. The genotypes are subdivided into four serotypes. 500 randomly selected individuals from the underlying population 
+Dataset simulated using an agent based model with a spatially heterogeneous population structure. Infectious agents were
+introduced resulting in agent to agent transmission. The distance between successive cases in a transmission chain were
+randomly drawn from a uniform distribution U(0,100). Each infectious agent resulted in transmissions to two other agents
+after a delay of 15 days, reflecting the generation time of dengue. There are 11 transmission chains, each with a different
+genotype. The genotypes are subdivided into four serotypes. 500 randomly selected individuals from the underlying population
 also included.
 }
 \author{

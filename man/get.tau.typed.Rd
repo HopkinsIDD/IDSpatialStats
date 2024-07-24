@@ -64,12 +64,12 @@ abline(h=1,lty=2)
 }
 \seealso{
 Other get.tau: 
+\code{\link{get.tau}()},
 \code{\link{get.tau.bootstrap}()},
 \code{\link{get.tau.ci}()},
 \code{\link{get.tau.permute}()},
 \code{\link{get.tau.typed.bootstrap}()},
-\code{\link{get.tau.typed.permute}()},
-\code{\link{get.tau}()}
+\code{\link{get.tau.typed.permute}()}
 }
 \author{
 Justin Lessler and Henrik Salje

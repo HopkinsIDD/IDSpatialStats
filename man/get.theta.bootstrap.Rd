@@ -71,12 +71,12 @@ lines(r.mid, theta.ci[2,] , lty=2)
 }
 \seealso{
 Other get.theta: 
+\code{\link{get.theta}()},
 \code{\link{get.theta.ci}()},
 \code{\link{get.theta.permute}()},
-\code{\link{get.theta.typed.bootstrap}()},
-\code{\link{get.theta.typed.permute}()},
 \code{\link{get.theta.typed}()},
-\code{\link{get.theta}()}
+\code{\link{get.theta.typed.bootstrap}()},
+\code{\link{get.theta.typed.permute}()}
 }
 \author{
 Justin Lessler and Henrik Salje

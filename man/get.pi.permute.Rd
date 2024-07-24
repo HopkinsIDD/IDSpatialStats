@@ -65,11 +65,11 @@ lines(r.mid, null.ci[2,] , lty=2)
 }
 \seealso{
 Other get.pi: 
+\code{\link{get.pi}()},
 \code{\link{get.pi.bootstrap}()},
 \code{\link{get.pi.ci}()},
-\code{\link{get.pi.typed.bootstrap}()},
-\code{\link{get.pi.typed.permute}()},
 \code{\link{get.pi.typed}()},
-\code{\link{get.pi}()}
+\code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.permute}()}
 }
 \concept{get.pi}
